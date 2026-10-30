@@ -1,0 +1,56 @@
+{
+ "catalogue/vague": {
+  "check_recall": 0.3918,
+  "check_recall_soft": 0.4739,
+  "contradiction_rate": 0.273,
+  "unsupported_rate": 0.0551,
+  "n_checks": 3.59,
+  "parse_failures": 1,
+  "n": 106
+ },
+ "direct_rewrite/vague": {
+  "check_recall": 0.3955,
+  "check_recall_soft": 0.4683,
+  "contradiction_rate": 0.2063,
+  "unsupported_rate": 0.0908,
+  "n_checks": 5.72,
+  "parse_failures": 0,
+  "n": 106
+ },
+ "self_consistency/vague": {
+  "check_recall": 0.3731,
+  "check_recall_soft": 0.4683,
+  "contradiction_rate": 0.2576,
+  "unsupported_rate": 0.0697,
+  "n_checks": 3.11,
+  "parse_failures": 1,
+  "n": 106
+ },
+ "catalogue+filter/vague": {
+  "check_recall": 0.3246,
+  "check_recall_soft": 0.4198,
+  "contradiction_rate": 0.2687,
+  "unsupported_rate": 0.041,
+  "n_checks": 2.53,
+  "parse_failures": 2,
+  "n": 106
+ },
+ "catalogue/precise": {
+  "check_recall": 0.4739,
+  "check_recall_soft": 0.5187,
+  "contradiction_rate": 0.1357,
+  "unsupported_rate": 0.1025,
+  "n_checks": 6.81,
+  "parse_failures": 3,
+  "n": 106
+ },
+ "direct_rewrite/precise": {
+  "check_recall": 0.541,
+  "check_recall_soft": 0.6007,
+  "contradiction_rate": 0.0752,
+  "unsupported_rate": 0.0669,
+  "n_checks": 6.77,
+  "parse_failures": 0,
+  "n": 106
+ }
+}

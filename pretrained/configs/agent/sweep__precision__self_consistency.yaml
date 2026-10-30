@@ -1,0 +1,9 @@
+# Sweep: default configuration with precision = self_consistency
+retrieval: adaptive
+top_k: 5
+precision: self_consistency
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base

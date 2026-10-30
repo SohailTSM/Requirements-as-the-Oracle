@@ -1,0 +1,62 @@
+[
+ {
+  "service": "fastapi",
+  "requirement": 15,
+  "method": "DELETE",
+  "url": "/messages"
+ },
+ {
+  "service": "fastapi",
+  "requirement": 15,
+  "method": "GET",
+  "url": "/messages"
+ },
+ {
+  "service": "fastapi",
+  "requirement": 15,
+  "method": "GET",
+  "url": "/recipients"
+ },
+ {
+  "service": "nestjs-realworld",
+  "requirement": 3,
+  "method": "GET",
+  "url": "/title"
+ },
+ {
+  "service": "nestjs-realworld",
+  "requirement": 3,
+  "method": "GET",
+  "url": "/description"
+ },
+ {
+  "service": "nestjs-realworld",
+  "requirement": 5,
+  "method": "GET",
+  "url": "/article"
+ },
+ {
+  "service": "nestjs-realworld",
+  "requirement": 14,
+  "method": "GET",
+  "url": "/bio"
+ },
+ {
+  "service": "nestjs-realworld",
+  "requirement": 14,
+  "method": "GET",
+  "url": "/image"
+ },
+ {
+  "service": "nestjs-realworld",
+  "requirement": 28,
+  "method": "GET",
+  "url": "/article"
+ },
+ {
+  "service": "nestjs-realworld",
+  "requirement": 29,
+  "method": "DELETE",
+  "url": "/api/users/orphanauthor1@test.com"
+ }
+]

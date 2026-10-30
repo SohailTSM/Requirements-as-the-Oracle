@@ -1,0 +1,36 @@
+{
+  "exp_id": "ours__sweep__architecture__react__r15",
+  "group": "sweep",
+  "tool": "ours",
+  "variant": "vague",
+  "rep": 1,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": [
+    15
+  ],
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "catalogue",
+    "generation": "plan",
+    "refinement": "combined",
+    "judge": "evidence",
+    "architecture": "react",
+    "model": "base"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "original",
+  "started": "2026-10-26T07:29:10",
+  "finished": "2026-10-26T07:45:01",
+  "seconds": 951.3,
+  "status": "ok",
+  "llm_requests": 52,
+  "input_tokens": 112061,
+  "output_tokens": 7532
+}

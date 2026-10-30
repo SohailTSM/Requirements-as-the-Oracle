@@ -1,0 +1,10 @@
+# Sweep: default configuration with precision = finetuned (SFT adapter, leave-one-service-out)
+retrieval: adaptive
+top_k: 5
+precision: finetuned
+precision_model: pt-precision-sft
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base

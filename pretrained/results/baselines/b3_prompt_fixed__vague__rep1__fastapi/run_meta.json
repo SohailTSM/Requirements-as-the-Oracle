@@ -1,0 +1,25 @@
+{
+  "exp_id": "b3_prompt_fixed__vague__rep1__fastapi",
+  "group": "baselines",
+  "tool": "b3_prompt_fixed",
+  "variant": "vague",
+  "rep": 1,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": null,
+  "agent_config": null,
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "kaggle-t4-tunnel (URL redacted)",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "harness-fastapi-b",
+  "started": "2026-10-23T23:42:51",
+  "finished": "2026-10-24T03:30:15",
+  "seconds": 13644.2,
+  "status": "ok",
+  "llm_requests": 417,
+  "input_tokens": 3735854,
+  "output_tokens": 103488
+}

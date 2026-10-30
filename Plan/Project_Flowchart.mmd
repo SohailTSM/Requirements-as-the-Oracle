@@ -1,0 +1,107 @@
+flowchart TD
+    classDef setup fill:#E8ECEA,stroke:#56635E,color:#16201D
+    classDef data fill:#E4F1EE,stroke:#0E6B5C,color:#16201D
+    classDef build fill:#FFFFFF,stroke:#0E6B5C,color:#16201D
+    classDef run fill:#FDEBDD,stroke:#E07A2E,color:#16201D
+    classDef train fill:#EDE7F6,stroke:#6F4FB0,color:#16201D
+    classDef milestone fill:#0E6B5C,stroke:#0E6B5C,color:#FFFFFF
+    classDef track fill:#FFF8E1,stroke:#D9A441,color:#16201D
+
+    subgraph P0["Phase 0 · Setup · 20–21 Oct"]
+        S1["Install Docker + Ollama<br/>(Sohail)"]:::setup
+        S2["Clone RESTestBench<br/>start FastAPI · NestJS · TodoApp"]:::setup
+        S3["Serve Llama 3.1 8B 4-bit<br/>on local RTX 5050"]:::setup
+        S4["Keys from secrets/<br/>Kaggle · W&B · HF"]:::setup
+        S5["Day-1 timing run<br/>→ update compute estimate"]:::setup
+        S1 --> S2 --> S3 --> S5
+        S4 --> S5
+    end
+
+    subgraph P1["Phase 1 · Build · 22–27 Oct"]
+        subgraph GOLD["Gold data"]
+            G1["Spec loader<br/>→ frozen specs"]:::data
+            G2["Reference tests<br/>→ gold operations"]:::data
+            G3["Precise requirements<br/>→ gold checks<br/>(Sohail spot-checks)"]:::data
+        end
+        subgraph COMP["Agent components"]
+            C1["Retrieval ×6<br/>full · BM25 · dense · hybrid<br/>+ reranker · + query rewrite"]:::build
+            C2["Precision layer ×5<br/>none · rewrite · catalogue<br/>self-consistency · fine-tuned"]:::build
+            C3["Planner + tool executor<br/>auth · URLs · payloads · IDs"]:::build
+            C4["Restricted refinement ×6<br/>hidden values · strengthen-only<br/>copy detector"]:::build
+            C5["Judge ×4<br/>evidence-restricted"]:::build
+        end
+        O1["Offline metrics<br/>Recall@k · MRR · nDCG<br/>check recall · contradictions"]:::data
+        G1 --> G2 --> C1
+        G3 --> C2
+        C1 --> O1
+        C2 --> O1
+        C1 --> C3
+        C2 --> C3
+        C3 --> C4 --> C5
+    end
+
+    subgraph BASE["Baseline finals · from 22 Oct · local GPU"]
+        B1["B1 single-step"]:::run
+        B2["B2 unrestricted refinement"]:::run
+        B3["B3 prompt-fixed refinement"]:::run
+        B4["B4 response judge"]:::run
+        B5["Fuzzer (CPU)"]:::run
+    end
+
+    subgraph TRAIN["Training · Kaggle T4"]
+        T1["SFT ×3 folds<br/>vague → checks"]:::train
+        T2["DPO pairs<br/>from B2 logs"]:::train
+        T3["DPO ×3 folds<br/>report the bug, don't copy"]:::train
+        T4["Adapters → HF Hub<br/>→ local model server"]:::train
+        T1 --> T4
+        T2 --> T3 --> T4
+    end
+
+    INT["Default configuration<br/>first FastAPI run · 27 Oct"]:::milestone
+    MID(["Mid submission · Fri 30 Oct<br/>pipeline · baseline results · offline tables<br/>SFT results · first sweep numbers"]):::milestone
+
+    subgraph P2["Phase 2 · Sweep · 28 Oct – 4 Nov · FastAPI · vague · local GPU"]
+        W1["27 runs, one change at a time<br/>retrieval · precision · format · refinement<br/>judge · model"]:::run
+        W2["Architecture ×4<br/>fixed · ReAct · multi-persona · blackboard"]:::run
+        W3["Communication<br/>in-process vs MCP · direct vs A2A<br/>full trace / summary / verdict"]:::run
+        W4["Pick final + 2 runner-ups · 4 Nov"]:::milestone
+        W1 --> W4
+        W2 --> W4
+        W3 --> W4
+    end
+
+    subgraph P3["Phase 3 · Finals · 5–11 Nov"]
+        F1["Ours final + 2 runner-ups<br/>3 services × vague/precise × 3 runs"]:::run
+        F2["Ablations ×6<br/>remove one component"]:::run
+        F3["Extra<br/>4-bit vs fp16"]:::run
+        FZ["Experiment freeze · Wed 11 Nov"]:::milestone
+        F1 --> FZ
+        F2 --> FZ
+        F3 --> FZ
+    end
+
+    subgraph P4["Phase 4 · Report · 12–15 Nov"]
+        R1["Statistics<br/>paired Wilcoxon · effect sizes · CIs"]:::build
+        R2["Failure taxonomy<br/>+ human validation (≥100 labels)"]:::build
+        R3["Report + slides"]:::build
+        FIN(["Final submission · Sun 15 Nov"]):::milestone
+        R1 --> R3
+        R2 --> R3 --> FIN
+    end
+
+    subgraph TRACK["Tracking · all phases"]
+        WB[["Weights & Biases<br/>every run, metric and training curve"]]:::track
+        HF[["Hugging Face Hub<br/>adapters · gold data · results"]]:::track
+    end
+
+    S5 --> GOLD
+    S5 --> BASE
+    G3 --> T1
+    B2 --> T2
+    C5 --> INT
+    INT --> MID
+    BASE --> MID
+    MID --> P2
+    T4 --> W1
+    W4 --> P3
+    FZ --> P4

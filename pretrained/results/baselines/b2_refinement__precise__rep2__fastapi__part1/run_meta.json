@@ -1,0 +1,33 @@
+{
+  "exp_id": "b2_refinement__precise__rep2__fastapi__part1",
+  "group": "baselines",
+  "tool": "b2_refinement",
+  "variant": "precise",
+  "rep": 2,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "agent_config": null,
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "harness-fastapi-i",
+  "started": "2026-10-27T02:59:18",
+  "finished": "2026-10-27T05:10:57",
+  "seconds": 7898.6,
+  "status": "ok",
+  "llm_requests": 130,
+  "input_tokens": 1247275,
+  "output_tokens": 51439
+}

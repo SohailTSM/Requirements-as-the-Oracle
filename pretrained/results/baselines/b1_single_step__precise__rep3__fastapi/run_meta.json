@@ -1,0 +1,24 @@
+{
+  "exp_id": "b1_single_step__precise__rep3__fastapi",
+  "group": "baselines",
+  "tool": "b1_single_step",
+  "variant": "precise",
+  "rep": 3,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": null,
+  "agent_config": null,
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11434/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "started": "2026-10-20T05:31:55",
+  "finished": "2026-10-20T06:14:24",
+  "seconds": 2549.4,
+  "status": "ok",
+  "llm_requests": 63,
+  "input_tokens": 517171,
+  "output_tokens": 26579
+}

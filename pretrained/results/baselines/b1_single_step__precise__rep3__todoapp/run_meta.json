@@ -1,0 +1,24 @@
+{
+  "exp_id": "b1_single_step__precise__rep3__todoapp",
+  "group": "baselines",
+  "tool": "b1_single_step",
+  "variant": "precise",
+  "rep": 3,
+  "services": [
+    "todoapp"
+  ],
+  "requirements": null,
+  "agent_config": null,
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11434/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "started": "2026-10-20T04:29:49",
+  "finished": "2026-10-20T04:44:37",
+  "seconds": 887.2,
+  "status": "ok",
+  "llm_requests": 14,
+  "input_tokens": 30306,
+  "output_tokens": 5082
+}

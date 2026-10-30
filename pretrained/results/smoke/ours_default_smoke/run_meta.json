@@ -1,0 +1,49 @@
+{
+  "exp_id": "ours_default_smoke",
+  "group": "smoke",
+  "tool": "ours",
+  "variant": "vague",
+  "rep": 1,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": [
+    1,
+    4,
+    9,
+    12,
+    25
+  ],
+  "agent_config": {
+    "retrieval": "hybrid_rerank",
+    "top_k": 5,
+    "precision": "catalogue",
+    "generation": "plan",
+    "refinement": "combined",
+    "judge": "evidence",
+    "architecture": "pipeline",
+    "model": "base"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11434/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "started": "2026-10-20T02:49:45",
+  "finished": "2026-10-20T03:06:07",
+  "seconds": 982.3,
+  "status": "ok",
+  "llm_requests": 74,
+  "input_tokens": 103214,
+  "output_tokens": 30711,
+  "rescored": [
+    {
+      "phases": [
+        "execute",
+        "evaluate"
+      ],
+      "at": "2026-10-20T03:27:13",
+      "project_commit": "unknown"
+    }
+  ]
+}

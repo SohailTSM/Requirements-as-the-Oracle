@@ -1,0 +1,9 @@
+# Sweep: model = sft (which fine-tuned model serves which role, Decision Log D-68).
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: sft

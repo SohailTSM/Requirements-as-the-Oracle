@@ -1,0 +1,10 @@
+# Sweep: communication content = verdict (what the reviewer/judge passes to refinement). Decision Log D-64.
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+content: verdict
+model: base

@@ -1,0 +1,9 @@
+# Sweep: default configuration with retrieval = hybrid
+retrieval: hybrid
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base

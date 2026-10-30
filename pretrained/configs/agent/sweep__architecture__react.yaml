@@ -1,0 +1,10 @@
+# Sweep: architecture = single ReAct agent (one tool-calling agent chooses the order of steps;
+# the same safety rules are enforced inside its tools). Decision Log D-62.
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: react
+model: base

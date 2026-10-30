@@ -1,0 +1,37 @@
+{
+  "exp_id": "b4_smoke_todoapp",
+  "group": "smoke",
+  "tool": "b4_response_judge",
+  "variant": "vague",
+  "rep": 1,
+  "services": [
+    "todoapp"
+  ],
+  "requirements": [
+    1,
+    2
+  ],
+  "agent_config": {
+    "retrieval": "hybrid_rerank",
+    "top_k": 5,
+    "precision": "none",
+    "generation": "plan",
+    "refinement": "none",
+    "judge": "none",
+    "architecture": "pipeline",
+    "model": "base",
+    "oracle": "response_judge"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11434/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "started": "2026-10-20T09:09:57",
+  "finished": "2026-10-20T09:18:03",
+  "seconds": 485.4,
+  "status": "ok",
+  "llm_requests": 4,
+  "input_tokens": 4214,
+  "output_tokens": 1521
+}

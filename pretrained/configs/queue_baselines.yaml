@@ -1,0 +1,129 @@
+# Baseline finals: RESTestBench's own tools (B1 single-step, B2 unrestricted refinement) and
+# B3 prompt-fixed refinement, on local Llama 3.1 8B. All 3 services, vague + precise, 3 runs.
+# The queue runner re-reads this file before every job, so it can be edited while running.
+#
+# One job per service (exp_id ends in __<service>; analysis merges the parts of a run), so that
+# jobs on different services can overlap (max_parallel) and a development run on one service
+# does not block the others. B1 precise rep 1 ran before the split, as one 3-service job.
+# See Plan/Decision_Log.md D-51.
+max_parallel: 12
+# FastAPI instances run the sweep first; FastAPI baselines resume after it (D-95)
+skip_instances: []
+defaults:
+  group: baselines
+
+jobs:
+  # Environment check with RESTestBench's reference tests (no LLM), first in line (D-86).
+  # They should pass on the correct services and catch nearly all planted bugs.
+  - {tool: golden, variant: precise, rep: 1, group: verify, services: [nestjs-realworld], exp_id: golden__nestjs-realworld}
+  - {tool: golden, variant: precise, rep: 1, group: verify, services: [nestjs-realworld], exp_id: golden__nestjs_copy_b, pin: nestjs-realworld@b}
+  - {tool: golden, variant: precise, rep: 1, group: verify, services: [nestjs-realworld], exp_id: golden__nestjs_copy_c, pin: nestjs-realworld@c}
+  - {tool: golden, variant: precise, rep: 1, group: verify, services: [nestjs-realworld], exp_id: golden__nestjs_copy_d, pin: nestjs-realworld@d}
+  - {tool: golden, variant: precise, rep: 1, group: verify, services: [todoapp], exp_id: golden__todoapp}
+  - {tool: golden, variant: precise, rep: 1, group: verify, services: [fastapi], exp_id: golden__fastapi, pin: fastapi, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  - {tool: golden, variant: precise, rep: 1, group: verify, services: [fastapi], exp_id: golden__fastapi_copy_b, pin: fastapi@b, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  # quick check that B3 runs end to end (2 TodoApp requirements)
+  - {tool: b3_prompt_fixed, variant: vague, rep: 1, group: smoke, exp_id: b3_smoke_todoapp, services: [todoapp], requirements: [5, 8]}
+
+  - {tool: b1_single_step, variant: precise, rep: 1, services: [fastapi, nestjs-realworld, todoapp]}   # FastAPI + TodoApp parts valid, see note in its run_meta
+  - {tool: b1_single_step, variant: precise, rep: 1, services: [nestjs-realworld], exp_id: b1_single_step__precise__rep1__nestjs-realworld}
+
+
+  - {tool: b1_single_step, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: b1_single_step__vague__rep1__nestjs-realworld}
+  - {tool: b1_single_step, variant: vague, rep: 1, services: [todoapp], exp_id: b1_single_step__vague__rep1__todoapp}
+  - {tool: b1_single_step, variant: vague, rep: 1, services: [fastapi], exp_id: b1_single_step__vague__rep1__fastapi}
+
+  - {tool: b1_single_step, variant: precise, rep: 2, services: [nestjs-realworld], exp_id: b1_single_step__precise__rep2__nestjs-realworld}
+  - {tool: b1_single_step, variant: precise, rep: 2, services: [todoapp], exp_id: b1_single_step__precise__rep2__todoapp}
+  - {tool: b1_single_step, variant: precise, rep: 2, services: [fastapi], exp_id: b1_single_step__precise__rep2__fastapi}
+
+  - {tool: b1_single_step, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: b1_single_step__vague__rep2__nestjs-realworld}
+  - {tool: b1_single_step, variant: vague, rep: 2, services: [todoapp], exp_id: b1_single_step__vague__rep2__todoapp}
+  - {tool: b1_single_step, variant: vague, rep: 2, services: [fastapi], exp_id: b1_single_step__vague__rep2__fastapi}
+
+  - {tool: b1_single_step, variant: precise, rep: 3, services: [nestjs-realworld], exp_id: b1_single_step__precise__rep3__nestjs-realworld}
+  - {tool: b1_single_step, variant: precise, rep: 3, services: [todoapp], exp_id: b1_single_step__precise__rep3__todoapp}
+  - {tool: b1_single_step, variant: precise, rep: 3, services: [fastapi], exp_id: b1_single_step__precise__rep3__fastapi}
+
+  - {tool: b1_single_step, variant: vague, rep: 3, services: [nestjs-realworld], exp_id: b1_single_step__vague__rep3__nestjs-realworld}
+  - {tool: b1_single_step, variant: vague, rep: 3, services: [todoapp], exp_id: b1_single_step__vague__rep3__todoapp}
+  - {tool: b1_single_step, variant: vague, rep: 3, services: [fastapi], exp_id: b1_single_step__vague__rep3__fastapi}
+
+  - {tool: b2_refinement, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: b2_refinement__vague__rep1__nestjs-realworld}
+  - {tool: b2_refinement, variant: vague, rep: 1, services: [todoapp], exp_id: b2_refinement__vague__rep1__todoapp}
+  - {tool: b2_refinement, variant: vague, rep: 1, services: [fastapi], exp_id: b2_refinement__vague__rep1__fastapi}
+
+  - {tool: b3_prompt_fixed, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: b3_prompt_fixed__vague__rep1__nestjs-realworld}
+  - {tool: b3_prompt_fixed, variant: vague, rep: 1, services: [todoapp], exp_id: b3_prompt_fixed__vague__rep1__todoapp}
+  - {tool: b3_prompt_fixed, variant: vague, rep: 1, services: [fastapi], exp_id: b3_prompt_fixed__vague__rep1__fastapi}
+
+  - {tool: b2_refinement, variant: precise, rep: 1, services: [nestjs-realworld], exp_id: b2_refinement__precise__rep1__nestjs-realworld}
+  - {tool: b2_refinement, variant: precise, rep: 1, services: [todoapp], exp_id: b2_refinement__precise__rep1__todoapp}
+  - {tool: b2_refinement, variant: precise, rep: 1, services: [fastapi], exp_id: b2_refinement__precise__rep1__fastapi}
+
+  - {tool: b3_prompt_fixed, variant: precise, rep: 1, services: [nestjs-realworld], exp_id: b3_prompt_fixed__precise__rep1__nestjs-realworld}
+  - {tool: b3_prompt_fixed, variant: precise, rep: 1, services: [todoapp], exp_id: b3_prompt_fixed__precise__rep1__todoapp}
+  - {tool: b3_prompt_fixed, variant: precise, rep: 1, services: [fastapi], exp_id: b3_prompt_fixed__precise__rep1__fastapi}
+
+  - {tool: b2_refinement, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: b2_refinement__vague__rep2__nestjs-realworld}
+  - {tool: b2_refinement, variant: vague, rep: 2, services: [todoapp], exp_id: b2_refinement__vague__rep2__todoapp}
+  - {tool: b2_refinement, variant: vague, rep: 2, services: [fastapi], exp_id: b2_refinement__vague__rep2__fastapi}
+
+  - {tool: b3_prompt_fixed, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: b3_prompt_fixed__vague__rep2__nestjs-realworld}
+  - {tool: b3_prompt_fixed, variant: vague, rep: 2, services: [todoapp], exp_id: b3_prompt_fixed__vague__rep2__todoapp}
+  - {tool: b3_prompt_fixed, variant: vague, rep: 2, services: [fastapi], exp_id: b3_prompt_fixed__vague__rep2__fastapi}
+
+  - {tool: b2_refinement, variant: precise, rep: 2, services: [nestjs-realworld], exp_id: b2_refinement__precise__rep2__nestjs-realworld}
+  - {tool: b2_refinement, variant: precise, rep: 2, services: [todoapp], exp_id: b2_refinement__precise__rep2__todoapp}
+  - {tool: b2_refinement, variant: precise, rep: 2, services: [fastapi], exp_id: b2_refinement__precise__rep2__fastapi}
+
+  - {tool: b3_prompt_fixed, variant: precise, rep: 2, services: [nestjs-realworld], exp_id: b3_prompt_fixed__precise__rep2__nestjs-realworld}
+  - {tool: b3_prompt_fixed, variant: precise, rep: 2, services: [todoapp], exp_id: b3_prompt_fixed__precise__rep2__todoapp}
+  - {tool: b3_prompt_fixed, variant: precise, rep: 2, services: [fastapi], exp_id: b3_prompt_fixed__precise__rep2__fastapi}
+
+  - {tool: b2_refinement, variant: vague, rep: 3, services: [nestjs-realworld], exp_id: b2_refinement__vague__rep3__nestjs-realworld}
+  - {tool: b2_refinement, variant: vague, rep: 3, services: [todoapp], exp_id: b2_refinement__vague__rep3__todoapp}
+  - {tool: b2_refinement, variant: vague, rep: 3, services: [fastapi], exp_id: b2_refinement__vague__rep3__fastapi}
+
+  - {tool: b3_prompt_fixed, variant: vague, rep: 3, services: [nestjs-realworld], exp_id: b3_prompt_fixed__vague__rep3__nestjs-realworld}
+  - {tool: b3_prompt_fixed, variant: vague, rep: 3, services: [todoapp], exp_id: b3_prompt_fixed__vague__rep3__todoapp}
+  - {tool: b3_prompt_fixed, variant: vague, rep: 3, services: [fastapi], exp_id: b3_prompt_fixed__vague__rep3__fastapi}
+
+  - {tool: b2_refinement, variant: precise, rep: 3, services: [nestjs-realworld], exp_id: b2_refinement__precise__rep3__nestjs-realworld}
+  - {tool: b2_refinement, variant: precise, rep: 3, services: [todoapp], exp_id: b2_refinement__precise__rep3__todoapp}
+  - {tool: b2_refinement, variant: precise, rep: 3, services: [fastapi], exp_id: b2_refinement__precise__rep3__fastapi}
+
+  - {tool: b3_prompt_fixed, variant: precise, rep: 3, services: [nestjs-realworld], exp_id: b3_prompt_fixed__precise__rep3__nestjs-realworld}
+  - {tool: b3_prompt_fixed, variant: precise, rep: 3, services: [todoapp], exp_id: b3_prompt_fixed__precise__rep3__todoapp}
+  - {tool: b3_prompt_fixed, variant: precise, rep: 3, services: [fastapi], exp_id: b3_prompt_fixed__precise__rep3__fastapi}
+
+  # E fuzzer (no LLM, Schemathesis; seed = rep). Decision Log D-50 / D-65.
+  - {tool: e_fuzzer, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: e_fuzzer__vague__rep1__nestjs-realworld}
+  - {tool: e_fuzzer, variant: vague, rep: 1, services: [todoapp], exp_id: e_fuzzer__vague__rep1__todoapp}
+  - {tool: e_fuzzer, variant: vague, rep: 1, services: [fastapi], exp_id: e_fuzzer__vague__rep1__fastapi}
+  - {tool: e_fuzzer, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: e_fuzzer__vague__rep2__nestjs-realworld}
+  - {tool: e_fuzzer, variant: vague, rep: 2, services: [todoapp], exp_id: e_fuzzer__vague__rep2__todoapp}
+  - {tool: e_fuzzer, variant: vague, rep: 2, services: [fastapi], exp_id: e_fuzzer__vague__rep2__fastapi}
+  - {tool: e_fuzzer, variant: vague, rep: 3, services: [nestjs-realworld], exp_id: e_fuzzer__vague__rep3__nestjs-realworld}
+  - {tool: e_fuzzer, variant: vague, rep: 3, services: [todoapp], exp_id: e_fuzzer__vague__rep3__todoapp}
+  - {tool: e_fuzzer, variant: vague, rep: 3, services: [fastapi], exp_id: e_fuzzer__vague__rep3__fastapi}
+
+  # B4 response judge (planner frozen since D-95). timeout 600: each test waits for an LLM verdict (D-74).
+  - {tool: b4_response_judge, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: b4_response_judge__vague__rep1__nestjs-realworld, timeout: 600}
+  - {tool: b4_response_judge, variant: vague, rep: 1, services: [todoapp], exp_id: b4_response_judge__vague__rep1__todoapp, timeout: 600}
+  - {tool: b4_response_judge, variant: vague, rep: 1, services: [fastapi], exp_id: b4_response_judge__vague__rep1__fastapi, timeout: 600}
+  - {tool: b4_response_judge, variant: precise, rep: 1, services: [nestjs-realworld], exp_id: b4_response_judge__precise__rep1__nestjs-realworld, timeout: 600}
+  - {tool: b4_response_judge, variant: precise, rep: 1, services: [todoapp], exp_id: b4_response_judge__precise__rep1__todoapp, timeout: 600}
+  - {tool: b4_response_judge, variant: precise, rep: 1, services: [fastapi], exp_id: b4_response_judge__precise__rep1__fastapi, timeout: 600}
+  - {tool: b4_response_judge, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: b4_response_judge__vague__rep2__nestjs-realworld, timeout: 600}
+  - {tool: b4_response_judge, variant: vague, rep: 2, services: [todoapp], exp_id: b4_response_judge__vague__rep2__todoapp, timeout: 600}
+  - {tool: b4_response_judge, variant: vague, rep: 2, services: [fastapi], exp_id: b4_response_judge__vague__rep2__fastapi, timeout: 600}
+  - {tool: b4_response_judge, variant: precise, rep: 2, services: [nestjs-realworld], exp_id: b4_response_judge__precise__rep2__nestjs-realworld, timeout: 600}
+  - {tool: b4_response_judge, variant: precise, rep: 2, services: [todoapp], exp_id: b4_response_judge__precise__rep2__todoapp, timeout: 600}
+  - {tool: b4_response_judge, variant: precise, rep: 2, services: [fastapi], exp_id: b4_response_judge__precise__rep2__fastapi, timeout: 600}
+  - {tool: b4_response_judge, variant: vague, rep: 3, services: [nestjs-realworld], exp_id: b4_response_judge__vague__rep3__nestjs-realworld, timeout: 600}
+  - {tool: b4_response_judge, variant: vague, rep: 3, services: [todoapp], exp_id: b4_response_judge__vague__rep3__todoapp, timeout: 600}
+  - {tool: b4_response_judge, variant: vague, rep: 3, services: [fastapi], exp_id: b4_response_judge__vague__rep3__fastapi, timeout: 600}
+  - {tool: b4_response_judge, variant: precise, rep: 3, services: [nestjs-realworld], exp_id: b4_response_judge__precise__rep3__nestjs-realworld, timeout: 600}
+  - {tool: b4_response_judge, variant: precise, rep: 3, services: [todoapp], exp_id: b4_response_judge__precise__rep3__todoapp, timeout: 600}
+  - {tool: b4_response_judge, variant: precise, rep: 3, services: [fastapi], exp_id: b4_response_judge__precise__rep3__fastapi, timeout: 600}

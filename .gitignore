@@ -1,0 +1,46 @@
+# Secrets (tokens, Kaggle server links) - never commit
+secrets/
+*.env
+.env*
+
+# Local-only material
+Plan/Implementation_Plan.md
+Presentation/
+Course Syllabus.pdf
+LMA_Group_Project_v1.pdf
+.claude/
+.github/
+.vscode/
+
+# Python / tooling
+.venv/
+__pycache__/
+.pytest_cache/
+*.log
+
+# LaTeX build files
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+
+# Heavy files: models, service copies, third-party tools
+pretrained/finetune/artifacts/
+pretrained/service_copies/
+pretrained/third_party/
+*.gguf
+*.safetensors
+*.bin
+
+# Results: only small summaries are kept (report tables, offline summaries, per-run scores)
+pretrained/results/**
+!pretrained/results/**/
+!pretrained/results/tables/**
+!pretrained/results/offline/**/summary*.json
+!pretrained/results/**/run_meta.json
+!pretrained/results/**/evaluation_results.json
+!pretrained/results/benchmark_results.csv
+!pretrained/results/summary_table.csv
+pretrained/results/_cutoff/
+pretrained/results/wandb/

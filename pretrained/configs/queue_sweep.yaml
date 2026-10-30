@@ -1,0 +1,51 @@
+# Component sweep: FastAPI, vague, 1 run per configuration (Plan §5 A; D-35).
+# Not started yet: run after the default configuration is final (target Tue 27 Oct).
+#   .venv/bin/python scripts/run_queue.py configs/queue_sweep.yaml
+# Rows needing fine-tuned models (precision finetuned, model sft / sft_dpo) are last (D-70, D-73).
+max_parallel: 12
+defaults:
+  group: sweep
+  tool: ours
+  variant: vague
+  rep: 1
+  services: [fastapi]
+
+jobs:
+  # environment checks of the extra FastAPI copies (no LLM; D-97)
+  - {tool: golden, variant: precise, group: verify, exp_id: golden__fastapi_copy_e, pin: fastapi@e, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  - {tool: golden, variant: precise, group: verify, exp_id: golden__fastapi_copy_c, pin: fastapi@c, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  - {tool: golden, variant: precise, group: verify, exp_id: golden__fastapi_copy_d, pin: fastapi@d, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  - {tool: golden, variant: precise, group: verify, exp_id: golden__fastapi_copy_f, pin: fastapi@f, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  - {tool: golden, variant: precise, group: verify, exp_id: golden__fastapi_copy_g, pin: fastapi@g, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  - {tool: golden, variant: precise, group: verify, exp_id: golden__fastapi_copy_h, pin: fastapi@h, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  - {tool: golden, variant: precise, group: verify, exp_id: golden__fastapi_copy_i, pin: fastapi@i, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  - {tool: golden, variant: precise, group: verify, exp_id: golden__fastapi_copy_j, pin: fastapi@j, requirements: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]}
+  - {agent_config: configs/agent/default.yaml, exp_id: ours__default}
+  - {agent_config: configs/agent/default.yaml, exp_id: ours__default__rep2, rep: 2}   # repeats measure run-to-run spread (D-87)
+  - {agent_config: configs/agent/default.yaml, exp_id: ours__default__rep3, rep: 3}
+  - {agent_config: configs/agent/sweep__architecture__blackboard.yaml, exp_id: ours__sweep__architecture__blackboard}
+  - {agent_config: configs/agent/sweep__architecture__multi_persona.yaml, exp_id: ours__sweep__architecture__multi_persona}
+  - {agent_config: configs/agent/sweep__architecture__react.yaml, exp_id: ours__sweep__architecture__react}
+  - {agent_config: configs/agent/sweep__communication__a2a.yaml, exp_id: ours__sweep__communication__a2a}
+  - {agent_config: configs/agent/sweep__communication__mcp.yaml, exp_id: ours__sweep__communication__mcp}
+  - {agent_config: configs/agent/sweep__content__full.yaml, exp_id: ours__sweep__content__full}
+  - {agent_config: configs/agent/sweep__content__verdict.yaml, exp_id: ours__sweep__content__verdict}
+  - {agent_config: configs/agent/sweep__generation__raw.yaml, exp_id: ours__sweep__generation__raw}
+  - {agent_config: configs/agent/sweep__judge__none.yaml, exp_id: ours__sweep__judge__none}
+  - {agent_config: configs/agent/sweep__judge__restestbench.yaml, exp_id: ours__sweep__judge__restestbench}
+  - {agent_config: configs/agent/sweep__precision__direct_rewrite.yaml, exp_id: ours__sweep__precision__direct_rewrite}
+  - {agent_config: configs/agent/sweep__precision__none.yaml, exp_id: ours__sweep__precision__none}
+  - {agent_config: configs/agent/sweep__precision__self_consistency.yaml, exp_id: ours__sweep__precision__self_consistency}
+  - {agent_config: configs/agent/sweep__refinement__hidden.yaml, exp_id: ours__sweep__refinement__hidden}
+  - {agent_config: configs/agent/sweep__refinement__none.yaml, exp_id: ours__sweep__refinement__none}
+  - {agent_config: configs/agent/sweep__refinement__prompt_fixed.yaml, exp_id: ours__sweep__refinement__prompt_fixed}
+  - {agent_config: configs/agent/sweep__refinement__strengthen_only.yaml, exp_id: ours__sweep__refinement__strengthen_only}
+  - {agent_config: configs/agent/sweep__refinement__unrestricted.yaml, exp_id: ours__sweep__refinement__unrestricted}
+  - {agent_config: configs/agent/sweep__retrieval__bm25.yaml, exp_id: ours__sweep__retrieval__bm25}
+  - {agent_config: configs/agent/sweep__retrieval__dense.yaml, exp_id: ours__sweep__retrieval__dense}
+  - {agent_config: configs/agent/sweep__retrieval__full.yaml, exp_id: ours__sweep__retrieval__full}
+  - {agent_config: configs/agent/sweep__retrieval__hybrid.yaml, exp_id: ours__sweep__retrieval__hybrid}
+  - {agent_config: configs/agent/sweep__retrieval__query_rewrite.yaml, exp_id: ours__sweep__retrieval__query_rewrite}
+#  - {agent_config: configs/agent/sweep__model__sft.yaml, exp_id: ours__sweep__model__sft}   # needs the fine-tuned models on the server (D-95)
+#  - {agent_config: configs/agent/sweep__model__sft_dpo.yaml, exp_id: ours__sweep__model__sft_dpo}   # needs the fine-tuned models on the server (D-95)
+#  - {agent_config: configs/agent/sweep__precision__finetuned.yaml, exp_id: ours__sweep__precision__finetuned}   # needs the fine-tuned models on the server (D-95)

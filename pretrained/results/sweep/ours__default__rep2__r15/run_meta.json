@@ -1,0 +1,36 @@
+{
+  "exp_id": "ours__default__rep2__r15",
+  "group": "sweep",
+  "tool": "ours",
+  "variant": "vague",
+  "rep": 2,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": [
+    15
+  ],
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "catalogue",
+    "generation": "plan",
+    "refinement": "combined",
+    "judge": "evidence",
+    "architecture": "pipeline",
+    "model": "base"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "kaggle-t4-tunnel (URL redacted)",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "original",
+  "started": "2026-10-25T22:19:28",
+  "finished": "2026-10-25T22:27:54",
+  "seconds": 505.4,
+  "status": "ok",
+  "llm_requests": 20,
+  "input_tokens": 28787,
+  "output_tokens": 9173
+}

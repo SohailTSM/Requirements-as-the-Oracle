@@ -1,0 +1,10 @@
+# Sweep: architecture = multi_persona (personas: analyst, designer, critic, reviewer, debugger;
+# same safety rules enforced in code). Decision Log D-63.
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: multi_persona
+model: base

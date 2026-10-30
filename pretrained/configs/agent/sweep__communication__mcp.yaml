@@ -1,0 +1,11 @@
+# Sweep: communication = MCP (retrieval, plan lint and test execution served by an MCP server
+# over stdio instead of in-process calls). Decision Log D-66.
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+communication: mcp
+model: base

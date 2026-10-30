@@ -1,0 +1,10 @@
+# Sweep: LLM writes the pytest code directly (no plan/executor). Refinement off, so it is
+# compared with sweep__refinement__none (plan + executor, refinement off).
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: raw
+refinement: none
+judge: evidence
+architecture: pipeline
+model: base

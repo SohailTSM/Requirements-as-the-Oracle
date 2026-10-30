@@ -1,0 +1,85 @@
+# Gold atomic checks (Claude-drafted from PRECISE requirements), FastAPI 33-63.
+33:
+  - {kind: status, check: "changing password to the same value returns 400"}
+  - {kind: message, check: "detail equals 'New password cannot be the same as the current one'"}
+34:
+  - {kind: status, check: "signup returns 200"}
+  - {kind: field, check: "returned email equals the generated email"}
+  - {kind: field, check: "returned full_name equals the generated full name"}
+  - {kind: side_effect, check: "login with the generated credentials succeeds"}
+35:
+  - {kind: status, check: "signup with the existing superuser email returns 400"}
+  - {kind: message, check: "detail equals 'The user with this email already exists in the system'"}
+36:
+  - {kind: status, check: "superuser update of a user returns 200"}
+  - {kind: field, check: "returned full_name equals 'Updated_full_name'"}
+  - {kind: side_effect, check: "re-fetching the user by id shows the updated full_name"}
+37:
+  - {kind: status, check: "updating a non-existent user returns 404"}
+  - {kind: message, check: "detail equals 'The user with this id does not exist in the system'"}
+38:
+  - {kind: status, check: "updating a user's email to another user's email returns 409"}
+  - {kind: message, check: "detail equals 'User with this email already exists'"}
+39:
+  - {kind: status, check: "delete me returns 200"}
+  - {kind: message, check: "message equals 'User deleted successfully'"}
+  - {kind: side_effect, check: "login with the deleted user's credentials fails"}
+40:
+  - {kind: status, check: "superuser deleting itself via /users/me returns 403"}
+  - {kind: message, check: "detail equals 'Super users are not allowed to delete themselves'"}
+41:
+  - {kind: status, check: "superuser deleting a user by id returns 200"}
+  - {kind: message, check: "message equals 'User deleted successfully'"}
+  - {kind: side_effect, check: "login as the deleted user fails with 400"}
+42:
+  - {kind: status, check: "deleting a non-existent user returns 404"}
+  - {kind: message, check: "detail equals 'User not found'"}
+43:
+  - {kind: status, check: "superuser deleting itself by id returns 403"}
+  - {kind: message, check: "detail equals 'Super users are not allowed to delete themselves'"}
+44:
+  - {kind: status, check: "normal user deleting another user returns 403"}
+  - {kind: message, check: "detail equals \"The user doesn't have enough privileges\""}
+  - {kind: side_effect, check: "the second user can still log in"}
+45:
+  - {kind: status, check: "superuser deleting the user returns 200"}
+  - {kind: message, check: "message equals 'User deleted successfully'"}
+  - {kind: side_effect, check: "getting the deleted user's item returns 404 with detail 'Item not found'"}
+46:
+  - {kind: status, check: "delete me returns 200"}
+  - {kind: message, check: "message equals 'User deleted successfully'"}
+  - {kind: side_effect, check: "getting the deleted user's item as superuser returns 404 with detail 'Item not found'"}
+47:
+  - {kind: status, check: "signup with a 7-character password returns 422"}
+48:
+  - {kind: status, check: "signup with a 129-character password returns 422"}
+49:
+  - {kind: status, check: "signup with a 256-character full_name returns 422"}
+50:
+  - {kind: status, check: "changing password to a 7-character password returns 422"}
+51:
+  - {kind: status, check: "changing password to a 129-character password returns 422"}
+52:
+  - {kind: status, check: "changing password with a 7-character current_password returns 422"}
+53:
+  - {kind: status, check: "creating an item with an empty title returns 422"}
+54:
+  - {kind: status, check: "creating an item with a 256-character title returns 422"}
+55:
+  - {kind: status, check: "creating an item with a 256-character description returns 422"}
+56:
+  - {kind: status, check: "reset password with a 7-character new_password returns 422"}
+57:
+  - {kind: status, check: "signup with an invalid email format returns 422"}
+58:
+  - {kind: status, check: "updating own email to an invalid format returns 422"}
+59:
+  - {kind: status, check: "get user with a non-UUID id returns 422"}
+60:
+  - {kind: status, check: "get item with a non-UUID id returns 422"}
+61:
+  - {kind: status, check: "signup with a null email returns 422"}
+62:
+  - {kind: status, check: "signup with a null password returns 422"}
+63:
+  - {kind: status, check: "creating an item with a null title returns 422"}

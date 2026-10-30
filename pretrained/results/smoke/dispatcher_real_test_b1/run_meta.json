@@ -1,0 +1,27 @@
+{
+  "exp_id": "dispatcher_real_test_b1",
+  "group": "smoke",
+  "tool": "b1_single_step",
+  "variant": "vague",
+  "rep": 1,
+  "services": [
+    "todoapp"
+  ],
+  "requirements": [
+    5
+  ],
+  "agent_config": null,
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11598/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "original",
+  "started": "2026-10-26T01:10:05",
+  "finished": "2026-10-26T01:12:53",
+  "seconds": 167.5,
+  "status": "ok",
+  "llm_requests": 1,
+  "input_tokens": 2118,
+  "output_tokens": 392
+}

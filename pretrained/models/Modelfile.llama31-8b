@@ -1,0 +1,4 @@
+# Llama 3.1 8B Instruct, Q4_K_M (Ollama llama3.1:8b), with a 24k context window.
+# Served under RESTestBench's model name so their llama8b tools run unchanged.
+FROM llama3.1:8b
+PARAMETER num_ctx 24576

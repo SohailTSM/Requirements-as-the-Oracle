@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.pytest_cache/
+results/wandb/
+third_party/
+*.log
+service_copies/

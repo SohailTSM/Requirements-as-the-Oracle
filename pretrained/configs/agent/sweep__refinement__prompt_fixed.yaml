@@ -1,0 +1,9 @@
+# Sweep: default configuration with refinement = prompt_fixed
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: prompt_fixed
+judge: evidence
+architecture: pipeline
+model: base

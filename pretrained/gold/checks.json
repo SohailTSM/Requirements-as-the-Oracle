@@ -1,0 +1,1292 @@
+{
+ "fastapi": {
+  "1": [
+   {
+    "kind": "status",
+    "check": "create item returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "returned title equals the input title"
+   },
+   {
+    "kind": "field",
+    "check": "returned description equals the input description"
+   },
+   {
+    "kind": "presence",
+    "check": "returned item has an id"
+   },
+   {
+    "kind": "field",
+    "check": "returned owner_id equals the registered user's id"
+   }
+  ],
+  "2": [
+   {
+    "kind": "status",
+    "check": "get item by id returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "retrieved title equals created title"
+   },
+   {
+    "kind": "field",
+    "check": "retrieved description equals created description"
+   },
+   {
+    "kind": "field",
+    "check": "retrieved id equals created id"
+   },
+   {
+    "kind": "field",
+    "check": "retrieved owner_id equals created owner_id"
+   }
+  ],
+  "3": [
+   {
+    "kind": "status",
+    "check": "get non-existent item returns 404"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Item not found'"
+   }
+  ],
+  "4": [
+   {
+    "kind": "status",
+    "check": "second user reading first user's item returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Not enough permissions'"
+   }
+  ],
+  "5": [
+   {
+    "kind": "status",
+    "check": "list items returns 200"
+   },
+   {
+    "kind": "membership",
+    "check": "both created items appear in the returned data"
+   }
+  ],
+  "6": [
+   {
+    "kind": "status",
+    "check": "update item returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "returned title equals the new title"
+   },
+   {
+    "kind": "field",
+    "check": "returned description equals the new description"
+   },
+   {
+    "kind": "field",
+    "check": "returned id equals the original id"
+   },
+   {
+    "kind": "field",
+    "check": "returned owner_id equals the original owner_id"
+   }
+  ],
+  "7": [
+   {
+    "kind": "status",
+    "check": "update non-existent item returns 404"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Item not found'"
+   }
+  ],
+  "8": [
+   {
+    "kind": "status",
+    "check": "second user updating first user's item returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Not enough permissions'"
+   }
+  ],
+  "9": [
+   {
+    "kind": "status",
+    "check": "delete item returns 200"
+   },
+   {
+    "kind": "message",
+    "check": "message equals 'Item deleted successfully'"
+   },
+   {
+    "kind": "side_effect",
+    "check": "getting the deleted item afterwards returns 404"
+   }
+  ],
+  "10": [
+   {
+    "kind": "status",
+    "check": "delete non-existent item returns 404"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Item not found'"
+   }
+  ],
+  "11": [
+   {
+    "kind": "status",
+    "check": "second user deleting first user's item returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Not enough permissions'"
+   }
+  ],
+  "12": [
+   {
+    "kind": "status",
+    "check": "login returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "token_type equals 'bearer'"
+   },
+   {
+    "kind": "presence",
+    "check": "access_token is non-empty"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET /users/me with the token succeeds and returns the user's email"
+   }
+  ],
+  "13": [
+   {
+    "kind": "status",
+    "check": "login with wrong password returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Incorrect email or password'"
+   }
+  ],
+  "14": [
+   {
+    "kind": "status",
+    "check": "test-token returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "email equals 'admin@example.com'"
+   }
+  ],
+  "15": [
+   {
+    "kind": "status",
+    "check": "password recovery returns 200"
+   },
+   {
+    "kind": "message",
+    "check": "message equals 'Password recovery email sent'"
+   },
+   {
+    "kind": "side_effect",
+    "check": "mailcatcher shows an email sent to the user's address"
+   }
+  ],
+  "16": [
+   {
+    "kind": "status",
+    "check": "password recovery for unknown email returns 404"
+   }
+  ],
+  "17": [
+   {
+    "kind": "status",
+    "check": "reset password returns 200"
+   },
+   {
+    "kind": "message",
+    "check": "response equals {message: 'Password updated successfully'}"
+   },
+   {
+    "kind": "side_effect",
+    "check": "login with the new password returns 200"
+   }
+  ],
+  "18": [
+   {
+    "kind": "status",
+    "check": "reset password with invalid token returns 400"
+   },
+   {
+    "kind": "presence",
+    "check": "response has a detail field"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Invalid token'"
+   }
+  ],
+  "19": [
+   {
+    "kind": "status",
+    "check": "private user creation returns 200"
+   },
+   {
+    "kind": "presence",
+    "check": "response contains an id"
+   },
+   {
+    "kind": "status",
+    "check": "get user by id returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "retrieved email equals 'pollo@listo.com'"
+   },
+   {
+    "kind": "field",
+    "check": "retrieved full_name equals 'Pollo Listo'"
+   }
+  ],
+  "20": [
+   {
+    "kind": "presence",
+    "check": "me response body is non-empty"
+   },
+   {
+    "kind": "field",
+    "check": "is_active is true"
+   },
+   {
+    "kind": "field",
+    "check": "is_superuser is true"
+   },
+   {
+    "kind": "field",
+    "check": "email equals the configured superuser email"
+   }
+  ],
+  "21": [
+   {
+    "kind": "presence",
+    "check": "me response body is non-empty"
+   },
+   {
+    "kind": "field",
+    "check": "is_active is true"
+   },
+   {
+    "kind": "field",
+    "check": "is_superuser is false"
+   },
+   {
+    "kind": "field",
+    "check": "email equals the registered email"
+   }
+  ],
+  "22": [
+   {
+    "kind": "status",
+    "check": "create user returns 2xx"
+   },
+   {
+    "kind": "field",
+    "check": "returned email equals the generated email"
+   },
+   {
+    "kind": "presence",
+    "check": "returned user has an id"
+   },
+   {
+    "kind": "field",
+    "check": "is_active is true"
+   }
+  ],
+  "23": [
+   {
+    "kind": "status",
+    "check": "get user by id returns 2xx"
+   },
+   {
+    "kind": "field",
+    "check": "returned email equals the registered email"
+   },
+   {
+    "kind": "field",
+    "check": "returned id equals the registered user's id"
+   },
+   {
+    "kind": "field",
+    "check": "is_active is true"
+   }
+  ],
+  "24": [
+   {
+    "kind": "status",
+    "check": "user getting own record by id returns 2xx"
+   },
+   {
+    "kind": "field",
+    "check": "returned email equals the registered email"
+   },
+   {
+    "kind": "field",
+    "check": "returned id equals the user's own id"
+   }
+  ],
+  "25": [
+   {
+    "kind": "status",
+    "check": "normal user getting another user by id returns 403"
+   },
+   {
+    "kind": "message",
+    "check": "response equals {detail: \"The user doesn't have enough privileges\"}"
+   }
+  ],
+  "26": [
+   {
+    "kind": "status",
+    "check": "creating a duplicate user returns 400"
+   },
+   {
+    "kind": "field",
+    "check": "duplicate-creation response has no _id field"
+   }
+  ],
+  "27": [
+   {
+    "kind": "status",
+    "check": "normal user creating a user returns 403"
+   }
+  ],
+  "28": [
+   {
+    "kind": "status",
+    "check": "list users returns 200"
+   },
+   {
+    "kind": "presence",
+    "check": "response has top-level data and count"
+   },
+   {
+    "kind": "membership",
+    "check": "both created users' emails appear in data"
+   },
+   {
+    "kind": "field",
+    "check": "each listed email matches the email used at creation"
+   }
+  ],
+  "29": [
+   {
+    "kind": "status",
+    "check": "update me returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "returned email equals the new random email"
+   },
+   {
+    "kind": "field",
+    "check": "returned full_name equals 'Updated Name'"
+   }
+  ],
+  "30": [
+   {
+    "kind": "status",
+    "check": "change own password returns 200"
+   },
+   {
+    "kind": "message",
+    "check": "message equals 'Password updated successfully'"
+   },
+   {
+    "kind": "side_effect",
+    "check": "login with the new password succeeds"
+   },
+   {
+    "kind": "status",
+    "check": "changing the password back returns 200"
+   },
+   {
+    "kind": "side_effect",
+    "check": "login with the original password succeeds again"
+   }
+  ],
+  "31": [
+   {
+    "kind": "status",
+    "check": "change password with wrong current password returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Incorrect password'"
+   }
+  ],
+  "32": [
+   {
+    "kind": "status",
+    "check": "updating own email to another user's email returns 409"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'User with this email already exists'"
+   }
+  ],
+  "33": [
+   {
+    "kind": "status",
+    "check": "changing password to the same value returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'New password cannot be the same as the current one'"
+   }
+  ],
+  "34": [
+   {
+    "kind": "status",
+    "check": "signup returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "returned email equals the generated email"
+   },
+   {
+    "kind": "field",
+    "check": "returned full_name equals the generated full name"
+   },
+   {
+    "kind": "side_effect",
+    "check": "login with the generated credentials succeeds"
+   }
+  ],
+  "35": [
+   {
+    "kind": "status",
+    "check": "signup with the existing superuser email returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'The user with this email already exists in the system'"
+   }
+  ],
+  "36": [
+   {
+    "kind": "status",
+    "check": "superuser update of a user returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "returned full_name equals 'Updated_full_name'"
+   },
+   {
+    "kind": "side_effect",
+    "check": "re-fetching the user by id shows the updated full_name"
+   }
+  ],
+  "37": [
+   {
+    "kind": "status",
+    "check": "updating a non-existent user returns 404"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'The user with this id does not exist in the system'"
+   }
+  ],
+  "38": [
+   {
+    "kind": "status",
+    "check": "updating a user's email to another user's email returns 409"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'User with this email already exists'"
+   }
+  ],
+  "39": [
+   {
+    "kind": "status",
+    "check": "delete me returns 200"
+   },
+   {
+    "kind": "message",
+    "check": "message equals 'User deleted successfully'"
+   },
+   {
+    "kind": "side_effect",
+    "check": "login with the deleted user's credentials fails"
+   }
+  ],
+  "40": [
+   {
+    "kind": "status",
+    "check": "superuser deleting itself via /users/me returns 403"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Super users are not allowed to delete themselves'"
+   }
+  ],
+  "41": [
+   {
+    "kind": "status",
+    "check": "superuser deleting a user by id returns 200"
+   },
+   {
+    "kind": "message",
+    "check": "message equals 'User deleted successfully'"
+   },
+   {
+    "kind": "side_effect",
+    "check": "login as the deleted user fails with 400"
+   }
+  ],
+  "42": [
+   {
+    "kind": "status",
+    "check": "deleting a non-existent user returns 404"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'User not found'"
+   }
+  ],
+  "43": [
+   {
+    "kind": "status",
+    "check": "superuser deleting itself by id returns 403"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals 'Super users are not allowed to delete themselves'"
+   }
+  ],
+  "44": [
+   {
+    "kind": "status",
+    "check": "normal user deleting another user returns 403"
+   },
+   {
+    "kind": "message",
+    "check": "detail equals \"The user doesn't have enough privileges\""
+   },
+   {
+    "kind": "side_effect",
+    "check": "the second user can still log in"
+   }
+  ],
+  "45": [
+   {
+    "kind": "status",
+    "check": "superuser deleting the user returns 200"
+   },
+   {
+    "kind": "message",
+    "check": "message equals 'User deleted successfully'"
+   },
+   {
+    "kind": "side_effect",
+    "check": "getting the deleted user's item returns 404 with detail 'Item not found'"
+   }
+  ],
+  "46": [
+   {
+    "kind": "status",
+    "check": "delete me returns 200"
+   },
+   {
+    "kind": "message",
+    "check": "message equals 'User deleted successfully'"
+   },
+   {
+    "kind": "side_effect",
+    "check": "getting the deleted user's item as superuser returns 404 with detail 'Item not found'"
+   }
+  ],
+  "47": [
+   {
+    "kind": "status",
+    "check": "signup with a 7-character password returns 422"
+   }
+  ],
+  "48": [
+   {
+    "kind": "status",
+    "check": "signup with a 129-character password returns 422"
+   }
+  ],
+  "49": [
+   {
+    "kind": "status",
+    "check": "signup with a 256-character full_name returns 422"
+   }
+  ],
+  "50": [
+   {
+    "kind": "status",
+    "check": "changing password to a 7-character password returns 422"
+   }
+  ],
+  "51": [
+   {
+    "kind": "status",
+    "check": "changing password to a 129-character password returns 422"
+   }
+  ],
+  "52": [
+   {
+    "kind": "status",
+    "check": "changing password with a 7-character current_password returns 422"
+   }
+  ],
+  "53": [
+   {
+    "kind": "status",
+    "check": "creating an item with an empty title returns 422"
+   }
+  ],
+  "54": [
+   {
+    "kind": "status",
+    "check": "creating an item with a 256-character title returns 422"
+   }
+  ],
+  "55": [
+   {
+    "kind": "status",
+    "check": "creating an item with a 256-character description returns 422"
+   }
+  ],
+  "56": [
+   {
+    "kind": "status",
+    "check": "reset password with a 7-character new_password returns 422"
+   }
+  ],
+  "57": [
+   {
+    "kind": "status",
+    "check": "signup with an invalid email format returns 422"
+   }
+  ],
+  "58": [
+   {
+    "kind": "status",
+    "check": "updating own email to an invalid format returns 422"
+   }
+  ],
+  "59": [
+   {
+    "kind": "status",
+    "check": "get user with a non-UUID id returns 422"
+   }
+  ],
+  "60": [
+   {
+    "kind": "status",
+    "check": "get item with a non-UUID id returns 422"
+   }
+  ],
+  "61": [
+   {
+    "kind": "status",
+    "check": "signup with a null email returns 422"
+   }
+  ],
+  "62": [
+   {
+    "kind": "status",
+    "check": "signup with a null password returns 422"
+   }
+  ],
+  "63": [
+   {
+    "kind": "status",
+    "check": "creating an item with a null title returns 422"
+   }
+  ]
+ },
+ "nestjs-realworld": {
+  "1": [
+   {
+    "kind": "status",
+    "check": "create user returns 201"
+   },
+   {
+    "kind": "field",
+    "check": "returned username equals 'testuser123'"
+   },
+   {
+    "kind": "field",
+    "check": "returned email equals 'test@example.com'"
+   },
+   {
+    "kind": "presence",
+    "check": "returned token is non-empty"
+   },
+   {
+    "kind": "status",
+    "check": "GET /user with the token returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "current user username and email match the created user"
+   }
+  ],
+  "2": [
+   {
+    "kind": "status",
+    "check": "follow returns 201"
+   },
+   {
+    "kind": "field",
+    "check": "returned profile following is true and username is the followee"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET profile afterwards shows following true"
+   },
+   {
+    "kind": "status",
+    "check": "following yourself returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "self-follow error message contains 'cannot be equal'"
+   }
+  ],
+  "3": [
+   {
+    "kind": "status",
+    "check": "create article returns 201"
+   },
+   {
+    "kind": "field",
+    "check": "returned title and description equal the input"
+   },
+   {
+    "kind": "membership",
+    "check": "returned tagList contains 'testing' and 'nestjs'"
+   },
+   {
+    "kind": "field",
+    "check": "slug starts with 'my-test-article-'"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET article by slug returns 200 with the same title"
+   }
+  ],
+  "4": [
+   {
+    "kind": "status",
+    "check": "update article returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "returned title and description equal the new values"
+   },
+   {
+    "kind": "field",
+    "check": "slug is unchanged"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET by the original slug shows the updated values"
+   }
+  ],
+  "5": [
+   {
+    "kind": "side_effect",
+    "check": "article can be retrieved before deletion"
+   },
+   {
+    "kind": "status",
+    "check": "delete article returns 200"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET after deletion returns 200 with an empty object"
+   }
+  ],
+  "6": [
+   {
+    "kind": "field",
+    "check": "feed articlesCount is 0 before following anyone"
+   },
+   {
+    "kind": "field",
+    "check": "after following, feed articlesCount is 1"
+   },
+   {
+    "kind": "membership",
+    "check": "feed contains the followed author's article"
+   },
+   {
+    "kind": "membership",
+    "check": "feed does not contain the non-followed author's article"
+   }
+  ],
+  "7": [
+   {
+    "kind": "status",
+    "check": "create comment returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "returned article has at least one comment"
+   },
+   {
+    "kind": "status",
+    "check": "GET comments returns 200"
+   },
+   {
+    "kind": "membership",
+    "check": "comments contain one with the posted body"
+   },
+   {
+    "kind": "field",
+    "check": "comment id is a number"
+   }
+  ],
+  "8": [
+   {
+    "kind": "field",
+    "check": "article has 1 comment before deletion"
+   },
+   {
+    "kind": "status",
+    "check": "delete comment returns 200"
+   },
+   {
+    "kind": "membership",
+    "check": "comments afterwards do not contain the deleted comment"
+   }
+  ],
+  "9": [
+   {
+    "kind": "status",
+    "check": "first user creation returns 201"
+   },
+   {
+    "kind": "status",
+    "check": "duplicate username returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "duplicate-username response contains 'Username and email must be unique'"
+   },
+   {
+    "kind": "status",
+    "check": "duplicate email returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "duplicate-email response contains 'Username and email must be unique'"
+   }
+  ],
+  "10": [
+   {
+    "kind": "field",
+    "check": "following is true after follow"
+   },
+   {
+    "kind": "status",
+    "check": "unfollow returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "unfollow response has following false"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET profile afterwards shows following false"
+   },
+   {
+    "kind": "status",
+    "check": "unfollowing yourself returns 400"
+   }
+  ],
+  "11": [
+   {
+    "kind": "status",
+    "check": "login with correct password returns 201"
+   },
+   {
+    "kind": "field",
+    "check": "login response user email and username match"
+   },
+   {
+    "kind": "presence",
+    "check": "login response has a token"
+   },
+   {
+    "kind": "status",
+    "check": "login with wrong password returns 401"
+   }
+  ],
+  "12": [
+   {
+    "kind": "field",
+    "check": "tag=javascript gives articlesCount 1 with only 'First Tagged Article'"
+   },
+   {
+    "kind": "field",
+    "check": "tag=testing gives articlesCount 2 with both tagged articles"
+   },
+   {
+    "kind": "field",
+    "check": "unknown tag gives articlesCount 0"
+   }
+  ],
+  "13": [
+   {
+    "kind": "field",
+    "check": "author=author1 gives articlesCount 1 with only author1's article"
+   },
+   {
+    "kind": "field",
+    "check": "author=author2 gives articlesCount 1 with only author2's article"
+   },
+   {
+    "kind": "field",
+    "check": "no filter gives articlesCount 2"
+   }
+  ],
+  "14": [
+   {
+    "kind": "status",
+    "check": "update user returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "returned bio and image equal the new values"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET /user afterwards shows the updated bio and image"
+   }
+  ],
+  "15": [
+   {
+    "kind": "field",
+    "check": "limit=2 gives articlesCount 5 and 2 articles"
+   },
+   {
+    "kind": "field",
+    "check": "limit=2&offset=2 gives 2 articles different from the first page"
+   },
+   {
+    "kind": "field",
+    "check": "limit=10 gives all 5 articles"
+   }
+  ],
+  "16": [
+   {
+    "kind": "field",
+    "check": "profile shows following false before following"
+   },
+   {
+    "kind": "field",
+    "check": "after follow, profile shows following true and the right username"
+   },
+   {
+    "kind": "field",
+    "check": "after unfollow, profile shows following false again"
+   }
+  ],
+  "17": [
+   {
+    "kind": "field",
+    "check": "author=articleauthor1 gives articlesCount 1 with only 'User1 Article'"
+   },
+   {
+    "kind": "field",
+    "check": "author=articleauthor2 gives articlesCount 1 with only 'User2 Article'"
+   }
+  ],
+  "18": [
+   {
+    "kind": "field",
+    "check": "article tagList is exactly ['tag1', 'tag2', 'tag3']"
+   },
+   {
+    "kind": "field",
+    "check": "article created with empty tagList returns an empty tagList"
+   }
+  ],
+  "19": [
+   {
+    "kind": "field",
+    "check": "created timestamp unchanged after update"
+   },
+   {
+    "kind": "field",
+    "check": "updated timestamp is newer after update"
+   }
+  ],
+  "20": [
+   {
+    "kind": "status",
+    "check": "both articles with the same title return 201"
+   },
+   {
+    "kind": "field",
+    "check": "the two slugs are different"
+   },
+   {
+    "kind": "field",
+    "check": "both slugs start with 'duplicate-title-article-'"
+   }
+  ],
+  "21": [
+   {
+    "kind": "field",
+    "check": "retrieved title equals 'Test Article Title'"
+   },
+   {
+    "kind": "field",
+    "check": "retrieved description equals 'Test article description content'"
+   }
+  ],
+  "22": [
+   {
+    "kind": "field",
+    "check": "profile username equals 'profilebiouser1'"
+   },
+   {
+    "kind": "field",
+    "check": "profile bio and image equal the updated values"
+   }
+  ],
+  "23": [
+   {
+    "kind": "field",
+    "check": "feed limit=2 gives articlesCount 5 and 2 articles"
+   },
+   {
+    "kind": "field",
+    "check": "feed limit=2&offset=2 gives 2 different articles"
+   }
+  ],
+  "24": [
+   {
+    "kind": "field",
+    "check": "articles are ordered by created timestamp, newest first"
+   }
+  ],
+  "25": [
+   {
+    "kind": "field",
+    "check": "JWT payload id matches the user's id"
+   },
+   {
+    "kind": "field",
+    "check": "JWT payload username and email match the user"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET /user with the token returns the same user"
+   }
+  ],
+  "26": [
+   {
+    "kind": "field",
+    "check": "GET comments returns 3 comments"
+   },
+   {
+    "kind": "field",
+    "check": "comment ids are unique"
+   },
+   {
+    "kind": "field",
+    "check": "comment bodies are preserved"
+   }
+  ],
+  "27": [
+   {
+    "kind": "field",
+    "check": "feed of a user who follows nobody has articlesCount 0 and an empty articles array"
+   }
+  ],
+  "28": [
+   {
+    "kind": "field",
+    "check": "non-owner update response shows the new title"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET shows the title changed"
+   },
+   {
+    "kind": "status",
+    "check": "non-owner delete returns 200"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET deleted article returns 200 with an empty object"
+   }
+  ],
+  "29": [
+   {
+    "kind": "membership",
+    "check": "article list contains the article with author 'orphanauthor1'"
+   },
+   {
+    "kind": "status",
+    "check": "deleting the author user returns 500"
+   },
+   {
+    "kind": "side_effect",
+    "check": "the article still exists afterwards"
+   }
+  ]
+ },
+ "todoapp": {
+  "1": [
+   {
+    "kind": "field",
+    "check": "userA's GET /todos returns exactly one todo"
+   },
+   {
+    "kind": "membership",
+    "check": "userA's list contains 'UserA Todo'"
+   },
+   {
+    "kind": "membership",
+    "check": "userA's list does not contain 'UserB Todo'"
+   }
+  ],
+  "2": [
+   {
+    "kind": "status",
+    "check": "creating a todo without a title returns 400"
+   },
+   {
+    "kind": "message",
+    "check": "error contains 'The Title field is required.'"
+   }
+  ],
+  "3": [
+   {
+    "kind": "status",
+    "check": "GET todo by id returns 200"
+   },
+   {
+    "kind": "field",
+    "check": "returned id equals the created id"
+   },
+   {
+    "kind": "field",
+    "check": "returned title equals 'My Test Todo'"
+   },
+   {
+    "kind": "field",
+    "check": "isComplete is false"
+   }
+  ],
+  "4": [
+   {
+    "kind": "status",
+    "check": "GET non-existent todo returns 404"
+   }
+  ],
+  "5": [
+   {
+    "kind": "status",
+    "check": "userB getting userA's todo returns 404"
+   }
+  ],
+  "6": [
+   {
+    "kind": "status",
+    "check": "delete todo returns 200"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET the deleted todo returns 404"
+   }
+  ],
+  "7": [
+   {
+    "kind": "status",
+    "check": "delete non-existent todo returns 404"
+   }
+  ],
+  "8": [
+   {
+    "kind": "status",
+    "check": "userB deleting userA's todo returns 404"
+   },
+   {
+    "kind": "side_effect",
+    "check": "userA's todo still exists (GET returns 200)"
+   }
+  ],
+  "9": [
+   {
+    "kind": "status",
+    "check": "update todo returns 200"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET afterwards shows isComplete true"
+   },
+   {
+    "kind": "side_effect",
+    "check": "GET afterwards shows title 'Updated Todo'"
+   }
+  ],
+  "10": [
+   {
+    "kind": "status",
+    "check": "PUT with a body id different from the path id returns 400"
+   }
+  ],
+  "11": [
+   {
+    "kind": "status",
+    "check": "updating a non-existent todo returns 404"
+   }
+  ],
+  "12": [
+   {
+    "kind": "status",
+    "check": "userB updating userA's todo returns 404"
+   },
+   {
+    "kind": "side_effect",
+    "check": "userA's todo title is still 'UserA Todo'"
+   }
+  ],
+  "13": [
+   {
+    "kind": "status",
+    "check": "register returns 200"
+   },
+   {
+    "kind": "presence",
+    "check": "login with the same credentials returns a token"
+   }
+  ],
+  "14": [
+   {
+    "kind": "status",
+    "check": "GET /todos without a token returns 401"
+   }
+  ]
+ }
+}

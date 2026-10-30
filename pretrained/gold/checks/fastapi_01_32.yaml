@@ -1,0 +1,130 @@
+# Gold atomic checks, drafted by Claude from RESTestBench's PRECISE requirements
+# (harness/data/requirements/fastapi). Used only to score the precision layer; never
+# shown to the agent. kind: status | field | message | presence | membership | side_effect
+1:
+  - {kind: status, check: "create item returns 200"}
+  - {kind: field, check: "returned title equals the input title"}
+  - {kind: field, check: "returned description equals the input description"}
+  - {kind: presence, check: "returned item has an id"}
+  - {kind: field, check: "returned owner_id equals the registered user's id"}
+2:
+  - {kind: status, check: "get item by id returns 200"}
+  - {kind: field, check: "retrieved title equals created title"}
+  - {kind: field, check: "retrieved description equals created description"}
+  - {kind: field, check: "retrieved id equals created id"}
+  - {kind: field, check: "retrieved owner_id equals created owner_id"}
+3:
+  - {kind: status, check: "get non-existent item returns 404"}
+  - {kind: message, check: "detail equals 'Item not found'"}
+4:
+  - {kind: status, check: "second user reading first user's item returns 400"}
+  - {kind: message, check: "detail equals 'Not enough permissions'"}
+5:
+  - {kind: status, check: "list items returns 200"}
+  - {kind: membership, check: "both created items appear in the returned data"}
+6:
+  - {kind: status, check: "update item returns 200"}
+  - {kind: field, check: "returned title equals the new title"}
+  - {kind: field, check: "returned description equals the new description"}
+  - {kind: field, check: "returned id equals the original id"}
+  - {kind: field, check: "returned owner_id equals the original owner_id"}
+7:
+  - {kind: status, check: "update non-existent item returns 404"}
+  - {kind: message, check: "detail equals 'Item not found'"}
+8:
+  - {kind: status, check: "second user updating first user's item returns 400"}
+  - {kind: message, check: "detail equals 'Not enough permissions'"}
+9:
+  - {kind: status, check: "delete item returns 200"}
+  - {kind: message, check: "message equals 'Item deleted successfully'"}
+  - {kind: side_effect, check: "getting the deleted item afterwards returns 404"}
+10:
+  - {kind: status, check: "delete non-existent item returns 404"}
+  - {kind: message, check: "detail equals 'Item not found'"}
+11:
+  - {kind: status, check: "second user deleting first user's item returns 400"}
+  - {kind: message, check: "detail equals 'Not enough permissions'"}
+12:
+  - {kind: status, check: "login returns 200"}
+  - {kind: field, check: "token_type equals 'bearer'"}
+  - {kind: presence, check: "access_token is non-empty"}
+  - {kind: side_effect, check: "GET /users/me with the token succeeds and returns the user's email"}
+13:
+  - {kind: status, check: "login with wrong password returns 400"}
+  - {kind: message, check: "detail equals 'Incorrect email or password'"}
+14:
+  - {kind: status, check: "test-token returns 200"}
+  - {kind: field, check: "email equals 'admin@example.com'"}
+15:
+  - {kind: status, check: "password recovery returns 200"}
+  - {kind: message, check: "message equals 'Password recovery email sent'"}
+  - {kind: side_effect, check: "mailcatcher shows an email sent to the user's address"}
+16:
+  - {kind: status, check: "password recovery for unknown email returns 404"}
+17:
+  - {kind: status, check: "reset password returns 200"}
+  - {kind: message, check: "response equals {message: 'Password updated successfully'}"}
+  - {kind: side_effect, check: "login with the new password returns 200"}
+18:
+  - {kind: status, check: "reset password with invalid token returns 400"}
+  - {kind: presence, check: "response has a detail field"}
+  - {kind: message, check: "detail equals 'Invalid token'"}
+19:
+  - {kind: status, check: "private user creation returns 200"}
+  - {kind: presence, check: "response contains an id"}
+  - {kind: status, check: "get user by id returns 200"}
+  - {kind: field, check: "retrieved email equals 'pollo@listo.com'"}
+  - {kind: field, check: "retrieved full_name equals 'Pollo Listo'"}
+20:
+  - {kind: presence, check: "me response body is non-empty"}
+  - {kind: field, check: "is_active is true"}
+  - {kind: field, check: "is_superuser is true"}
+  - {kind: field, check: "email equals the configured superuser email"}
+21:
+  - {kind: presence, check: "me response body is non-empty"}
+  - {kind: field, check: "is_active is true"}
+  - {kind: field, check: "is_superuser is false"}
+  - {kind: field, check: "email equals the registered email"}
+22:
+  - {kind: status, check: "create user returns 2xx"}
+  - {kind: field, check: "returned email equals the generated email"}
+  - {kind: presence, check: "returned user has an id"}
+  - {kind: field, check: "is_active is true"}
+23:
+  - {kind: status, check: "get user by id returns 2xx"}
+  - {kind: field, check: "returned email equals the registered email"}
+  - {kind: field, check: "returned id equals the registered user's id"}
+  - {kind: field, check: "is_active is true"}
+24:
+  - {kind: status, check: "user getting own record by id returns 2xx"}
+  - {kind: field, check: "returned email equals the registered email"}
+  - {kind: field, check: "returned id equals the user's own id"}
+25:
+  - {kind: status, check: "normal user getting another user by id returns 403"}
+  - {kind: message, check: "response equals {detail: \"The user doesn't have enough privileges\"}"}
+26:
+  - {kind: status, check: "creating a duplicate user returns 400"}
+  - {kind: field, check: "duplicate-creation response has no _id field"}
+27:
+  - {kind: status, check: "normal user creating a user returns 403"}
+28:
+  - {kind: status, check: "list users returns 200"}
+  - {kind: presence, check: "response has top-level data and count"}
+  - {kind: membership, check: "both created users' emails appear in data"}
+  - {kind: field, check: "each listed email matches the email used at creation"}
+29:
+  - {kind: status, check: "update me returns 200"}
+  - {kind: field, check: "returned email equals the new random email"}
+  - {kind: field, check: "returned full_name equals 'Updated Name'"}
+30:
+  - {kind: status, check: "change own password returns 200"}
+  - {kind: message, check: "message equals 'Password updated successfully'"}
+  - {kind: side_effect, check: "login with the new password succeeds"}
+  - {kind: status, check: "changing the password back returns 200"}
+  - {kind: side_effect, check: "login with the original password succeeds again"}
+31:
+  - {kind: status, check: "change password with wrong current password returns 400"}
+  - {kind: message, check: "detail equals 'Incorrect password'"}
+32:
+  - {kind: status, check: "updating own email to another user's email returns 409"}
+  - {kind: message, check: "detail equals 'User with this email already exists'"}

@@ -1,0 +1,9 @@
+# Sweep: default configuration with refinement = hidden
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: hidden
+judge: evidence
+architecture: pipeline
+model: base

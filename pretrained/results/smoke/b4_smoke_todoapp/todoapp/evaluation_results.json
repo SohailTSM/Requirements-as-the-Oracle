@@ -1,0 +1,55 @@
+{
+  "summary": {
+    "valid_score": 1,
+    "valid_max_score": 4,
+    "valid_percentage": 25.0,
+    "mutated_score": 0.0,
+    "mutated_max_score": 0,
+    "mutated_percentage": 0.0,
+    "total_requirements": 2,
+    "total_tests": 2
+  },
+  "requirements": [
+    {
+      "requirement_id": 1,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0
+        ],
+        "mutants_survived": [
+          1
+        ],
+        "score": 1,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 0,
+        "average_score": 0.0,
+        "max_score": 2,
+        "tests": []
+      }
+    },
+    {
+      "requirement_id": 2,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0,
+          1
+        ],
+        "score": 0,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 0,
+        "average_score": 0.0,
+        "max_score": 2,
+        "tests": []
+      }
+    }
+  ]
+}

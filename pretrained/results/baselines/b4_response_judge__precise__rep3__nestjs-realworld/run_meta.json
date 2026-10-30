@@ -1,0 +1,35 @@
+{
+  "exp_id": "b4_response_judge__precise__rep3__nestjs-realworld",
+  "group": "baselines",
+  "tool": "b4_response_judge",
+  "variant": "precise",
+  "rep": 3,
+  "services": [
+    "nestjs-realworld"
+  ],
+  "requirements": null,
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "none",
+    "generation": "plan",
+    "refinement": "none",
+    "judge": "none",
+    "architecture": "pipeline",
+    "model": "base",
+    "oracle": "response_judge"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "harness-nestjs-realworld-d",
+  "started": "2026-10-26T09:31:11",
+  "finished": "2026-10-26T10:30:14",
+  "seconds": 3543.4,
+  "status": "ok",
+  "llm_requests": 49,
+  "input_tokens": 84114,
+  "output_tokens": 33845
+}

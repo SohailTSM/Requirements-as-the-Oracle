@@ -1,0 +1,1171 @@
+[
+ {
+  "id": "gold-fastapi-4",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 4,
+  "requirement": "Register a new user and obtain an access token via the authentication endpoint. Create an item in the system with that user. Register a second user and get its access token. Attempt to read the created item using the access token of the second user. Verify that the response status code is 400 and the response body contains a detail field with the value \"Not enough permissions\" indicating the user does not have sufficient permissions to read the item.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "second user reading first user's item returns 400"
+   },
+   {
+    "key": "G2",
+    "text": "detail equals 'Not enough permissions'"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-14",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 14,
+  "requirement": "Authenticate as a superuser using existing credentials (admin@example.com / password123) to obtain an access token, then use this access token to call the test token endpoint. Verify the response status code is 200 and that the response JSON contains the field 'email' with value 'admin@example.com'.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "test-token returns 200"
+   },
+   {
+    "key": "G2",
+    "text": "email equals 'admin@example.com'"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-21",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 21,
+  "requirement": "Register a new user via the user registration operation using a test email address and password. Obtain an access token for that user via the login access token operation. Using the obtained access token in the Authorization header, retrieve the authenticated user's profile via the read current user operation. Verify the response body is present (non-empty). Verify the response JSON field \"is_active\" is True. Verify the response JSON field \"is_superuser\" is False. Verify the response JSON field \"email\" equals the email used when registering the user.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "me response body is non-empty"
+   },
+   {
+    "key": "G2",
+    "text": "is_active is true"
+   },
+   {
+    "key": "G3",
+    "text": "is_superuser is false"
+   },
+   {
+    "key": "G4",
+    "text": "email equals the registered email"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-30",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 30,
+  "requirement": "Authenticate using the existing superuser credentials (admin@example.com / password123) to obtain an access token. Using that superuser access token, update the superuser's own password by supplying the current password and a newly generated password. Verify the response status is 200 and the response body contains a field 'message' equal to 'Password updated successfully'. Then verify that login with the NEW password succeeds. Finally, revert the password back to the original by supplying the new password as current and the original password as new. Verify the response status is 200 and verify that login with the ORIGINAL password succeeds again.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "change own password returns 200"
+   },
+   {
+    "key": "G2",
+    "text": "message equals 'Password updated successfully'"
+   },
+   {
+    "key": "G3",
+    "text": "login with the new password succeeds"
+   },
+   {
+    "key": "G4",
+    "text": "changing the password back returns 200"
+   },
+   {
+    "key": "G5",
+    "text": "login with the original password succeeds again"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-31",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 31,
+  "requirement": "Sign in using the built-in admin account (username 'admin@example.com', password 'password123') to obtain an access token. Using that token, attempt to change the currently authenticated user's password by submitting a payload where both the current password and the new password are the same random string that does not match the real password. Verify the response status is 400. Verify the response body contains a detail message equal to 'Incorrect password'.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "change password with wrong current password returns 400"
+   },
+   {
+    "key": "G2",
+    "text": "detail equals 'Incorrect password'"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-32",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 32,
+  "requirement": "Register a new normal user and obtain an access token. Register a second user with a different random email. Using the access token for the first (authenticated) user, attempt to update the authenticated user's email to the email of the already-registered second user. Verify the response status is 409. Verify the response body contains a JSON field \"detail\" with the value \"User with this email already exists\".",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "updating own email to another user's email returns 409"
+   },
+   {
+    "key": "G2",
+    "text": "detail equals 'User with this email already exists'"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-42",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 42,
+  "requirement": "Authenticate as the existing superuser (username 'admin@example.com', password 'password123') to obtain an access token. Using the superuser access token in the request headers, attempt to delete a user by a newly generated random UUID (a user that does not exist). Verify the response status is 404. Verify the response JSON body contains a 'detail' field equal to 'User not found'.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "deleting a non-existent user returns 404"
+   },
+   {
+    "key": "G2",
+    "text": "detail equals 'User not found'"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-48",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 48,
+  "requirement": "Attempt to register a new user via POST /api/v1/users/signup with email 'test48@example.com', password of exactly 129 characters (129 'a' characters), and full_name 'Test User'. Verify the response status is 422 (validation error).",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "signup with a 129-character password returns 422"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-50",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 50,
+  "requirement": "Register a new user via POST /api/v1/users/signup with email 'test50@example.com' and password 'oldpass123'. Login to get token. Attempt to update password via PATCH /api/v1/users/me/password with current_password 'oldpass123' and new_password of exactly 7 characters ('1234567'). Verify the response status is 422 (validation error).",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "changing password to a 7-character password returns 422"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-51",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 51,
+  "requirement": "Register a new user via POST /api/v1/users/signup with email 'test51@example.com' and password 'oldpass123'. Login to get token. Attempt to update password via PATCH /api/v1/users/me/password with current_password 'oldpass123' and new_password of exactly 129 characters (129 'a' characters). Verify the response status is 422 (validation error).",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "changing password to a 129-character password returns 422"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-53",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 53,
+  "requirement": "Register a new user via POST /api/v1/users/signup with email 'test53@example.com' and password 'validpass123'. Login to get token. Attempt to create item via POST /api/v1/items/ with title as empty string ('') and description 'Test description'. Verify the response status is 422 (validation error).",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "creating an item with an empty title returns 422"
+   }
+  ]
+ },
+ {
+  "id": "gold-fastapi-60",
+  "task": "gold",
+  "service": "fastapi",
+  "requirement_id": 60,
+  "requirement": "Register a new user via POST /api/v1/users/signup with email 'test60@example.com' and password 'validpass123'. Login to get token. Attempt to GET /api/v1/items/not-a-uuid (invalid UUID format). Verify the response status is 422 (validation error).",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "get item with a non-UUID id returns 422"
+   }
+  ]
+ },
+ {
+  "id": "gold-nestjs-realworld-2",
+  "task": "gold",
+  "service": "nestjs-realworld",
+  "requirement_id": 2,
+  "requirement": "Create two users: user1 (username: 'follower1', email: 'follower1@test.com', password: 'pass123') and user2 (username: 'followee1', email: 'followee1@test.com', password: 'pass123'). Using user1's token, follow user2 by POST to /api/profiles/followee1/follow. Verify the response status is 201. Verify the response body profile has 'following' equal to true and 'username' equal to 'followee1'. Then GET the profile /api/profiles/followee1 with user1's token and verify 'following' is true. Next, using user1's token, attempt to follow themselves by POST to /api/profiles/follower1/follow. Verify this returns status 400 with message containing 'cannot be equal'.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "follow returns 201"
+   },
+   {
+    "key": "G2",
+    "text": "returned profile following is true and username is the followee"
+   },
+   {
+    "key": "G3",
+    "text": "GET profile afterwards shows following true"
+   },
+   {
+    "key": "G4",
+    "text": "following yourself returns 400"
+   },
+   {
+    "key": "G5",
+    "text": "self-follow error message contains 'cannot be equal'"
+   }
+  ]
+ },
+ {
+  "id": "gold-nestjs-realworld-3",
+  "task": "gold",
+  "service": "nestjs-realworld",
+  "requirement_id": 3,
+  "requirement": "Create a user (username: 'author1', email: 'author1@test.com', password: 'pass123') and authenticate. Create an article with title 'My Test Article', description 'Test description', body 'Article body content', tagList ['testing', 'nestjs']. Verify response status is 201. Verify the returned article has 'title' equal to 'My Test Article', 'description' equal to 'Test description', 'tagList' containing 'testing' and 'nestjs', and 'slug' starting with 'my-test-article-' (lowercase with hyphen suffix). Extract the slug. Retrieve the article via GET /api/articles/{slug}. Verify status 200 and the returned article title is 'My Test Article'.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "create article returns 201"
+   },
+   {
+    "key": "G2",
+    "text": "returned title and description equal the input"
+   },
+   {
+    "key": "G3",
+    "text": "returned tagList contains 'testing' and 'nestjs'"
+   },
+   {
+    "key": "G4",
+    "text": "slug starts with 'my-test-article-'"
+   },
+   {
+    "key": "G5",
+    "text": "GET article by slug returns 200 with the same title"
+   }
+  ]
+ },
+ {
+  "id": "gold-nestjs-realworld-5",
+  "task": "gold",
+  "service": "nestjs-realworld",
+  "requirement_id": 5,
+  "requirement": "Create a user (username: 'deleteuser1', email: 'deleteuser1@test.com', password: 'pass123'). Create an article with title 'Article To Delete'. Extract the slug. Verify the article can be retrieved via GET /api/articles/{slug}. Delete the article via DELETE /api/articles/{slug}. Verify response status is 200. Attempt to GET the article by slug again. Verify the response status is 200 with an empty object {} (implementation returns empty object for deleted articles rather than 404).",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "article can be retrieved before deletion"
+   },
+   {
+    "key": "G2",
+    "text": "delete article returns 200"
+   },
+   {
+    "key": "G3",
+    "text": "GET after deletion returns 200 with an empty object"
+   }
+  ]
+ },
+ {
+  "id": "gold-nestjs-realworld-7",
+  "task": "gold",
+  "service": "nestjs-realworld",
+  "requirement_id": 7,
+  "requirement": "Create a user (username: 'commentuser1', email: 'commentuser1@test.com', password: 'pass123'). Create an article with title 'Comment Test Article'. Extract the slug. Create a comment on the article via POST /api/articles/{slug}/comments with body 'This is my test comment'. Verify response status is 200. Verify the response article has comments array with length >= 1. GET the comments for the article via GET /api/articles/{slug}/comments. Verify status 200. Verify the comments array contains a comment with body 'This is my test comment'. Verify the comment has an 'id' field that is a number.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "create comment returns 200"
+   },
+   {
+    "key": "G2",
+    "text": "returned article has at least one comment"
+   },
+   {
+    "key": "G3",
+    "text": "GET comments returns 200"
+   },
+   {
+    "key": "G4",
+    "text": "comments contain one with the posted body"
+   },
+   {
+    "key": "G5",
+    "text": "comment id is a number"
+   }
+  ]
+ },
+ {
+  "id": "gold-nestjs-realworld-8",
+  "task": "gold",
+  "service": "nestjs-realworld",
+  "requirement_id": 8,
+  "requirement": "Create a user (username: 'delcommentuser1', email: 'delcommentuser1@test.com', password: 'pass123'). Create an article with title 'Delete Comment Test'. Extract the slug. Create a comment with body 'Comment to delete'. Extract the comment id from the response. Verify the article has 1 comment. Delete the comment via DELETE /api/articles/{slug}/comments/{id}. Verify response status is 200. GET the article's comments. Verify the comments array is empty or does not contain the deleted comment body.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "article has 1 comment before deletion"
+   },
+   {
+    "key": "G2",
+    "text": "delete comment returns 200"
+   },
+   {
+    "key": "G3",
+    "text": "comments afterwards do not contain the deleted comment"
+   }
+  ]
+ },
+ {
+  "id": "gold-nestjs-realworld-11",
+  "task": "gold",
+  "service": "nestjs-realworld",
+  "requirement_id": 11,
+  "requirement": "Create a user with username 'logintest1', email 'logintest1@test.com', password 'correctpass123'. Then POST /users/login with email 'logintest1@test.com' and password 'correctpass123'. Verify response status is 201 and response contains 'user' object with matching email and username, and a valid token. Then POST /users/login with same email but WRONG password 'wrongpass456'. Verify response is 401 (unauthorized). This tests the argon2 password verification logic.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "login with correct password returns 201"
+   },
+   {
+    "key": "G2",
+    "text": "login response user email and username match"
+   },
+   {
+    "key": "G3",
+    "text": "login response has a token"
+   },
+   {
+    "key": "G4",
+    "text": "login with wrong password returns 401"
+   }
+  ]
+ },
+ {
+  "id": "gold-nestjs-realworld-17",
+  "task": "gold",
+  "service": "nestjs-realworld",
+  "requirement_id": 17,
+  "requirement": "Create user1 (username: 'articleauthor1', email: 'articleauthor1@test.com', password: 'pass123') and user2 (username: 'articleauthor2', email: 'articleauthor2@test.com', password: 'pass123'). User1 creates article 'User1 Article'. User2 creates article 'User2 Article'. GET /api/articles?author=articleauthor1. Verify articlesCount is 1 and contains only 'User1 Article'. GET /api/articles?author=articleauthor2. Verify articlesCount is 1 and contains only 'User2 Article'. This tests the author-article relationship established during article creation.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "author=articleauthor1 gives articlesCount 1 with only 'User1 Article'"
+   },
+   {
+    "key": "G2",
+    "text": "author=articleauthor2 gives articlesCount 1 with only 'User2 Article'"
+   }
+  ]
+ },
+ {
+  "id": "gold-nestjs-realworld-29",
+  "task": "gold",
+  "service": "nestjs-realworld",
+  "requirement_id": 29,
+  "requirement": "Create user1 (username: 'orphanauthor1', email: 'orphanauthor1@test.com', password: 'pass123'). User1 creates article with title 'Orphan Article Test'. GET /api/articles and verify article exists with author username 'orphanauthor1'. DELETE /api/users/orphanauthor1@test.com. Verify response is 500 (FK constraint error). GET /api/articles again and verify article still exists. This tests that articles block user deletion (no CASCADE DELETE configured).",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "article list contains the article with author 'orphanauthor1'"
+   },
+   {
+    "key": "G2",
+    "text": "deleting the author user returns 500"
+   },
+   {
+    "key": "G3",
+    "text": "the article still exists afterwards"
+   }
+  ]
+ },
+ {
+  "id": "gold-todoapp-2",
+  "task": "gold",
+  "service": "todoapp",
+  "requirement_id": 2,
+  "requirement": "Register a user and login to get an access token. Call POST /todos with an empty or missing title field. Verify that the response status code is 400 Bad Request and the response body contains a validation error indicating 'The Title field is required.'",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "creating a todo without a title returns 400"
+   },
+   {
+    "key": "G2",
+    "text": "error contains 'The Title field is required.'"
+   }
+  ]
+ },
+ {
+  "id": "gold-todoapp-4",
+  "task": "gold",
+  "service": "todoapp",
+  "requirement_id": 4,
+  "requirement": "Register a user and login to get an access token. Call GET /todos/99999 (an ID that does not exist). Verify the response status code is 404 Not Found.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "GET non-existent todo returns 404"
+   }
+  ]
+ },
+ {
+  "id": "gold-todoapp-7",
+  "task": "gold",
+  "service": "todoapp",
+  "requirement_id": 7,
+  "requirement": "Register a user and login to get an access token. Call DELETE /todos/99999 (an ID that does not exist). Verify the response status code is 404 Not Found.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "delete non-existent todo returns 404"
+   }
+  ]
+ },
+ {
+  "id": "gold-todoapp-9",
+  "task": "gold",
+  "service": "todoapp",
+  "requirement_id": 9,
+  "requirement": "Register a user and login. Create a todo with title 'Original Todo'. The todo should have isComplete=false. Call PUT /todos/{id} with isComplete=true and title 'Updated Todo'. Verify response is 200 OK. Then call GET /todos/{id} and verify isComplete is now true and title is 'Updated Todo'.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "update todo returns 200"
+   },
+   {
+    "key": "G2",
+    "text": "GET afterwards shows isComplete true"
+   },
+   {
+    "key": "G3",
+    "text": "GET afterwards shows title 'Updated Todo'"
+   }
+  ]
+ },
+ {
+  "id": "gold-todoapp-12",
+  "task": "gold",
+  "service": "todoapp",
+  "requirement_id": 12,
+  "requirement": "Register two users (userA and userB) and login with each. UserA creates a todo with title 'UserA Todo' and notes the ID. UserB calls PUT /todos/{id} with userA's todo ID, attempting to change the title to 'Hacked'. Verify the response status is 404 Not Found. Then userA verifies the title is still 'UserA Todo' by calling GET /todos/{id}.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "userB updating userA's todo returns 404"
+   },
+   {
+    "key": "G2",
+    "text": "userA's todo title is still 'UserA Todo'"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-3",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 3,
+  "requirement": "Log in and attempt to read a non-existent item and confirm a not-found response.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "get non-existent item returns 404"
+   },
+   {
+    "key": "G2",
+    "text": "detail equals 'Item not found'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "calling without valid credentials is rejected (401/403)"
+   },
+   {
+    "key": "D2",
+    "text": "reading a non-existent item is rejected (404)"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-4",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 4,
+  "requirement": "Verify that a second user cannot read another user's item. Confirm access is denied.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "second user reading first user's item returns 400"
+   },
+   {
+    "key": "G2",
+    "text": "detail equals 'Not enough permissions'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "a non-owner's read request is rejected (4xx)"
+   },
+   {
+    "key": "D2",
+    "text": "the item still appears in the owner's list"
+   },
+   {
+    "key": "D3",
+    "text": "rejection status is 403, the code documented for this operation"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-8",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 8,
+  "requirement": "Verify a user cannot update another user's item.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "second user updating first user's item returns 400"
+   },
+   {
+    "key": "G2",
+    "text": "detail equals 'Not enough permissions'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "a user updating another user's item is rejected (4xx)"
+   },
+   {
+    "key": "D2",
+    "text": "the item's owner_id equals the calling user's id"
+   },
+   {
+    "key": "D3",
+    "text": "the item's title equals the input title"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-10",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 10,
+  "requirement": "Delete a none existing item and confirm the API reports 'Item not found'. Admin credentials: (admin@example.com / password123)",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "delete non-existent item returns 404"
+   },
+   {
+    "key": "G2",
+    "text": "detail equals 'Item not found'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "delete request for non-existent item is rejected (404)"
+   },
+   {
+    "key": "D2",
+    "text": "rejection status is 404, as stated in the requirement"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-11",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 11,
+  "requirement": "Verify that a second user cannot delete an item created by an other user.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "second user deleting first user's item returns 400"
+   },
+   {
+    "key": "G2",
+    "text": "detail equals 'Not enough permissions'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "a second user's delete request is rejected (4xx)"
+   },
+   {
+    "key": "D2",
+    "text": "the item still exists afterwards"
+   },
+   {
+    "key": "D3",
+    "text": "rejection status is 403, the code documented for this operation"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-14",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 14,
+  "requirement": "Verify the test token endpoint works and its response includes the user's email.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "test-token returns 200"
+   },
+   {
+    "key": "G2",
+    "text": "email equals 'admin@example.com'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "test token request succeeds (2xx)"
+   },
+   {
+    "key": "D2",
+    "text": "response email equals the user's email"
+   },
+   {
+    "key": "D3",
+    "text": "response includes the user's email"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-18",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 18,
+  "requirement": "Reset a password with an invalid reset token and confirm the reset is rejected.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "reset password with invalid token returns 400"
+   },
+   {
+    "key": "G2",
+    "text": "response has a detail field"
+   },
+   {
+    "key": "G3",
+    "text": "detail equals 'Invalid token'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "reset request with invalid token is rejected (4xx)"
+   },
+   {
+    "key": "D2",
+    "text": "response contains a validation error"
+   },
+   {
+    "key": "D3",
+    "text": "no new password is created"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-30",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 30,
+  "requirement": "Verify the superuser (admin@example.com / password123) can change their own password and change it back.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "change own password returns 200"
+   },
+   {
+    "key": "G2",
+    "text": "message equals 'Password updated successfully'"
+   },
+   {
+    "key": "G3",
+    "text": "login with the new password succeeds"
+   },
+   {
+    "key": "G4",
+    "text": "changing the password back returns 200"
+   },
+   {
+    "key": "G5",
+    "text": "login with the original password succeeds again"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "superuser's update request succeeds (2xx)"
+   },
+   {
+    "key": "D2",
+    "text": "response email equals the superuser's email"
+   },
+   {
+    "key": "D3",
+    "text": "the superuser's password is updated"
+   },
+   {
+    "key": "D4",
+    "text": "the superuser's new password is read back"
+   },
+   {
+    "key": "D5",
+    "text": "the superuser's original password is read back"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-48",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 48,
+  "requirement": "User registration should reject passwords longer than 128 characters. Test with exactly 129 characters.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "signup with a 129-character password returns 422"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "registration request with 129 character password is rejected (4xx)"
+   },
+   {
+    "key": "D2",
+    "text": "rejection status is 422, the code documented for this operation"
+   },
+   {
+    "key": "D3",
+    "text": "no new user is created"
+   }
+  ]
+ },
+ {
+  "id": "cov-fastapi-57",
+  "task": "coverage",
+  "service": "fastapi",
+  "requirement_id": 57,
+  "requirement": "User registration should reject invalid email format. Test with 'not-an-email' string.",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "signup with an invalid email format returns 422"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "registration request with invalid email is rejected (422)"
+   },
+   {
+    "key": "D2",
+    "text": "rejection status is 422, the code documented for this operation"
+   },
+   {
+    "key": "D3",
+    "text": "error message detail.loc equals 'email'"
+   },
+   {
+    "key": "D4",
+    "text": "error message detail.msg equals 'Invalid email address'"
+   }
+  ]
+ },
+ {
+  "id": "cov-nestjs-realworld-7",
+  "task": "coverage",
+  "service": "nestjs-realworld",
+  "requirement_id": 7,
+  "requirement": "Verify comment creation adds comment to article and can be retrieved",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "create comment returns 200"
+   },
+   {
+    "key": "G2",
+    "text": "returned article has at least one comment"
+   },
+   {
+    "key": "G3",
+    "text": "GET comments returns 200"
+   },
+   {
+    "key": "G4",
+    "text": "comments contain one with the posted body"
+   },
+   {
+    "key": "G5",
+    "text": "comment id is a number"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "comment creation request succeeds (2xx)"
+   },
+   {
+    "key": "D2",
+    "text": "response article's comments array includes the newly created comment"
+   },
+   {
+    "key": "D3",
+    "text": "the newly created comment can be retrieved by its id"
+   },
+   {
+    "key": "D4",
+    "text": "the newly created comment's author_id equals the calling user's id"
+   }
+  ]
+ },
+ {
+  "id": "cov-nestjs-realworld-9",
+  "task": "coverage",
+  "service": "nestjs-realworld",
+  "requirement_id": 9,
+  "requirement": "Verify user creation rejects duplicate username or email",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "first user creation returns 201"
+   },
+   {
+    "key": "G2",
+    "text": "duplicate username returns 400"
+   },
+   {
+    "key": "G3",
+    "text": "duplicate-username response contains 'Username and email must be unique'"
+   },
+   {
+    "key": "G4",
+    "text": "duplicate email returns 400"
+   },
+   {
+    "key": "G5",
+    "text": "duplicate-email response contains 'Username and email must be unique'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "creating a user with a duplicate username is rejected"
+   },
+   {
+    "key": "D2",
+    "text": "creating a user with a duplicate email is rejected"
+   },
+   {
+    "key": "D3",
+    "text": "rejection status is 422, the code documented for this operation"
+   },
+   {
+    "key": "D4",
+    "text": "the error message includes the field name and the reason for rejection"
+   }
+  ]
+ },
+ {
+  "id": "cov-nestjs-realworld-14",
+  "task": "coverage",
+  "service": "nestjs-realworld",
+  "requirement_id": 14,
+  "requirement": "Verify user profile update modifies user data correctly",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "update user returns 200"
+   },
+   {
+    "key": "G2",
+    "text": "returned bio and image equal the new values"
+   },
+   {
+    "key": "G3",
+    "text": "GET /user afterwards shows the updated bio and image"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "update request succeeds (2xx)"
+   },
+   {
+    "key": "D2",
+    "text": "response user fields (email, username, bio, image) equals the requested fields"
+   },
+   {
+    "key": "D3",
+    "text": "the updated user's data can be read back with the same values"
+   },
+   {
+    "key": "D4",
+    "text": "the updated user's data belongs to the user who updated it (owner field matches the caller)"
+   }
+  ]
+ },
+ {
+  "id": "cov-nestjs-realworld-22",
+  "task": "coverage",
+  "service": "nestjs-realworld",
+  "requirement_id": 22,
+  "requirement": "Verify profile returns correct bio and image fields",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "profile username equals 'profilebiouser1'"
+   },
+   {
+    "key": "G2",
+    "text": "profile bio and image equal the updated values"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "request succeeds (2xx)"
+   },
+   {
+    "key": "D2",
+    "text": "response bio equals the requested profile's bio"
+   },
+   {
+    "key": "D3",
+    "text": "response image equals the requested profile's image"
+   }
+  ]
+ },
+ {
+  "id": "cov-nestjs-realworld-25",
+  "task": "coverage",
+  "service": "nestjs-realworld",
+  "requirement_id": 25,
+  "requirement": "Verify JWT token contains correct user ID and username in payload",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "JWT payload id matches the user's id"
+   },
+   {
+    "key": "G2",
+    "text": "JWT payload username and email match the user"
+   },
+   {
+    "key": "G3",
+    "text": "GET /user with the token returns the same user"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "response user_id equals the calling user's id"
+   },
+   {
+    "key": "D2",
+    "text": "response username equals the calling user's username"
+   },
+   {
+    "key": "D3",
+    "text": "the JWT token's payload contains the correct user ID"
+   },
+   {
+    "key": "D4",
+    "text": "the JWT token's payload contains the correct username"
+   }
+  ]
+ },
+ {
+  "id": "cov-nestjs-realworld-26",
+  "task": "coverage",
+  "service": "nestjs-realworld",
+  "requirement_id": 26,
+  "requirement": "Verify multiple comments can be added to the same article with unique IDs",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "GET comments returns 3 comments"
+   },
+   {
+    "key": "G2",
+    "text": "comment ids are unique"
+   },
+   {
+    "key": "G3",
+    "text": "comment bodies are preserved"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "adding multiple comments with unique IDs to the same article succeeds (2xx)"
+   },
+   {
+    "key": "D2",
+    "text": "every returned comment's id equals the id sent in the request"
+   },
+   {
+    "key": "D3",
+    "text": "the article's comments array contains all the comments added"
+   },
+   {
+    "key": "D4",
+    "text": "creating a duplicate comment is rejected"
+   }
+  ]
+ },
+ {
+  "id": "cov-todoapp-2",
+  "task": "coverage",
+  "service": "todoapp",
+  "requirement_id": 2,
+  "requirement": "Creating a todo without a title returns a validation error",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "creating a todo without a title returns 400"
+   },
+   {
+    "key": "G2",
+    "text": "error contains 'The Title field is required.'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "creating a todo without a title is rejected (4xx)"
+   },
+   {
+    "key": "D2",
+    "text": "rejection status is 400, the code documented for this operation"
+   },
+   {
+    "key": "D3",
+    "text": "response contains an error message for the missing title"
+   }
+  ]
+ },
+ {
+  "id": "cov-todoapp-8",
+  "task": "coverage",
+  "service": "todoapp",
+  "requirement_id": 8,
+  "requirement": "Users cannot delete another user's todo",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "userB deleting userA's todo returns 404"
+   },
+   {
+    "key": "G2",
+    "text": "userA's todo still exists (GET returns 200)"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "non-owner deleting a todo is rejected (4xx)"
+   },
+   {
+    "key": "D2",
+    "text": "the todo still exists afterwards"
+   },
+   {
+    "key": "D3",
+    "text": "rejection status is 403, the code documented for this operation"
+   }
+  ]
+ },
+ {
+  "id": "cov-todoapp-12",
+  "task": "coverage",
+  "service": "todoapp",
+  "requirement_id": 12,
+  "requirement": "Users cannot update another user's todo",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "userB updating userA's todo returns 404"
+   },
+   {
+    "key": "G2",
+    "text": "userA's todo title is still 'UserA Todo'"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "another user's update request is rejected (4xx)"
+   },
+   {
+    "key": "D2",
+    "text": "the original todo still exists afterwards"
+   },
+   {
+    "key": "D3",
+    "text": "rejection status is 403, the code documented for this operation"
+   }
+  ]
+ },
+ {
+  "id": "cov-todoapp-13",
+  "task": "coverage",
+  "service": "todoapp",
+  "requirement_id": 13,
+  "requirement": "Registering a user with valid credentials succeeds",
+  "checks": [
+   {
+    "key": "G1",
+    "text": "register returns 200"
+   },
+   {
+    "key": "G2",
+    "text": "login with the same credentials returns a token"
+   }
+  ],
+  "derived": [
+   {
+    "key": "D1",
+    "text": "register request succeeds (2xx)"
+   },
+   {
+    "key": "D2",
+    "text": "response status code is 200, as documented for this operation"
+   },
+   {
+    "key": "D3",
+    "text": "response body contains the fields tokenType, accessToken, expiresIn, and refreshToken"
+   },
+   {
+    "key": "D4",
+    "text": "the response tokenType equals the expected type"
+   }
+  ]
+ }
+]

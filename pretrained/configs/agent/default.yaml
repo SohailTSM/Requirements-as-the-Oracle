@@ -1,0 +1,9 @@
+# Default configuration of our agent (the sweep changes one line at a time).
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base

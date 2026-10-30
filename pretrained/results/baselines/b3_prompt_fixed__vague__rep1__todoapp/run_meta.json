@@ -1,0 +1,24 @@
+{
+  "exp_id": "b3_prompt_fixed__vague__rep1__todoapp",
+  "group": "baselines",
+  "tool": "b3_prompt_fixed",
+  "variant": "vague",
+  "rep": 1,
+  "services": [
+    "todoapp"
+  ],
+  "requirements": null,
+  "agent_config": null,
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11434/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "started": "2026-10-20T06:15:58",
+  "finished": "2026-10-20T07:01:09",
+  "seconds": 2711.1,
+  "status": "ok",
+  "llm_requests": 74,
+  "input_tokens": 208692,
+  "output_tokens": 16889
+}

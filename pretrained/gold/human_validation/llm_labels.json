@@ -1,0 +1,240 @@
+{
+ "cov-fastapi-3": {
+  "gold": {
+   "G1": "full",
+   "G2": "partial"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction"
+  }
+ },
+ "cov-fastapi-4": {
+  "gold": {
+   "G1": "full",
+   "G2": "none"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "extra",
+   "D3": "contradiction"
+  }
+ },
+ "cov-fastapi-8": {
+  "gold": {
+   "G1": "partial",
+   "G2": "none"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "none"
+  }
+ },
+ "cov-fastapi-10": {
+  "gold": {
+   "G1": "full",
+   "G2": "none"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction"
+  }
+ },
+ "cov-fastapi-11": {
+  "gold": {
+   "G1": "full",
+   "G2": "partial"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "extra",
+   "D3": "contradiction"
+  }
+ },
+ "cov-fastapi-14": {
+  "gold": {
+   "G1": "full",
+   "G2": "none"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "match"
+  }
+ },
+ "cov-fastapi-18": {
+  "gold": {
+   "G1": "full",
+   "G2": "partial",
+   "G3": "match"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "none"
+  }
+ },
+ "cov-fastapi-30": {
+  "gold": {
+   "G1": "full",
+   "G2": "none",
+   "G3": "match",
+   "G4": "full",
+   "G5": "match"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "match",
+   "D4": "none",
+   "D5": "none"
+  }
+ },
+ "cov-fastapi-48": {
+  "gold": {
+   "G1": "full"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "match"
+  }
+ },
+ "cov-fastapi-57": {
+  "gold": {
+   "G1": "full"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "match",
+   "D4": "match"
+  }
+ },
+ "cov-nestjs-realworld-7": {
+  "gold": {
+   "G1": "full",
+   "G2": "none",
+   "G3": "partial",
+   "G4": "match",
+   "G5": "match"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "match",
+   "D4": "contradiction"
+  }
+ },
+ "cov-nestjs-realworld-9": {
+  "gold": {
+   "G1": "full",
+   "G2": "full",
+   "G3": "full",
+   "G4": "full",
+   "G5": "full"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "match",
+   "D3": "contradiction",
+   "D4": "match"
+  }
+ },
+ "cov-nestjs-realworld-14": {
+  "gold": {
+   "G1": "full",
+   "G2": "none",
+   "G3": "partial"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "match",
+   "D4": "match"
+  }
+ },
+ "cov-nestjs-realworld-22": {
+  "gold": {
+   "G1": "full",
+   "G2": "none"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "match"
+  }
+ },
+ "cov-nestjs-realworld-25": {
+  "gold": {
+   "G1": "full",
+   "G2": "none",
+   "G3": "partial"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "match",
+   "D3": "match",
+   "D4": "match"
+  }
+ },
+ "cov-nestjs-realworld-26": {
+  "gold": {
+   "G1": "full",
+   "G2": "none",
+   "G3": "partial"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "match",
+   "D3": "match",
+   "D4": "contradiction"
+  }
+ },
+ "cov-todoapp-2": {
+  "gold": {
+   "G1": "full",
+   "G2": "full"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "contradiction",
+   "D3": "match"
+  }
+ },
+ "cov-todoapp-8": {
+  "gold": {
+   "G1": "full",
+   "G2": "none"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "match",
+   "D3": "contradiction"
+  }
+ },
+ "cov-todoapp-12": {
+  "gold": {
+   "G1": "none",
+   "G2": "partial"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "match",
+   "D3": "contradiction"
+  }
+ },
+ "cov-todoapp-13": {
+  "gold": {
+   "G1": "partial",
+   "G2": "none"
+  },
+  "derived": {
+   "D1": "match",
+   "D2": "match",
+   "D3": "contradiction",
+   "D4": "match"
+  }
+ }
+}

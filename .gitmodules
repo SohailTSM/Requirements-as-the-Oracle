@@ -1,0 +1,3 @@
+[submodule "pretrained/harness"]
+	path = pretrained/harness
+	url = https://github.com/casablancahotelsoftware/RESTestBench.git

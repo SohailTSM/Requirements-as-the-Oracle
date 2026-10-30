@@ -1,0 +1,25 @@
+{
+  "exp_id": "b3_prompt_fixed__precise__rep2__nestjs-realworld",
+  "group": "baselines",
+  "tool": "b3_prompt_fixed",
+  "variant": "precise",
+  "rep": 2,
+  "services": [
+    "nestjs-realworld"
+  ],
+  "requirements": null,
+  "agent_config": null,
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "kaggle-t4-tunnel (URL redacted)",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "harness-nestjs-realworld-b",
+  "started": "2026-10-24T19:29:37",
+  "finished": "2026-10-24T21:36:09",
+  "seconds": 7592.4,
+  "status": "ok",
+  "llm_requests": 197,
+  "input_tokens": 1751277,
+  "output_tokens": 60740
+}

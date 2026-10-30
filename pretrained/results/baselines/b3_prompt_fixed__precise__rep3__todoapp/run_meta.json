@@ -1,0 +1,25 @@
+{
+  "exp_id": "b3_prompt_fixed__precise__rep3__todoapp",
+  "group": "baselines",
+  "tool": "b3_prompt_fixed",
+  "variant": "precise",
+  "rep": 3,
+  "services": [
+    "todoapp"
+  ],
+  "requirements": null,
+  "agent_config": null,
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "kaggle-t4-tunnel (URL redacted)",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "original",
+  "started": "2026-10-24T14:58:41",
+  "finished": "2026-10-24T15:37:53",
+  "seconds": 2352.0,
+  "status": "ok",
+  "llm_requests": 76,
+  "input_tokens": 225995,
+  "output_tokens": 20214
+}

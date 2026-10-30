@@ -1,0 +1,35 @@
+{
+  "exp_id": "b4_response_judge__vague__rep1__todoapp",
+  "group": "baselines",
+  "tool": "b4_response_judge",
+  "variant": "vague",
+  "rep": 1,
+  "services": [
+    "todoapp"
+  ],
+  "requirements": null,
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "none",
+    "generation": "plan",
+    "refinement": "none",
+    "judge": "none",
+    "architecture": "pipeline",
+    "model": "base",
+    "oracle": "response_judge"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "original",
+  "started": "2026-10-26T02:06:45",
+  "finished": "2026-10-26T02:32:26",
+  "seconds": 1540.8,
+  "status": "ok",
+  "llm_requests": 17,
+  "input_tokens": 19189,
+  "output_tokens": 5421
+}

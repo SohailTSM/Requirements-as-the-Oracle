@@ -1,0 +1,9 @@
+# Sweep: default configuration with judge = restestbench
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: restestbench
+architecture: pipeline
+model: base

@@ -1,0 +1,11 @@
+# Sweep: communication = A2A (the reviewer/judge and the debugger/refinement run as separate
+# A2A agents over local JSON-RPC instead of in-process calls). Decision Log D-67.
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+communication: a2a
+model: base

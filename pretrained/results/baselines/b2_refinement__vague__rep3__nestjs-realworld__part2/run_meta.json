@@ -1,0 +1,31 @@
+{
+  "exp_id": "b2_refinement__vague__rep3__nestjs-realworld__part2",
+  "group": "baselines",
+  "tool": "b2_refinement",
+  "variant": "vague",
+  "rep": 3,
+  "services": [
+    "nestjs-realworld"
+  ],
+  "requirements": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "agent_config": null,
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "unknown",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "harness-nestjs-realworld-c",
+  "started": "2026-10-26T02:01:45",
+  "finished": "2026-10-26T04:02:00",
+  "seconds": 7215.3,
+  "status": "ok",
+  "llm_requests": 90,
+  "input_tokens": 806625,
+  "output_tokens": 48762
+}

@@ -1,0 +1,17 @@
+{
+ "fastapi": {
+  "examples": 86,
+  "train_loss": 0.3522267964753238,
+  "minutes": 22.6
+ },
+ "nestjs-realworld": {
+  "examples": 154,
+  "train_loss": 0.19273933619260789,
+  "minutes": 37.1
+ },
+ "todoapp": {
+  "examples": 184,
+  "train_loss": 0.21588034755077914,
+  "minutes": 46.7
+ }
+}

@@ -1,0 +1,16 @@
+\begin{table}[t]\centering\small
+\caption{Offline precision layer, prompt v2, scored by the Llama judge (to be validated by human labels)}
+\begin{tabular}{llrrrrr}
+\toprule
+Variant & Wording & Recall & Soft recall & Contradiction & Unsupported & Checks/req \\
+\midrule
+catalogue+filter & vague & 0.325 & 0.420 & 0.269 & 0.041 & 2.5 \\
+catalogue & precise & 0.474 & 0.519 & 0.136 & 0.102 & 6.8 \\
+catalogue & vague & 0.392 & 0.474 & 0.273 & 0.055 & 3.6 \\
+direct\_rewrite & precise & 0.541 & 0.601 & 0.075 & 0.067 & 6.8 \\
+direct\_rewrite & vague & 0.396 & 0.468 & 0.206 & 0.091 & 5.7 \\
+self\_consistency & vague & 0.373 & 0.468 & 0.258 & 0.070 & 3.1 \\
+\bottomrule
+\end{tabular}
+\label{tab:precision}
+\end{table}

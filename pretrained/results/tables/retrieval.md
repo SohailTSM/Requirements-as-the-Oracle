@@ -1,0 +1,15 @@
+<!-- Offline retrieval over 106 requirements (operations other than login/registration) -->
+| Variant | Wording | R@5 | All needed in top 5 | MRR | nDCG@5 |
+|---|---|---|---|---|---|
+| adaptive | precise | 0.903 | 0.798 | 0.782 | 0.781 |
+| bm25 | precise | 0.870 | 0.786 | 0.646 | 0.681 |
+| dense | precise | 0.860 | 0.786 | 0.765 | 0.749 |
+| hybrid | precise | 0.903 | 0.798 | 0.788 | 0.785 |
+| hybrid_rerank | precise | 0.695 | 0.573 | 0.516 | 0.521 |
+| query_rewrite | precise | 0.752 | 0.652 | 0.612 | 0.608 |
+| adaptive | vague | 0.888 | 0.809 | 0.870 | 0.818 |
+| bm25 | vague | 0.794 | 0.685 | 0.698 | 0.673 |
+| dense | vague | 0.882 | 0.753 | 0.886 | 0.825 |
+| hybrid | vague | 0.851 | 0.730 | 0.827 | 0.771 |
+| hybrid_rerank | vague | 0.888 | 0.809 | 0.870 | 0.818 |
+| query_rewrite | vague | 0.840 | 0.764 | 0.726 | 0.706 |

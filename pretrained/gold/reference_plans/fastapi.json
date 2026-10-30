@@ -1,0 +1,483 @@
+{
+ "1": {
+  "actors": {
+   "A": {
+    "type": "new_user"
+   }
+  },
+  "steps": [
+   {
+    "id": "s1",
+    "actor": "A",
+    "call": "POST /api/v1/items/",
+    "role": "action",
+    "body": {
+     "title": "ref item {{rand.str}}",
+     "description": "ref desc"
+    }
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s1",
+    "expect": "status",
+    "value": 200,
+    "kind": "format",
+    "description": "create returns 200"
+   },
+   {
+    "id": "C2",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "title",
+    "value": "{{s1.req.title}}",
+    "kind": "meaning",
+    "description": "title echoed"
+   },
+   {
+    "id": "C3",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "description",
+    "value": "{{s1.req.description}}",
+    "kind": "meaning",
+    "description": "description echoed"
+   },
+   {
+    "id": "C4",
+    "step": "s1",
+    "expect": "field_exists",
+    "field": "id",
+    "kind": "meaning",
+    "description": "id present"
+   },
+   {
+    "id": "C5",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "owner_id",
+    "value": "{{A.id}}",
+    "kind": "meaning",
+    "description": "owner is creator"
+   }
+  ]
+ },
+ "2": {
+  "actors": {
+   "admin": {
+    "type": "existing",
+    "email": "admin@example.com",
+    "password": "password123"
+   }
+  },
+  "steps": [
+   {
+    "id": "s1",
+    "actor": "admin",
+    "call": "POST /api/v1/items/",
+    "role": "setup",
+    "body": {
+     "title": "ref item",
+     "description": "ref desc"
+    }
+   },
+   {
+    "id": "s2",
+    "actor": "admin",
+    "call": "GET /api/v1/items/{id}",
+    "role": "action",
+    "path": {
+     "id": "{{s1.id}}"
+    }
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s2",
+    "expect": "status",
+    "value": 200,
+    "kind": "format"
+   },
+   {
+    "id": "C2",
+    "step": "s2",
+    "expect": "field_equals",
+    "field": "title",
+    "value": "{{s1.title}}",
+    "kind": "meaning"
+   },
+   {
+    "id": "C3",
+    "step": "s2",
+    "expect": "field_equals",
+    "field": "description",
+    "value": "{{s1.description}}",
+    "kind": "meaning"
+   },
+   {
+    "id": "C4",
+    "step": "s2",
+    "expect": "field_equals",
+    "field": "id",
+    "value": "{{s1.id}}",
+    "kind": "meaning"
+   },
+   {
+    "id": "C5",
+    "step": "s2",
+    "expect": "field_equals",
+    "field": "owner_id",
+    "value": "{{s1.owner_id}}",
+    "kind": "meaning"
+   }
+  ]
+ },
+ "3": {
+  "actors": {
+   "admin": {
+    "type": "existing",
+    "email": "admin@example.com",
+    "password": "password123"
+   }
+  },
+  "steps": [
+   {
+    "id": "s1",
+    "actor": "admin",
+    "call": "GET /api/v1/items/{id}",
+    "role": "action",
+    "path": {
+     "id": "{{rand.uuid}}"
+    }
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s1",
+    "expect": "status",
+    "value": 404,
+    "kind": "meaning"
+   },
+   {
+    "id": "C2",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "detail",
+    "value": "Item not found",
+    "kind": "meaning"
+   }
+  ]
+ },
+ "4": {
+  "actors": {
+   "A": {
+    "type": "new_user"
+   },
+   "B": {
+    "type": "new_user"
+   }
+  },
+  "steps": [
+   {
+    "id": "s1",
+    "actor": "A",
+    "call": "POST /api/v1/items/",
+    "role": "setup",
+    "body": {
+     "title": "A's item"
+    }
+   },
+   {
+    "id": "s2",
+    "actor": "B",
+    "call": "GET /api/v1/items/{id}",
+    "role": "action",
+    "path": {
+     "id": "{{s1.id}}"
+    }
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s2",
+    "expect": "status",
+    "value": 400,
+    "kind": "meaning"
+   },
+   {
+    "id": "C2",
+    "step": "s2",
+    "expect": "field_equals",
+    "field": "detail",
+    "value": "Not enough permissions",
+    "kind": "meaning"
+   }
+  ]
+ },
+ "9": {
+  "actors": {
+   "admin": {
+    "type": "existing",
+    "email": "admin@example.com",
+    "password": "password123"
+   }
+  },
+  "steps": [
+   {
+    "id": "s1",
+    "actor": "admin",
+    "call": "POST /api/v1/items/",
+    "role": "setup",
+    "body": {
+     "title": "to delete"
+    }
+   },
+   {
+    "id": "s2",
+    "actor": "admin",
+    "call": "DELETE /api/v1/items/{id}",
+    "role": "action",
+    "path": {
+     "id": "{{s1.id}}"
+    }
+   },
+   {
+    "id": "s3",
+    "actor": "admin",
+    "call": "GET /api/v1/items/{id}",
+    "role": "verify",
+    "path": {
+     "id": "{{s1.id}}"
+    }
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s2",
+    "expect": "status",
+    "value": 200,
+    "kind": "meaning"
+   },
+   {
+    "id": "C2",
+    "step": "s2",
+    "expect": "field_equals",
+    "field": "message",
+    "value": "Item deleted successfully",
+    "kind": "meaning"
+   },
+   {
+    "id": "C3",
+    "step": "s3",
+    "expect": "status",
+    "value": 404,
+    "kind": "meaning"
+   }
+  ]
+ },
+ "12": {
+  "actors": {},
+  "steps": [
+   {
+    "id": "s1",
+    "call": "POST /api/v1/login/access-token",
+    "role": "action",
+    "content_type": "application/x-www-form-urlencoded",
+    "body": {
+     "username": "admin@example.com",
+     "password": "password123"
+    }
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s1",
+    "expect": "status",
+    "value": 200,
+    "kind": "meaning"
+   },
+   {
+    "id": "C2",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "token_type",
+    "value": "bearer",
+    "kind": "meaning"
+   },
+   {
+    "id": "C3",
+    "step": "s1",
+    "expect": "field_exists",
+    "field": "access_token",
+    "kind": "meaning"
+   }
+  ]
+ },
+ "13": {
+  "actors": {
+   "A": {
+    "type": "new_user"
+   }
+  },
+  "steps": [
+   {
+    "id": "s1",
+    "call": "POST /api/v1/login/access-token",
+    "role": "action",
+    "content_type": "application/x-www-form-urlencoded",
+    "body": {
+     "username": "{{A.email}}",
+     "password": "wrong-password-123"
+    }
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s1",
+    "expect": "status",
+    "value": 400,
+    "kind": "meaning"
+   },
+   {
+    "id": "C2",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "detail",
+    "value": "Incorrect email or password",
+    "kind": "meaning"
+   }
+  ]
+ },
+ "21": {
+  "actors": {
+   "A": {
+    "type": "new_user"
+   }
+  },
+  "steps": [
+   {
+    "id": "s1",
+    "actor": "A",
+    "call": "GET /api/v1/users/me",
+    "role": "action"
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "is_active",
+    "value": true,
+    "kind": "meaning"
+   },
+   {
+    "id": "C2",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "is_superuser",
+    "value": false,
+    "kind": "meaning"
+   },
+   {
+    "id": "C3",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "email",
+    "value": "{{A.email}}",
+    "kind": "meaning"
+   }
+  ]
+ },
+ "25": {
+  "actors": {
+   "A": {
+    "type": "new_user"
+   }
+  },
+  "steps": [
+   {
+    "id": "s1",
+    "actor": "A",
+    "call": "GET /api/v1/users/{user_id}",
+    "role": "action",
+    "path": {
+     "user_id": "{{rand.uuid}}"
+    }
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s1",
+    "expect": "status",
+    "value": 403,
+    "kind": "meaning"
+   },
+   {
+    "id": "C2",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "detail",
+    "value": "The user doesn't have enough privileges",
+    "kind": "meaning"
+   }
+  ]
+ },
+ "39": {
+  "actors": {
+   "A": {
+    "type": "new_user"
+   }
+  },
+  "steps": [
+   {
+    "id": "s1",
+    "actor": "A",
+    "call": "DELETE /api/v1/users/me",
+    "role": "action"
+   },
+   {
+    "id": "s2",
+    "call": "POST /api/v1/login/access-token",
+    "role": "verify",
+    "content_type": "application/x-www-form-urlencoded",
+    "body": {
+     "username": "{{A.email}}",
+     "password": "{{A.password}}"
+    }
+   }
+  ],
+  "checks": [
+   {
+    "id": "C1",
+    "step": "s1",
+    "expect": "status",
+    "value": 200,
+    "kind": "meaning"
+   },
+   {
+    "id": "C2",
+    "step": "s1",
+    "expect": "field_equals",
+    "field": "message",
+    "value": "User deleted successfully",
+    "kind": "meaning"
+   },
+   {
+    "id": "C3",
+    "step": "s2",
+    "expect": "status_class",
+    "value": "4xx",
+    "kind": "meaning"
+   }
+  ]
+ }
+}

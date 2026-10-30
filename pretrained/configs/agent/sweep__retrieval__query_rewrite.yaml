@@ -1,0 +1,9 @@
+# Sweep: default configuration with retrieval = query_rewrite
+retrieval: query_rewrite
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base
