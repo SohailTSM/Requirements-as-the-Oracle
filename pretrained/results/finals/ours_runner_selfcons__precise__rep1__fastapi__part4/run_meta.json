@@ -1,0 +1,42 @@
+{
+  "exp_id": "ours_runner_selfcons__precise__rep1__fastapi__part4",
+  "group": "finals",
+  "tool": "ours",
+  "variant": "precise",
+  "rep": 1,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": [
+    28,
+    29,
+    30,
+    31,
+    32,
+    33
+  ],
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "self_consistency",
+    "generation": "plan",
+    "refinement": "combined",
+    "judge": "evidence",
+    "architecture": "pipeline",
+    "model": "base",
+    "name": "runner_selfcons"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "21575fadbe39f887c805facb848e6728a6822159",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "original",
+  "started": "2026-11-03T05:14:15",
+  "finished": "2026-11-03T06:43:13",
+  "seconds": 5338.9,
+  "status": "ok",
+  "llm_requests": 196,
+  "input_tokens": 317403,
+  "output_tokens": 72759
+}

@@ -258,6 +258,27 @@ def main() -> int:
         secret_leak = any("s3cret" in l for l in lines)
         check("13 request log has no secrets and records every answer", not secret_leak and len(lines) >= 300,
               f"{len(lines)} log lines")
+
+        # 14 per-model routing (fine-tuned servers, D-117): each request goes only to a server of its
+        # model, and a busy model does not hold up requests for another one
+        write_backends([{"name": "A", "url": A.url, "slots": 1, "models": ["m1"]},
+                        {"name": "B", "url": B.url, "slots": 2, "models": ["m2"]}])
+        time.sleep(11)
+        A.latency, B.latency = 1.0, 0.1
+        c = client()
+
+        def ask_model(i):
+            model = "m1" if i < 6 else "m2"
+            t = time.time()
+            r = c.chat.completions.create(model=model, messages=[{"role": "user", "content": f"{model}-{i}"}])
+            return model, r.choices[0].message.content, time.time() - t
+        out = concurrent(8, 8, ask_model)
+        wrong = [o for o in out if isinstance(o, Exception) or not o[1].startswith(
+            f"from-{A.port if o[0] == 'm1' else B.port}:")]
+        m2_wait = max(o[2] for o in out if not isinstance(o, Exception) and o[0] == "m2")
+        check("14 per-model routing, no head-of-line blocking", not wrong and m2_wait < 2.0,
+              f"wrong {len(wrong)}, slowest m2 {m2_wait:.1f}s (m1 queue ~6s)")
+        A.latency = B.latency = 0.3
     finally:
         proc.terminate()
     passed = sum(ok for _, ok in RESULTS)

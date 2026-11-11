@@ -46,6 +46,15 @@ jobs:
   - {agent_config: configs/agent/sweep__retrieval__full.yaml, exp_id: ours__sweep__retrieval__full}
   - {agent_config: configs/agent/sweep__retrieval__hybrid.yaml, exp_id: ours__sweep__retrieval__hybrid}
   - {agent_config: configs/agent/sweep__retrieval__query_rewrite.yaml, exp_id: ours__sweep__retrieval__query_rewrite}
-#  - {agent_config: configs/agent/sweep__model__sft.yaml, exp_id: ours__sweep__model__sft}   # needs the fine-tuned models on the server (D-95)
-#  - {agent_config: configs/agent/sweep__model__sft_dpo.yaml, exp_id: ours__sweep__model__sft_dpo}   # needs the fine-tuned models on the server (D-95)
-#  - {agent_config: configs/agent/sweep__precision__finetuned.yaml, exp_id: ours__sweep__precision__finetuned}   # needs the fine-tuned models on the server (D-95)
+  # DPO data for the fold that holds out FastAPI: default (guarded) agent on NestJS/TodoApp; pairs used only in that fold (D-54, D-114)
+  - {agent_config: configs/agent/default.yaml, group: dpo_data, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours__dpo_data__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/default.yaml, group: dpo_data, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: ours__dpo_data__vague__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/default.yaml, group: dpo_data, variant: precise, rep: 1, services: [nestjs-realworld], exp_id: ours__dpo_data__precise__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/default.yaml, group: dpo_data, variant: precise, rep: 2, services: [nestjs-realworld], exp_id: ours__dpo_data__precise__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/default.yaml, group: dpo_data, variant: vague, rep: 1, services: [todoapp], exp_id: ours__dpo_data__vague__rep1__todoapp}
+  - {agent_config: configs/agent/default.yaml, group: dpo_data, variant: vague, rep: 2, services: [todoapp], exp_id: ours__dpo_data__vague__rep2__todoapp}
+  - {agent_config: configs/agent/default.yaml, group: dpo_data, variant: precise, rep: 1, services: [todoapp], exp_id: ours__dpo_data__precise__rep1__todoapp}
+  - {agent_config: configs/agent/default.yaml, group: dpo_data, variant: precise, rep: 2, services: [todoapp], exp_id: ours__dpo_data__precise__rep2__todoapp}
+  - {agent_config: configs/agent/sweep__model__sft.yaml, exp_id: ours__sweep__model__sft}   # fine-tuned servers, one model per GPU, routed by model (D-95, D-117)
+  - {agent_config: configs/agent/sweep__model__sft_dpo.yaml, exp_id: ours__sweep__model__sft_dpo}   # fine-tuned servers, one model per GPU, routed by model (D-95, D-117)
+  - {agent_config: configs/agent/sweep__precision__finetuned.yaml, exp_id: ours__sweep__precision__finetuned}   # fine-tuned servers, one model per GPU, routed by model (D-95, D-117)

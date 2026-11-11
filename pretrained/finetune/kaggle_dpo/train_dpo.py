@@ -6,8 +6,10 @@ Output: /kaggle/working/adapter_dpo_<fold>/, <fold>.dpo.Q4_K_M.gguf, train_log_d
 Pairs: "chosen" keeps every locked expectation (the guarded plan), "rejected" changed one or copied
 a value the service returned (Decision Log D-54). Loss is computed on the answers only (DPO).
 """
+import dataclasses
 import gc
 import glob
+import inspect
 import json
 import os
 import shutil
@@ -26,9 +28,9 @@ from trl import DPOConfig, DPOTrainer  # noqa: E402
 
 BASE = "unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit"
 MAX_LEN, MAX_PROMPT = 6144, 5120
-FOLDS = ["fastapi", "nestjs-realworld", "todoapp"]
 MIN_PAIRS = 40                    # below this a fold is not trained (reported in summary.json)
 found = glob.glob("/kaggle/input/**/dpo_fold_*.jsonl", recursive=True)
+FOLDS = sorted(os.path.basename(p)[len("dpo_fold_"):-len(".jsonl")] for p in found)   # only the folds in the dataset (D-116)
 DATA_DIR = os.path.dirname(found[0]) if found else "/kaggle/input/pretrained-dpo-data"
 OUT, TMP = "/kaggle/working", "/tmp/export"
 print("data:", found, flush=True)
@@ -50,14 +52,17 @@ for fold in FOLDS:
         "prompt": [tok.apply_chat_template(r["prompt"], tokenize=False, add_generation_prompt=True) for r in rows],
         "chosen": [r["chosen"] + tok.eos_token for r in rows],
         "rejected": [r["rejected"] + tok.eos_token for r in rows]})
-    trainer = DPOTrainer(
-        model=model, ref_model=None, tokenizer=tok, train_dataset=ds,
-        args=DPOConfig(per_device_train_batch_size=1, gradient_accumulation_steps=8, num_train_epochs=2,
-                       learning_rate=5e-6, beta=0.1, warmup_ratio=0.1, lr_scheduler_type="linear",
-                       optim="adamw_8bit", max_length=MAX_LEN, max_prompt_length=MAX_PROMPT,
-                       fp16=not torch.cuda.is_bf16_supported(), bf16=torch.cuda.is_bf16_supported(),
-                       logging_steps=5, seed=3407, output_dir=f"{OUT}/ckpt_dpo_{fold}", save_strategy="no",
-                       report_to="none"))
+    cfg = dict(per_device_train_batch_size=1, gradient_accumulation_steps=8, num_train_epochs=2,
+               learning_rate=5e-6, beta=0.1, warmup_ratio=0.1, lr_scheduler_type="linear",
+               optim="adamw_8bit", max_length=MAX_LEN, max_prompt_length=MAX_PROMPT,
+               fp16=not torch.cuda.is_bf16_supported(), bf16=torch.cuda.is_bf16_supported(),
+               logging_steps=5, seed=3407, output_dir=f"{OUT}/ckpt_dpo_{fold}", save_strategy="no",
+               report_to="none")
+    known = {f.name for f in dataclasses.fields(DPOConfig)}   # TRL renames/drops options between versions
+    print("DPOConfig ignores:", [k for k in cfg if k not in known], flush=True)
+    tok_kw = "processing_class" if "processing_class" in inspect.signature(DPOTrainer.__init__).parameters else "tokenizer"
+    trainer = DPOTrainer(model=model, ref_model=None, train_dataset=ds, **{tok_kw: tok},
+                         args=DPOConfig(**{k: v for k, v in cfg.items() if k in known}))
     stats = trainer.train()
     model.save_pretrained(f"{OUT}/adapter_dpo_{fold}")
     tok.save_pretrained(f"{OUT}/adapter_dpo_{fold}")

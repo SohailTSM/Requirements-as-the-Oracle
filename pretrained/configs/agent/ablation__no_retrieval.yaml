@@ -1,0 +1,11 @@
+# Ablation: final configuration with no retrieval (retrieval: full); D-118.
+name: ablation_no_retrieval
+retrieval: full
+top_k: 5
+precision: self_consistency
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base
+content: full

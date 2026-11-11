@@ -1,0 +1,47 @@
+{
+  "exp_id": "ours_unrestricted__precise__rep1__fastapi__part5",
+  "group": "finals",
+  "tool": "ours",
+  "variant": "precise",
+  "rep": 1,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": [
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53
+  ],
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "self_consistency",
+    "generation": "plan",
+    "refinement": "unrestricted",
+    "judge": "evidence",
+    "architecture": "pipeline",
+    "model": "base",
+    "name": "unrestricted",
+    "content": "full"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "21575fadbe39f887c805facb848e6728a6822159",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "harness-fastapi-g",
+  "started": "2026-11-07T14:25:40",
+  "finished": "2026-11-07T15:59:36",
+  "seconds": 5636.4,
+  "status": "ok",
+  "llm_requests": 184,
+  "input_tokens": 318638,
+  "output_tokens": 73881
+}

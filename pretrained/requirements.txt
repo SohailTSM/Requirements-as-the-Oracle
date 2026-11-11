@@ -1,0 +1,27 @@
+# Local agent, baselines, experiment pipeline and analysis (versions used for the reported runs).
+# The RESTestBench harness (submodule harness/) has its own requirements; fine-tuning runs on Kaggle
+# (finetune/kaggle_sft, finetune/kaggle_dpo install Unsloth + TRL there).
+aiohttp==3.14.5
+openai==3.35.1
+requests==2.34.2
+httpx==0.28.1
+pyyaml==6.0.3
+python-dotenv==1.2.4
+psutil==7.2.2
+numpy==2.5.4
+pandas==3.0.6
+scipy==1.18.1
+matplotlib==3.11.2
+rank-bm25==0.2.2
+sentence-transformers==5.7.0
+torch==2.14.1
+transformers==5.20.2
+pytest==9.1.1
+schemathesis==4.32.1
+mcp==2.3.0
+a2a-sdk==1.2.3
+uvicorn==0.54.0
+starlette==1.9.0
+wandb==0.31.0
+kaggle==2.2.4
+huggingface-hub==2.2.0

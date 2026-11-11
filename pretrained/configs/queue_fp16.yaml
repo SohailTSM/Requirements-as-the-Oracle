@@ -1,0 +1,12 @@
+# fp16 comparison (Plan section 5 D, D-126): final configuration, vague, 1 run, all services. Compared with the
+# final's 3 4-bit runs. Attach ONLY the fp16 server to the dispatcher while this runs.
+#   .venv/bin/python scripts/run_queue.py configs/queue_fp16.yaml
+max_parallel: 8
+defaults:
+  group: finals
+  tool: ours
+
+jobs:
+  - {agent_config: configs/agent/final__fp16.yaml, variant: vague, rep: 1, services: [fastapi], exp_id: ours_fp16__vague__rep1__fastapi}
+  - {agent_config: configs/agent/final__fp16.yaml, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_fp16__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/final__fp16.yaml, variant: vague, rep: 1, services: [todoapp], exp_id: ours_fp16__vague__rep1__todoapp}

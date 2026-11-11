@@ -123,12 +123,14 @@ def main() -> int:
         services_root=runner.SERVICES_DIR, requirements_root=runner.REQUIREMENTS_DIR,
         use_precise=(args.variant == "precise"), timeout=args.timeout)
 
+    fp16 = (getattr(tool, "config", None) or {}).get("model") == "fp16"      # served by an fp16 server (D-126)
+    model_build = "llama3.1:8b-instruct-fp16" if fp16 else "llama3.1:8b Q4_K_M"
     meta = {
         "exp_id": exp_id, "group": args.group, "tool": args.tool, "variant": args.variant,
         "rep": args.rep, "services": args.services, "requirements": args.requirements,
         "agent_config": getattr(tool, "config", None),
         "model": LLAMA_MODEL_NAME, "model_server": public_llm_url(),
-        "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+        "model_settings": f"Ollama {model_build}, num_ctx 24576, flash attention, q8_0 KV cache",
         "project_commit": _git_rev(PROJECT_ROOT), "harness_commit": _git_rev(PROJECT_ROOT / "harness"),
         "harness_instance": "original" if HARNESS_ROOT == PROJECT_ROOT / "harness" else HARNESS_ROOT.name,
         "started": datetime.now().isoformat(timespec="seconds"),

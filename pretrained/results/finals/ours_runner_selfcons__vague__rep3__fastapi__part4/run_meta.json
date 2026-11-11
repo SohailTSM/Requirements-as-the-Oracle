@@ -1,0 +1,51 @@
+{
+  "exp_id": "ours_runner_selfcons__vague__rep3__fastapi__part4",
+  "group": "finals",
+  "tool": "ours",
+  "variant": "vague",
+  "rep": 3,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": [
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63
+  ],
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "self_consistency",
+    "generation": "plan",
+    "refinement": "combined",
+    "judge": "evidence",
+    "architecture": "pipeline",
+    "model": "base",
+    "name": "runner_selfcons"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "21575fadbe39f887c805facb848e6728a6822159",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "original",
+  "started": "2026-11-03T00:23:02",
+  "finished": "2026-11-03T01:14:13",
+  "seconds": 3071.1,
+  "status": "ok",
+  "llm_requests": 219,
+  "input_tokens": 332960,
+  "output_tokens": 38399
+}

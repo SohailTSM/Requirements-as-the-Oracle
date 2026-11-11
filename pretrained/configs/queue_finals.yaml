@@ -1,0 +1,92 @@
+# Finals and ablations of our agent (Plan §5 B, C; Decision Log D-118). All 3 services, one job per service
+# (the runner splits FastAPI into time-fit parts). Order = priority: final vague, final precise, runner-ups,
+# then ablations (final configuration minus one component, vague, 1 run).
+#   .venv/bin/python scripts/run_queue.py configs/queue_finals.yaml
+max_parallel: 12
+defaults:
+  group: finals
+  tool: ours
+
+jobs:
+  # final, vague
+  - {agent_config: configs/agent/final.yaml, variant: vague, rep: 1, services: [fastapi], exp_id: ours_final__vague__rep1__fastapi}
+  - {agent_config: configs/agent/final.yaml, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_final__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/final.yaml, variant: vague, rep: 1, services: [todoapp], exp_id: ours_final__vague__rep1__todoapp}
+  - {agent_config: configs/agent/final.yaml, variant: vague, rep: 2, services: [fastapi], exp_id: ours_final__vague__rep2__fastapi}
+  - {agent_config: configs/agent/final.yaml, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: ours_final__vague__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/final.yaml, variant: vague, rep: 2, services: [todoapp], exp_id: ours_final__vague__rep2__todoapp}
+  - {agent_config: configs/agent/final.yaml, variant: vague, rep: 3, services: [fastapi], exp_id: ours_final__vague__rep3__fastapi}
+  - {agent_config: configs/agent/final.yaml, variant: vague, rep: 3, services: [nestjs-realworld], exp_id: ours_final__vague__rep3__nestjs-realworld}
+  - {agent_config: configs/agent/final.yaml, variant: vague, rep: 3, services: [todoapp], exp_id: ours_final__vague__rep3__todoapp}
+  # final, precise
+  - {agent_config: configs/agent/final.yaml, variant: precise, rep: 1, services: [fastapi], exp_id: ours_final__precise__rep1__fastapi}
+  - {agent_config: configs/agent/final.yaml, variant: precise, rep: 1, services: [nestjs-realworld], exp_id: ours_final__precise__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/final.yaml, variant: precise, rep: 1, services: [todoapp], exp_id: ours_final__precise__rep1__todoapp}
+  - {agent_config: configs/agent/final.yaml, variant: precise, rep: 2, services: [fastapi], exp_id: ours_final__precise__rep2__fastapi}
+  - {agent_config: configs/agent/final.yaml, variant: precise, rep: 2, services: [nestjs-realworld], exp_id: ours_final__precise__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/final.yaml, variant: precise, rep: 2, services: [todoapp], exp_id: ours_final__precise__rep2__todoapp}
+  - {agent_config: configs/agent/final.yaml, variant: precise, rep: 3, services: [fastapi], exp_id: ours_final__precise__rep3__fastapi}
+  - {agent_config: configs/agent/final.yaml, variant: precise, rep: 3, services: [nestjs-realworld], exp_id: ours_final__precise__rep3__nestjs-realworld}
+  - {agent_config: configs/agent/final.yaml, variant: precise, rep: 3, services: [todoapp], exp_id: ours_final__precise__rep3__todoapp}
+  # runner_content, vague
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: vague, rep: 1, services: [fastapi], exp_id: ours_runner_content__vague__rep1__fastapi}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_runner_content__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: vague, rep: 1, services: [todoapp], exp_id: ours_runner_content__vague__rep1__todoapp}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: vague, rep: 2, services: [fastapi], exp_id: ours_runner_content__vague__rep2__fastapi}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: ours_runner_content__vague__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: vague, rep: 2, services: [todoapp], exp_id: ours_runner_content__vague__rep2__todoapp}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: vague, rep: 3, services: [fastapi], exp_id: ours_runner_content__vague__rep3__fastapi}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: vague, rep: 3, services: [nestjs-realworld], exp_id: ours_runner_content__vague__rep3__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: vague, rep: 3, services: [todoapp], exp_id: ours_runner_content__vague__rep3__todoapp}
+  # runner_selfcons, vague
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: vague, rep: 1, services: [fastapi], exp_id: ours_runner_selfcons__vague__rep1__fastapi}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_runner_selfcons__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: vague, rep: 1, services: [todoapp], exp_id: ours_runner_selfcons__vague__rep1__todoapp}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: vague, rep: 2, services: [fastapi], exp_id: ours_runner_selfcons__vague__rep2__fastapi}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: ours_runner_selfcons__vague__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: vague, rep: 2, services: [todoapp], exp_id: ours_runner_selfcons__vague__rep2__todoapp}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: vague, rep: 3, services: [fastapi], exp_id: ours_runner_selfcons__vague__rep3__fastapi}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: vague, rep: 3, services: [nestjs-realworld], exp_id: ours_runner_selfcons__vague__rep3__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: vague, rep: 3, services: [todoapp], exp_id: ours_runner_selfcons__vague__rep3__todoapp}
+  # runner_content, precise
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: precise, rep: 1, services: [fastapi], exp_id: ours_runner_content__precise__rep1__fastapi}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: precise, rep: 1, services: [nestjs-realworld], exp_id: ours_runner_content__precise__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: precise, rep: 1, services: [todoapp], exp_id: ours_runner_content__precise__rep1__todoapp}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: precise, rep: 2, services: [fastapi], exp_id: ours_runner_content__precise__rep2__fastapi}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: precise, rep: 2, services: [nestjs-realworld], exp_id: ours_runner_content__precise__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: precise, rep: 2, services: [todoapp], exp_id: ours_runner_content__precise__rep2__todoapp}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: precise, rep: 3, services: [fastapi], exp_id: ours_runner_content__precise__rep3__fastapi}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: precise, rep: 3, services: [nestjs-realworld], exp_id: ours_runner_content__precise__rep3__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_content.yaml, variant: precise, rep: 3, services: [todoapp], exp_id: ours_runner_content__precise__rep3__todoapp}
+  # runner_selfcons, precise
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: precise, rep: 1, services: [fastapi], exp_id: ours_runner_selfcons__precise__rep1__fastapi}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: precise, rep: 1, services: [nestjs-realworld], exp_id: ours_runner_selfcons__precise__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: precise, rep: 1, services: [todoapp], exp_id: ours_runner_selfcons__precise__rep1__todoapp}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: precise, rep: 2, services: [fastapi], exp_id: ours_runner_selfcons__precise__rep2__fastapi}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: precise, rep: 2, services: [nestjs-realworld], exp_id: ours_runner_selfcons__precise__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: precise, rep: 2, services: [todoapp], exp_id: ours_runner_selfcons__precise__rep2__todoapp}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: precise, rep: 3, services: [fastapi], exp_id: ours_runner_selfcons__precise__rep3__fastapi}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: precise, rep: 3, services: [nestjs-realworld], exp_id: ours_runner_selfcons__precise__rep3__nestjs-realworld}
+  - {agent_config: configs/agent/final__runner_selfcons.yaml, variant: precise, rep: 3, services: [todoapp], exp_id: ours_runner_selfcons__precise__rep3__todoapp}
+  # ablations (vague, 1 run)
+  - {agent_config: configs/agent/ablation__no_retrieval.yaml, group: ablations, variant: vague, rep: 1, services: [fastapi], exp_id: ours_ablation_no_retrieval__vague__rep1__fastapi}
+  - {agent_config: configs/agent/ablation__no_retrieval.yaml, group: ablations, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_ablation_no_retrieval__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/ablation__no_retrieval.yaml, group: ablations, variant: vague, rep: 1, services: [todoapp], exp_id: ours_ablation_no_retrieval__vague__rep1__todoapp}
+  - {agent_config: configs/agent/ablation__no_precision.yaml, group: ablations, variant: vague, rep: 1, services: [fastapi], exp_id: ours_ablation_no_precision__vague__rep1__fastapi}
+  - {agent_config: configs/agent/ablation__no_precision.yaml, group: ablations, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_ablation_no_precision__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/ablation__no_precision.yaml, group: ablations, variant: vague, rep: 1, services: [todoapp], exp_id: ours_ablation_no_precision__vague__rep1__todoapp}
+  - {agent_config: configs/agent/ablation__no_executor.yaml, group: ablations, variant: vague, rep: 1, services: [fastapi], exp_id: ours_ablation_no_executor__vague__rep1__fastapi}
+  - {agent_config: configs/agent/ablation__no_executor.yaml, group: ablations, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_ablation_no_executor__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/ablation__no_executor.yaml, group: ablations, variant: vague, rep: 1, services: [todoapp], exp_id: ours_ablation_no_executor__vague__rep1__todoapp}
+  - {agent_config: configs/agent/ablation__unrestricted_refinement.yaml, group: ablations, variant: vague, rep: 1, services: [fastapi], exp_id: ours_ablation_unrestricted_refinement__vague__rep1__fastapi}
+  - {agent_config: configs/agent/ablation__unrestricted_refinement.yaml, group: ablations, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_ablation_unrestricted_refinement__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/ablation__unrestricted_refinement.yaml, group: ablations, variant: vague, rep: 1, services: [todoapp], exp_id: ours_ablation_unrestricted_refinement__vague__rep1__todoapp}
+  - {agent_config: configs/agent/ablation__no_judge.yaml, group: ablations, variant: vague, rep: 1, services: [fastapi], exp_id: ours_ablation_no_judge__vague__rep1__fastapi}
+  - {agent_config: configs/agent/ablation__no_judge.yaml, group: ablations, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_ablation_no_judge__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/ablation__no_judge.yaml, group: ablations, variant: vague, rep: 1, services: [todoapp], exp_id: ours_ablation_no_judge__vague__rep1__todoapp}
+  - {agent_config: configs/agent/ablation__no_spec_cleanup.yaml, group: ablations, variant: vague, rep: 1, services: [fastapi], exp_id: ours_ablation_no_spec_cleanup__vague__rep1__fastapi}
+  - {agent_config: configs/agent/ablation__no_spec_cleanup.yaml, group: ablations, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_ablation_no_spec_cleanup__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/ablation__no_spec_cleanup.yaml, group: ablations, variant: vague, rep: 1, services: [todoapp], exp_id: ours_ablation_no_spec_cleanup__vague__rep1__todoapp}
+  - {agent_config: configs/agent/ablation__no_format_relaxation.yaml, group: ablations, variant: vague, rep: 1, services: [fastapi], exp_id: ours_ablation_no_format_relaxation__vague__rep1__fastapi}
+  - {agent_config: configs/agent/ablation__no_format_relaxation.yaml, group: ablations, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_ablation_no_format_relaxation__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/ablation__no_format_relaxation.yaml, group: ablations, variant: vague, rep: 1, services: [todoapp], exp_id: ours_ablation_no_format_relaxation__vague__rep1__todoapp}

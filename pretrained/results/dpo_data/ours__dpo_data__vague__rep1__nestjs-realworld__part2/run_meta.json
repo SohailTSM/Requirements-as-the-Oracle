@@ -1,0 +1,49 @@
+{
+  "exp_id": "ours__dpo_data__vague__rep1__nestjs-realworld__part2",
+  "group": "dpo_data",
+  "tool": "ours",
+  "variant": "vague",
+  "rep": 1,
+  "services": [
+    "nestjs-realworld"
+  ],
+  "requirements": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "catalogue",
+    "generation": "plan",
+    "refinement": "combined",
+    "judge": "evidence",
+    "architecture": "pipeline",
+    "model": "base"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "21575fadbe39f887c805facb848e6728a6822159",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "harness-nestjs-realworld-b",
+  "started": "2026-11-01T13:00:06",
+  "finished": "2026-11-01T15:01:59",
+  "seconds": 7312.4,
+  "status": "ok",
+  "llm_requests": 170,
+  "input_tokens": 280806,
+  "output_tokens": 64025
+}

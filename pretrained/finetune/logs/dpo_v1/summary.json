@@ -1,0 +1,9 @@
+{
+ "fastapi": {
+  "pairs": 143,
+  "trained": true,
+  "train_loss": 0.3824253788010942,
+  "gguf": true,
+  "minutes": 133.2
+ }
+}

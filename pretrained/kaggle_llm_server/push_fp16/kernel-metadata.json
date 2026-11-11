@@ -1,0 +1,14 @@
+{
+ "id": "mistahj/pretrained-llm-fp16",
+ "title": "pretrained-llm-fp16",
+ "code_file": "pretrained_llm_fp16_server.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_internet": true,
+ "machine_shape": "NvidiaTeslaT4",
+ "dataset_sources": [],
+ "competition_sources": [],
+ "kernel_sources": []
+}

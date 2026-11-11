@@ -1,0 +1,12 @@
+# Follow-up: final configuration with unrestricted refinement, picked AFTER the ablations (D-124).
+# Same settings as ablation__unrestricted_refinement.yaml; fresh runs, the ablation's own run is not counted.
+name: unrestricted
+retrieval: adaptive
+top_k: 5
+precision: self_consistency
+generation: plan
+refinement: unrestricted
+judge: evidence
+architecture: pipeline
+model: base
+content: full

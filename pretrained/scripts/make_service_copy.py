@@ -62,10 +62,11 @@ def main() -> int:
                        check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     shutil.copytree(HARNESS, dest, symlinks=True, ignore=shutil.ignore_patterns("__pycache__", ".git", "results"))
     svc = dest / "services" / a.service
-    changed, ports = [], {}
-    for sub in ("original", "working"):
+    changed, ports, containers = [], {}, {}
+    for sub in ("original", "working", "."):            # TodoApp keeps its compose file at the service root
         for f in sorted((svc / sub).glob("docker-compose*.yml")):
             t = f.read_text()
+            containers.update((n, f"{n}_{a.name}") for n in re.findall(r"^\s+container_name:\s*(\S+)\s*$", t, flags=re.M))
             new = re.sub(rf"^name:\s*{re.escape(a.service)}\s*$", f"name: {a.service}-{a.name}", t, flags=re.M)
             # fixed container names and named volumes would be shared with the original: suffix them
             new = re.sub(r"^(\s+container_name:\s*)(\S+)\s*$", rf"\g<1>\g<2>_{a.name}", new, flags=re.M)
@@ -78,6 +79,8 @@ def main() -> int:
     for f in sorted(svc.glob("*.sh")):
         t = f.read_text()
         new = re.sub(r"localhost:(\d+)", lambda m: f"localhost:{ports.get(int(m.group(1)), int(m.group(1)))}", t)
+        for old, renamed in containers.items():         # scripts that name a container (TodoApp's reset.sh)
+            new = re.sub(rf"\b{re.escape(old)}\b(?!_)", renamed, new)
         if new != t:
             f.write_text(new)
             changed.append(str(f.relative_to(dest)))

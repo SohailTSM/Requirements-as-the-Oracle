@@ -1,0 +1,12 @@
+# Ablation: final configuration with no format relaxation (format_relaxation: False); D-118.
+name: ablation_no_format_relaxation
+retrieval: adaptive
+top_k: 5
+precision: self_consistency
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base
+content: full
+format_relaxation: false

@@ -1,0 +1,52 @@
+{
+  "exp_id": "ours_final__vague__rep2__fastapi__part4",
+  "group": "finals",
+  "tool": "ours",
+  "variant": "vague",
+  "rep": 2,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": [
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63
+  ],
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "self_consistency",
+    "generation": "plan",
+    "refinement": "combined",
+    "judge": "evidence",
+    "architecture": "pipeline",
+    "model": "base",
+    "name": "final",
+    "content": "full"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "21575fadbe39f887c805facb848e6728a6822159",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "harness-fastapi-h",
+  "started": "2026-11-02T09:21:29",
+  "finished": "2026-11-02T10:09:28",
+  "seconds": 2878.6,
+  "status": "ok",
+  "llm_requests": 218,
+  "input_tokens": 328291,
+  "output_tokens": 36375
+}

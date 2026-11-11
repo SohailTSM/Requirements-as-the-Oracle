@@ -1,0 +1,11 @@
+# Ablation: final configuration with no executor (generation: raw, refinement: none); D-118.
+name: ablation_no_executor
+retrieval: adaptive
+top_k: 5
+precision: self_consistency
+generation: raw
+refinement: none
+judge: evidence
+architecture: pipeline
+model: base
+content: full

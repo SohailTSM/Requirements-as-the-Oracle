@@ -1,0 +1,100 @@
+{
+  "summary": {
+    "valid_score": 4,
+    "valid_max_score": 4,
+    "valid_percentage": 100.0,
+    "mutated_score": 3.0,
+    "mutated_max_score": 4,
+    "mutated_percentage": 75.0,
+    "total_requirements": 2,
+    "total_tests": 6
+  },
+  "requirements": [
+    {
+      "requirement_id": 26,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0,
+          1
+        ],
+        "mutants_survived": [],
+        "score": 2,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 2.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0,
+              1
+            ],
+            "mutants_survived": [],
+            "score": 2,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0,
+              1
+            ],
+            "mutants_survived": [],
+            "score": 2,
+            "max_score": 2
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 27,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0,
+          1
+        ],
+        "mutants_survived": [],
+        "score": 2,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 1.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0,
+              1
+            ],
+            "mutants_survived": [],
+            "score": 2,
+            "max_score": 2
+          }
+        ]
+      }
+    }
+  ]
+}

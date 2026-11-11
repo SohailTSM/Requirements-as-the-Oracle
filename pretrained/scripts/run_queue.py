@@ -20,6 +20,7 @@
 """
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -117,11 +118,22 @@ EST_HOURS = {("b1_single_step", "fastapi"): 0.7, ("b1_single_step", "nestjs-real
 CONFIG_FACTOR = {"architecture__blackboard": 3.6, "architecture__multi_persona": 1.85, "architecture__react": 2.3,
                  "communication__mcp": 1.1, "communication__a2a": 1.05, "retrieval__full": 1.3,
                  "retrieval__query_rewrite": 1.15, "precision__self_consistency": 1.4, "generation__raw": 0.6,
-                 "content__full": 1.1, "refinement__none": 0.7}
+                 "content__full": 1.1, "refinement__none": 0.7,
+                 # finals and ablations (D-118): products of the sweep factors; specific names before "final"
+                 "ablation__no_executor": 0.85, "ablation__no_retrieval": 2.0, "ablation__": 1.55,
+                 "final__runner_content": 1.1, "final__runner_selfcons": 1.6, "final__fp16": 4.65, "final": 1.55}
+# final__fp16: the final's 1.55 x 3, a guess until measured (D-126).
+# Finals day 1 (D-120): our agent's precise runs take ~1.5x its vague ones and NestJS runs ~1.5x the
+# estimate, so parts started near a session's end ran past it (medians over 124 finished parts).
+OURS_VARIANT_FACTOR = {"precise": 1.5}
+OURS_SERVICE_FACTOR = {"nestjs-realworld": 1.5}
 
 
 def est_hours(job: dict) -> float:
-    full = sum(EST_HOURS.get((job["tool"], s), 4.0) for s in job["services"])
+    full = sum(EST_HOURS.get((job["tool"], s), 4.0)
+               * (OURS_SERVICE_FACTOR.get(s, 1.0) if job["tool"] == "ours" else 1.0) for s in job["services"])
+    if job["tool"] == "ours":
+        full *= OURS_VARIANT_FACTOR.get(job.get("variant"), 1.0)
     if SLOTS > 1 and job["tool"] not in NO_LLM_TOOLS:
         full *= SHARED_SLOWDOWN                   # it may share its server with another generating job
     cfg = str(job.get("agent_config", ""))
@@ -130,6 +142,28 @@ def est_hours(job: dict) -> float:
         n = sum(len(ALL_REQS.get(s, [])) for s in job["services"]) or 1
         return max(0.2, full * len(job["requirements"]) / n)
     return full
+
+
+def quarantine_if_llm_failed(job: dict) -> bool:
+    """A part whose agent gave up on an LLM call (e.g. every server gone at a session's end) still ends
+    "ok", with a failing placeholder test. Move it to results/_cutoff so its requirements run again as a
+    new part (D-120)."""
+    d = RESULTS / job["group"] / exp_id(job)
+    for h in d.glob("*/generated_tests/*/agent_history.json"):
+        try:
+            if "LLM call failed" in (json.loads(h.read_text()).get("error") or ""):
+                break
+        except (OSError, ValueError):
+            continue
+    else:
+        return False
+    dest = RESULTS / "_cutoff" / job["group"]
+    dest.mkdir(parents=True, exist_ok=True)
+    shutil.move(str(d), str(dest / d.name))
+    log = d.with_name(d.name + ".log")
+    if log.exists():
+        shutil.move(str(log), str(dest / log.name))
+    return True
 
 
 def failures(group: str, eid: str) -> int:
@@ -290,8 +324,9 @@ def _generating_list() -> list:
 BACKENDS_FILE = PROJECT_ROOT.parent / "secrets" / "llm_backends.json"
 DISPATCH_URL = "http://127.0.0.1:11500/v1"
 TARGET_QUEUE = 1                 # start more runs while the dispatcher's queue is at most this long
-EXTRA_RUNS = 2                   # at most slots + EXTRA_RUNS runs generating at once
+EXTRA_RUNS = 4                   # at most slots + EXTRA_RUNS runs generating at once
 RAMP_S = 150                     # after starting a run, wait this long before judging the queue again
+RAMP_COLD_S = 60                 # ... shorter while under half the slots are busy (short sessions)
 
 
 def dispatcher_status():
@@ -421,6 +456,8 @@ def main() -> int:
             log_status(event="end", group=job["group"], exp_id=exp_id(job), returncode=rc,
                        seconds=round(time.time() - r["t0"], 1))
             print(f"[queue] end: {key} rc={rc} after {time.time() - r['t0']:.0f}s", flush=True)
+            if rc == 0 and job["tool"] == "ours" and quarantine_if_llm_failed(job):
+                print(f"[queue] {key}: an LLM call failed, moved to results/_cutoff to run again", flush=True)
             del running[key]
         jobs, max_parallel, skip = pending_jobs(queue_path, set(running))
         if not jobs and not running:
@@ -435,8 +472,10 @@ def main() -> int:
                      and mem_available_gb() >= MIN_FREE_GB)
         if BACKENDS_FILE.exists():                   # dispatcher mode: one queue for all model servers
             started = dispatch_mode_step(jobs, running, busy, can_start)
-            if started:
-                time.sleep(RAMP_S)
+            if started:                               # ramp faster while most slots are idle (D-120)
+                st = dispatcher_status() or {}
+                cold = st.get("busy_total", 0) * 2 < st.get("slots_total", 0)
+                time.sleep(RAMP_COLD_S if cold else RAMP_S)
                 continue
             time.sleep(30)
             continue

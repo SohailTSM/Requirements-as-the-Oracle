@@ -9,6 +9,7 @@ Tables
                "mutant-gen" = same for tests generated against mutants; "fail-OK" = share of
                generated tests that fail on the correct service)
   sweep.*      component sweep (FastAPI, vague): each variant against the default configuration
+  ablations.*  final configuration minus one component (vague, 1 run), against the final's 3-run mean
   retrieval.*  offline retrieval (non-auth operations)
   precision.*  offline precision layer (prompt version folder chosen by --prompt-version)
 Runs split into per-service parts (exp_id ...__<service>) are merged, as in analyze_results.py.
@@ -32,7 +33,11 @@ SERVICES = ["fastapi", "nestjs-realworld", "todoapp"]
 SHORT = {"fastapi": "FastAPI", "nestjs-realworld": "NestJS", "todoapp": "TodoApp"}
 TOOL_NAMES = {"b1_single_step": "B1 single-step", "b2_refinement": "B2 refinement",
               "b3_prompt_fixed": "B3 prompt-fixed", "b4_response_judge": "B4 response judge",
-              "e_fuzzer": "E fuzzer", "ours": "Ours"}
+              "e_fuzzer": "E fuzzer", "ours": "Ours",
+              # our finals (D-118, D-124, D-126); runner-ups are the final minus one of its two additions
+              "ours:final": "Ours (final)", "ours:runner_content": "Ours − self-consistency",
+              "ours:runner_selfcons": "Ours − full-trace content", "ours:unrestricted": "Ours, unrestricted refinement",
+              "ours:fp16": "Ours, fp16 weights"}
 
 
 def runs(group: str):
@@ -124,6 +129,31 @@ def sweep_table():
           "Component sweep on FastAPI (vague), one run per variant")
 
 
+def ablation_table():
+    """Each ablation is the final configuration minus one component (vague, 1 run, all services, D-118)."""
+    rs = runs("ablations")
+    if not rs:
+        print("\n(no ablation runs yet)")
+        return
+    base = [summarize(dirs)["pooled"]["valid_pct"] for rid, (meta, dirs) in runs("finals").items()
+            if (meta.get("agent_config") or {}).get("name") == "final" and meta["variant"] == "vague"]
+    base = st.mean(base) if base else None
+    num = lambda v: "–" if v is None else f"{v:.1f}"
+    rows = []
+    for rid, (meta, dirs) in sorted(rs.items()):
+        s = summarize(dirs)
+        ps, pool = s["per_service"], s["pooled"]
+        if any(ps.get(svc, {}).get("_n") != N_REQ[svc] for svc in SERVICES):
+            print(f"  incomplete, left out: ablations/{rid}")
+            continue
+        name = (meta.get("agent_config") or {}).get("name", rid).replace("ablation_", "")
+        rows.append([name] + [num(ps[svc]["valid_pct"]) for svc in SERVICES]
+                    + [num(pool["valid_pct"]), "–" if base is None else f"{pool['valid_pct'] - base:+.1f}",
+                       num(pool["mutated_pct"]), num(pool["valid_tests_failing_pct"])])
+    write("ablations", ["Removed"] + [SHORT[s] for s in SERVICES] + ["All", "Δ vs final", "Mutant-gen", "Fail-OK"],
+          rows, "Ablations (vague, one run each): the final configuration minus one component; Δ against its 3-run mean")
+
+
 def retrieval_table():
     f = RESULTS_ROOT / "offline/retrieval/summary_non_auth.json"
     if not f.exists():
@@ -154,6 +184,7 @@ def main() -> int:
     a = ap.parse_args()
     main_table(a.groups)
     sweep_table()
+    ablation_table()
     retrieval_table()
     precision_table(a.prompt_version)
     return 0

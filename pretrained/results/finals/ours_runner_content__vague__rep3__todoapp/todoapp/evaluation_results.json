@@ -1,0 +1,544 @@
+{
+  "summary": {
+    "valid_score": 9,
+    "valid_max_score": 22,
+    "valid_percentage": 40.91,
+    "mutated_score": 8.0,
+    "mutated_max_score": 22,
+    "mutated_percentage": 36.36,
+    "total_requirements": 14,
+    "total_tests": 36
+  },
+  "requirements": [
+    {
+      "requirement_id": 1,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0,
+          1
+        ],
+        "score": 0,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 0.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": true,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 2,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0
+        ],
+        "mutants_survived": [
+          1
+        ],
+        "score": 1,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 0.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 3,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0,
+          1
+        ],
+        "mutants_survived": [],
+        "score": 2,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 2.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0,
+              1
+            ],
+            "mutants_survived": [],
+            "score": 2,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0,
+              1
+            ],
+            "mutants_survived": [],
+            "score": 2,
+            "max_score": 2
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 4,
+      "num_mutants": 1,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0
+        ],
+        "mutants_survived": [],
+        "score": 1,
+        "max_score": 1
+      },
+      "mutated_tests": {
+        "count": 1,
+        "average_score": 1.0,
+        "max_score": 1,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0
+            ],
+            "mutants_survived": [],
+            "score": 1,
+            "max_score": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 5,
+      "num_mutants": 1,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0
+        ],
+        "mutants_survived": [],
+        "score": 1,
+        "max_score": 1
+      },
+      "mutated_tests": {
+        "count": 1,
+        "average_score": 1.0,
+        "max_score": 1,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0
+            ],
+            "mutants_survived": [],
+            "score": 1,
+            "max_score": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 6,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0,
+          1
+        ],
+        "mutants_survived": [],
+        "score": 2,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 2.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0,
+              1
+            ],
+            "mutants_survived": [],
+            "score": 2,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0,
+              1
+            ],
+            "mutants_survived": [],
+            "score": 2,
+            "max_score": 2
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 7,
+      "num_mutants": 1,
+      "valid_test": {
+        "passes_on_valid": false,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0
+        ],
+        "score": 0,
+        "max_score": 1
+      },
+      "mutated_tests": {
+        "count": 1,
+        "average_score": 1.0,
+        "max_score": 1,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0
+            ],
+            "mutants_survived": [],
+            "score": 1,
+            "max_score": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 8,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0
+        ],
+        "mutants_survived": [
+          1
+        ],
+        "score": 1,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 1.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0
+            ],
+            "mutants_survived": [
+              1
+            ],
+            "score": 1,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": true,
+            "mutants_killed": [
+              0
+            ],
+            "mutants_survived": [
+              1
+            ],
+            "score": 1,
+            "max_score": 2
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 9,
+      "num_mutants": 3,
+      "valid_test": {
+        "passes_on_valid": false,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0,
+          1,
+          2
+        ],
+        "score": 0,
+        "max_score": 3
+      },
+      "mutated_tests": {
+        "count": 3,
+        "average_score": 0.0,
+        "max_score": 3,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1,
+              2
+            ],
+            "score": 0,
+            "max_score": 3
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1,
+              2
+            ],
+            "score": 0,
+            "max_score": 3
+          },
+          {
+            "generated_on_mutant": 2,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1,
+              2
+            ],
+            "score": 0,
+            "max_score": 3
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 10,
+      "num_mutants": 1,
+      "valid_test": {
+        "passes_on_valid": false,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0
+        ],
+        "score": 0,
+        "max_score": 1
+      },
+      "mutated_tests": {
+        "count": 1,
+        "average_score": 0.0,
+        "max_score": 1,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0
+            ],
+            "score": 0,
+            "max_score": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 11,
+      "num_mutants": 1,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [
+          0
+        ],
+        "mutants_survived": [],
+        "score": 1,
+        "max_score": 1
+      },
+      "mutated_tests": {
+        "count": 1,
+        "average_score": 0.0,
+        "max_score": 1,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0
+            ],
+            "score": 0,
+            "max_score": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 12,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0,
+          1
+        ],
+        "score": 0,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 0.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 13,
+      "num_mutants": 1,
+      "valid_test": {
+        "passes_on_valid": false,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0
+        ],
+        "score": 0,
+        "max_score": 1
+      },
+      "mutated_tests": {
+        "count": 1,
+        "average_score": 0.0,
+        "max_score": 1,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0
+            ],
+            "score": 0,
+            "max_score": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 14,
+      "num_mutants": 1,
+      "valid_test": {
+        "passes_on_valid": false,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0
+        ],
+        "score": 0,
+        "max_score": 1
+      },
+      "mutated_tests": {
+        "count": 1,
+        "average_score": 0.0,
+        "max_score": 1,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0
+            ],
+            "score": 0,
+            "max_score": 1
+          }
+        ]
+      }
+    }
+  ]
+}

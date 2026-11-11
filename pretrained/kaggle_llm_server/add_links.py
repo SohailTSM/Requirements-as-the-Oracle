@@ -32,6 +32,7 @@ def main() -> int:
         until = now.replace(hour=int(m.group(1)), minute=int(m.group(2)), second=0, microsecond=0)
         if until < now:                                          # a fresh session ends ~12 h ahead: next day
             until += timedelta(days=1)
+    models = dict(re.findall(r"PRETRAINED_LLM_MODEL_(\d) = (\S+)", text))   # fine-tuned servers (D-117)
     p = re.search(r"\((\d+) parallel requests per GPU\)", text)
     slots = int(p.group(1)) if p else 1
     data = json.loads(STORE.read_text()) if STORE.exists() else {"backends": []}
@@ -39,10 +40,13 @@ def main() -> int:
     for i, url in urls:
         data["backends"].append({"name": f"{name}-{i}", "url": url, "slots": slots,
                                  "valid_until": until.strftime("%Y-%m-%dT%H:%M:%SZ") if until else None})
+        if i in models:
+            data["backends"][-1]["models"] = [models[i]]
     STORE.write_text(json.dumps(data, indent=1))
     os.chmod(STORE, 0o600)
     ist = (until + timedelta(hours=5, minutes=30)).strftime("%H:%M IST") if until else "unknown"
-    print(f"added {', '.join(f'{name}-{i}' for i, _ in urls)} ({slots} slot(s) each, until {ist}); "
+    print(f"added {', '.join(f'{name}-{i}' + (f' [{models[i]}]' if i in models else '') for i, _ in urls)} "
+          f"({slots} slot(s) each, until {ist}); "
           f"{len(data['backends'])} server(s) in total")
     return 0
 

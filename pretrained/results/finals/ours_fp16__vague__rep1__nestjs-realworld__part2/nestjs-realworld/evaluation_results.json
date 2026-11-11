@@ -1,0 +1,205 @@
+{
+  "summary": {
+    "valid_score": 0,
+    "valid_max_score": 9,
+    "valid_percentage": 0.0,
+    "mutated_score": 0.0,
+    "mutated_max_score": 9,
+    "mutated_percentage": 0.0,
+    "total_requirements": 4,
+    "total_tests": 13
+  },
+  "requirements": [
+    {
+      "requirement_id": 5,
+      "num_mutants": 1,
+      "valid_test": {
+        "passes_on_valid": false,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0
+        ],
+        "score": 0,
+        "max_score": 1
+      },
+      "mutated_tests": {
+        "count": 1,
+        "average_score": 0.0,
+        "max_score": 1,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0
+            ],
+            "score": 0,
+            "max_score": 1
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 6,
+      "num_mutants": 4,
+      "valid_test": {
+        "passes_on_valid": true,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "score": 0,
+        "max_score": 4
+      },
+      "mutated_tests": {
+        "count": 4,
+        "average_score": 0.0,
+        "max_score": 4,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": true,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 0,
+            "max_score": 4
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": true,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 0,
+            "max_score": 4
+          },
+          {
+            "generated_on_mutant": 2,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 0,
+            "max_score": 4
+          },
+          {
+            "generated_on_mutant": 3,
+            "passes_on_valid": true,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "score": 0,
+            "max_score": 4
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 7,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": false,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0,
+          1
+        ],
+        "score": 0,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 0.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": 8,
+      "num_mutants": 2,
+      "valid_test": {
+        "passes_on_valid": false,
+        "mutants_killed": [],
+        "mutants_survived": [
+          0,
+          1
+        ],
+        "score": 0,
+        "max_score": 2
+      },
+      "mutated_tests": {
+        "count": 2,
+        "average_score": 0.0,
+        "max_score": 2,
+        "tests": [
+          {
+            "generated_on_mutant": 0,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          },
+          {
+            "generated_on_mutant": 1,
+            "passes_on_valid": false,
+            "mutants_killed": [],
+            "mutants_survived": [
+              0,
+              1
+            ],
+            "score": 0,
+            "max_score": 2
+          }
+        ]
+      }
+    }
+  ]
+}

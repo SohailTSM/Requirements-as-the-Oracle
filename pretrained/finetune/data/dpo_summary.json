@@ -1,6 +1,12 @@
 {
- "pairs_by_service_kind": {},
- "fold_fastapi": 0,
- "fold_nestjs-realworld": 0,
- "fold_todoapp": 0
+ "pairs_by_service_kind": {
+  "fastapi/changed_expectation": 1104,
+  "fastapi/copied_value": 169,
+  "nestjs-realworld/changed_expectation": 101,
+  "nestjs-realworld/copied_value": 14,
+  "todoapp/changed_expectation": 28
+ },
+ "fold_fastapi": 143,
+ "fold_nestjs-realworld": 1301,
+ "fold_todoapp": 1388
 }

@@ -1,0 +1,11 @@
+# Final configuration: default + content full + self-consistency precision (sweep winners, Decision Log D-118).
+name: final
+retrieval: adaptive
+top_k: 5
+precision: self_consistency
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base
+content: full

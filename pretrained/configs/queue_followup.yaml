@@ -1,0 +1,27 @@
+# Follow-up to the ablations (D-124): unrestricted refinement, 3 fresh runs on each wording, all 3 services.
+# Vague first: that is the claim being tested; precise follows if time remains.
+#   .venv/bin/python scripts/run_queue.py configs/queue_followup.yaml
+max_parallel: 10
+defaults:
+  group: finals
+  tool: ours
+
+jobs:
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: vague, rep: 1, services: [fastapi], exp_id: ours_unrestricted__vague__rep1__fastapi}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: vague, rep: 1, services: [nestjs-realworld], exp_id: ours_unrestricted__vague__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: vague, rep: 1, services: [todoapp], exp_id: ours_unrestricted__vague__rep1__todoapp}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: vague, rep: 2, services: [fastapi], exp_id: ours_unrestricted__vague__rep2__fastapi}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: vague, rep: 2, services: [nestjs-realworld], exp_id: ours_unrestricted__vague__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: vague, rep: 2, services: [todoapp], exp_id: ours_unrestricted__vague__rep2__todoapp}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: vague, rep: 3, services: [fastapi], exp_id: ours_unrestricted__vague__rep3__fastapi}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: vague, rep: 3, services: [nestjs-realworld], exp_id: ours_unrestricted__vague__rep3__nestjs-realworld}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: vague, rep: 3, services: [todoapp], exp_id: ours_unrestricted__vague__rep3__todoapp}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: precise, rep: 1, services: [fastapi], exp_id: ours_unrestricted__precise__rep1__fastapi}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: precise, rep: 1, services: [nestjs-realworld], exp_id: ours_unrestricted__precise__rep1__nestjs-realworld}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: precise, rep: 1, services: [todoapp], exp_id: ours_unrestricted__precise__rep1__todoapp}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: precise, rep: 2, services: [fastapi], exp_id: ours_unrestricted__precise__rep2__fastapi}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: precise, rep: 2, services: [nestjs-realworld], exp_id: ours_unrestricted__precise__rep2__nestjs-realworld}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: precise, rep: 2, services: [todoapp], exp_id: ours_unrestricted__precise__rep2__todoapp}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: precise, rep: 3, services: [fastapi], exp_id: ours_unrestricted__precise__rep3__fastapi}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: precise, rep: 3, services: [nestjs-realworld], exp_id: ours_unrestricted__precise__rep3__nestjs-realworld}
+  - {agent_config: configs/agent/final__unrestricted.yaml, variant: precise, rep: 3, services: [todoapp], exp_id: ours_unrestricted__precise__rep3__todoapp}

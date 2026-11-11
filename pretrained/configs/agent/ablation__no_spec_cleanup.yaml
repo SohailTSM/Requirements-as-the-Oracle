@@ -1,0 +1,13 @@
+# Ablation: final configuration with no spec cleanup (spec_cleanup: False, lint: False); D-118.
+name: ablation_no_spec_cleanup
+retrieval: adaptive
+top_k: 5
+precision: self_consistency
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base
+content: full
+spec_cleanup: false
+lint: false

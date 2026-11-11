@@ -14,7 +14,10 @@
 | generation__raw | vague | 0.0 | -12.1 | – | 100.0 |
 | judge__none | vague | 17.0 | +5.0 | 10.9 | 69.8 |
 | judge__restestbench | vague | 14.9 | +2.8 | 8.1 | 77.8 |
+| model__sft | vague | 15.6 | +3.5 | 14.2 | 69.8 |
+| model__sft_dpo | vague | 14.2 | +2.1 | 16.4 | 69.8 |
 | precision__direct_rewrite | vague | 11.3 | -0.7 | 9.6 | 73.0 |
+| precision__finetuned | vague | 17.0 | +5.0 | 16.0 | 66.7 |
 | precision__none | vague | 12.8 | +0.7 | 13.9 | 79.4 |
 | precision__self_consistency | vague | 17.0 | +5.0 | 16.5 | 65.1 |
 | refinement__hidden | vague | 11.3 | -0.7 | 12.5 | 77.8 |

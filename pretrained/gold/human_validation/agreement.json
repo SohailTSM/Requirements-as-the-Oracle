@@ -1,0 +1,53 @@
+{
+ "labellers": 2,
+ "per_labeller": {
+  "u_QEqDg48GphuOyh0KmLImjA": {
+   "gold_checks": {
+    "correct": 62,
+    "wrong": 1
+   },
+   "coverage_gold": {
+    "n": 51,
+    "kappa_vs_llm": 0.054,
+    "agreement": 0.353
+   },
+   "coverage_derived": {
+    "n": 67,
+    "kappa_vs_llm": 0.274,
+    "agreement": 0.597
+   }
+  },
+  "u_zD8qKuBsV8dI9zYbc9wbEQ": {
+   "gold_checks": {
+    "correct": 63
+   },
+   "coverage_gold": {
+    "n": 51,
+    "kappa_vs_llm": 0.014,
+    "agreement": 0.294
+   },
+   "coverage_derived": {
+    "n": 67,
+    "kappa_vs_llm": 0.263,
+    "agreement": 0.597
+   }
+  }
+ },
+ "pooled": {
+  "gold_checks": {
+   "correct": 125,
+   "wrong": 1
+  },
+  "gold_checks_wrong_rate": 0.008,
+  "coverage_gold_kappa_vs_llm": 0.034,
+  "n_coverage_gold": 102,
+  "coverage_derived_kappa_vs_llm": 0.268,
+  "n_coverage_derived": 134
+ },
+ "human_human": {
+  "u_QEqDg48GphuOyh0KmLImjA~u_zD8qKuBsV8dI9zYbc9wbEQ": {
+   "n": 181,
+   "kappa": 0.838
+  }
+ }
+}

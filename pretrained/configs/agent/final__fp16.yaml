@@ -1,0 +1,12 @@
+# fp16 comparison (Plan section 5 D, D-126): the final configuration on 16-bit weights. Same agent as final.yaml;
+# the agent treats "fp16" like "base". The weights come from the fp16 server, the only server attached.
+name: fp16
+retrieval: adaptive
+top_k: 5
+precision: self_consistency
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: fp16
+content: full

@@ -13,7 +13,8 @@ another server takes it; the failed server is checked again every 30 s.
 Servers come from secrets/llm_backends.json (re-read every 30 s; add or remove links any time):
     {"backends": [{"name": "sohail-A1", "url": "https://.../<secret>/v1", "slots": 2,
                    "valid_until": "2026-10-26T19:05:00Z"}, ...]}
-`name` appears in logs; the URL (with its secret) never does.
+`name` appears in logs; the URL (with its secret) never does. A server with `"models": [...]` gets
+only requests for those models (fine-tuned servers, one model per GPU, D-117); one without takes any.
 
 GET /status : queue length, waiting ages, per-server slots/busy/served/errors/alive (JSON)
 GET /health : 200 if at least one server is usable
@@ -42,9 +43,10 @@ RETRY_STATUS = {502, 503, 504, 520, 521, 522, 523, 524, 525, 526, 530}
 
 
 class Backend:
-    def __init__(self, name, url, slots, valid_until):
+    def __init__(self, name, url, slots, valid_until, models=None):
         self.name, self.url, self.slots = name, url.rstrip("/"), max(1, int(slots))
         self.valid_until = valid_until
+        self.models = set(models) if models else None
         self.busy = 0
         self.alive = True
         self.next_check = 0.0
@@ -59,12 +61,16 @@ class Backend:
     def free(self, now):
         return self.usable(now) and self.busy < self.slots
 
+    def serves(self, model):
+        return self.models is None or model in self.models
+
 
 class Item:
-    __slots__ = ("method", "path", "body", "ctype", "key", "t0", "attempts", "fut", "tried")
+    __slots__ = ("method", "path", "body", "ctype", "key", "model", "t0", "attempts", "fut", "tried")
 
-    def __init__(self, method, path, body, ctype, key):
+    def __init__(self, method, path, body, ctype, key, model=None):
         self.method, self.path, self.body, self.ctype, self.key = method, path, body, ctype, key
+        self.model = model
         self.t0 = time.time()
         self.attempts = 0
         self.tried = []
@@ -96,8 +102,9 @@ class Dispatcher:
             if name in self.backends and self.backends[name].url == b["url"].rstrip("/"):
                 be = self.backends[name]
                 be.slots, be.valid_until = max(1, int(b.get("slots", 1))), vu
+                be.models = set(b["models"]) if b.get("models") else None
             else:
-                self.backends[name] = Backend(name, b["url"], b.get("slots", 1), vu)
+                self.backends[name] = Backend(name, b["url"], b.get("slots", 1), vu, b.get("models"))
         for name in list(self.backends):
             if name not in seen and self.backends[name].busy == 0:
                 del self.backends[name]
@@ -127,11 +134,12 @@ class Dispatcher:
     def pick(self, item, now):
         """The conversation's last server if free, else the free server with the most free slots."""
         last = self.affinity.get(item.key)
-        if last in self.backends and self.backends[last].free(now) and last not in item.tried[-1:]:
+        if (last in self.backends and self.backends[last].free(now) and self.backends[last].serves(item.model)
+                and last not in item.tried[-1:]):
             return self.backends[last]
-        free = [b for b in self.backends.values() if b.free(now) and b.name not in item.tried[-1:]]
+        free = [b for b in self.backends.values() if b.free(now) and b.serves(item.model) and b.name not in item.tried[-1:]]
         if not free:
-            free = [b for b in self.backends.values() if b.free(now)]
+            free = [b for b in self.backends.values() if b.free(now) and b.serves(item.model)]
         if not free:
             return None
         return max(free, key=lambda b: (b.slots - b.busy, -b.busy_s))
@@ -141,15 +149,18 @@ class Dispatcher:
             await self.wake.wait()
             self.wake.clear()
             now = time.time()
-            while self.queue:
-                item = self.queue[0]
+            blocked = set()                               # models with no free server this round
+            for item in list(self.queue):                 # FIFO per model: a busy model does not hold up others
                 if item.fut.done():
-                    self.queue.popleft()
+                    self.queue.remove(item)
+                    continue
+                if item.model in blocked:
                     continue
                 be = self.pick(item, now)
                 if be is None:
-                    break
-                self.queue.popleft()
+                    blocked.add(item.model)
+                    continue
+                self.queue.remove(item)
                 be.busy += 1
                 asyncio.create_task(self.run(item, be))
 
@@ -214,6 +225,8 @@ class Dispatcher:
             rec.update(prompt_tokens=u.get("prompt_tokens"), completion_tokens=u.get("completion_tokens"))
         except Exception:
             pass
+        if status != 200:                       # keep the server's reason (D-118: 500s with unknown cause)
+            rec["error"] = body[:300].decode(errors="replace")
         with LOG_FILE.open("a") as f:
             f.write(json.dumps(rec) + "\n")
 
@@ -223,13 +236,14 @@ class Dispatcher:
         if not path.startswith("/v1"):
             return web.json_response({"error": "use /v1/..."}, status=404)
         body = await request.read()
-        key = "-"
+        key, model = "-", None
         try:
-            msgs = json.loads(body).get("messages") or []
+            req = json.loads(body)
+            msgs, model = req.get("messages") or [], req.get("model")
             key = hashlib.sha1(json.dumps(msgs[:2], sort_keys=True).encode()).hexdigest()[:16]
         except Exception:
             pass
-        item = Item(request.method, path[3:], body, request.headers.get("Content-Type", "application/json"), key)
+        item = Item(request.method, path[3:], body, request.headers.get("Content-Type", "application/json"), key, model)
         self.totals["requests"] += 1
         self.queue.append(item)
         self.wake.set()
@@ -243,7 +257,7 @@ class Dispatcher:
             "oldest_wait_s": round(now - self.queue[0].t0, 1) if self.queue else 0,
             "slots_total": sum(b.slots for b in self.backends.values() if b.usable(now)),
             "busy_total": sum(b.busy for b in self.backends.values()), "totals": self.totals,
-            "servers": [{"name": b.name, "alive": b.alive, "usable": b.usable(now), "slots": b.slots, "busy": b.busy,
+            "servers": [{"name": b.name, "models": sorted(b.models) if b.models else None, "alive": b.alive, "usable": b.usable(now), "slots": b.slots, "busy": b.busy,
                          "served": b.served, "errors": b.errors, "busy_s": round(b.busy_s),
                          "ends_in_h": round((b.valid_until - now) / 3600, 2) if b.valid_until else None}
                         for b in self.backends.values()]})

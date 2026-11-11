@@ -1,0 +1,16 @@
+{
+ "id": "sohailmemon/pretrained-llm-ft-a",
+ "title": "pretrained-llm-ft-a",
+ "code_file": "pretrained_llm_ft_server.ipynb",
+ "language": "python",
+ "kernel_type": "notebook",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_internet": true,
+ "machine_shape": "NvidiaTeslaT4",
+ "dataset_sources": [],
+ "competition_sources": [],
+ "kernel_sources": [
+  "sohailmemon/pretrained-sft-export-gguf"
+ ]
+}

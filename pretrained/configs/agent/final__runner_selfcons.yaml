@@ -1,0 +1,10 @@
+# Runner-up 2: default + self-consistency precision (D-118).
+name: runner_selfcons
+retrieval: adaptive
+top_k: 5
+precision: self_consistency
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base

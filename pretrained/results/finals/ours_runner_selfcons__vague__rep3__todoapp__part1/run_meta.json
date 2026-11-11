@@ -1,0 +1,43 @@
+{
+  "exp_id": "ours_runner_selfcons__vague__rep3__todoapp__part1",
+  "group": "finals",
+  "tool": "ours",
+  "variant": "vague",
+  "rep": 3,
+  "services": [
+    "todoapp"
+  ],
+  "requirements": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "self_consistency",
+    "generation": "plan",
+    "refinement": "combined",
+    "judge": "evidence",
+    "architecture": "pipeline",
+    "model": "base",
+    "name": "runner_selfcons"
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "21575fadbe39f887c805facb848e6728a6822159",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "original",
+  "started": "2026-11-03T04:37:32",
+  "finished": "2026-11-03T05:20:30",
+  "seconds": 2578.3,
+  "status": "ok",
+  "llm_requests": 121,
+  "input_tokens": 156564,
+  "output_tokens": 21145
+}

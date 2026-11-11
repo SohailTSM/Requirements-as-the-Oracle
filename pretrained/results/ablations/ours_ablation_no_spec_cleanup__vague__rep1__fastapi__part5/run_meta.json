@@ -1,0 +1,45 @@
+{
+  "exp_id": "ours_ablation_no_spec_cleanup__vague__rep1__fastapi__part5",
+  "group": "ablations",
+  "tool": "ours",
+  "variant": "vague",
+  "rep": 1,
+  "services": [
+    "fastapi"
+  ],
+  "requirements": [
+    53,
+    54,
+    55,
+    56,
+    57,
+    58
+  ],
+  "agent_config": {
+    "retrieval": "adaptive",
+    "top_k": 5,
+    "precision": "self_consistency",
+    "generation": "plan",
+    "refinement": "combined",
+    "judge": "evidence",
+    "architecture": "pipeline",
+    "model": "base",
+    "name": "ablation_no_spec_cleanup",
+    "content": "full",
+    "spec_cleanup": false,
+    "lint": false
+  },
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "model_server": "http://127.0.0.1:11500/v1",
+  "model_settings": "Ollama llama3.1:8b Q4_K_M, num_ctx 24576, flash attention, q8_0 KV cache",
+  "project_commit": "21575fadbe39f887c805facb848e6728a6822159",
+  "harness_commit": "4decc1e36ea3dd41b64ce3e3ac6a85bc72df36ae",
+  "harness_instance": "harness-fastapi-b",
+  "started": "2026-11-07T01:15:23",
+  "finished": "2026-11-07T01:39:41",
+  "seconds": 1458.0,
+  "status": "ok",
+  "llm_requests": 87,
+  "input_tokens": 131246,
+  "output_tokens": 17427
+}

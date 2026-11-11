@@ -1,0 +1,11 @@
+# Runner-up 1: default + content full (best single sweep variant, D-118).
+name: runner_content
+retrieval: adaptive
+top_k: 5
+precision: catalogue
+generation: plan
+refinement: combined
+judge: evidence
+architecture: pipeline
+model: base
+content: full

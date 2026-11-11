@@ -1,0 +1,277 @@
+{
+  "items": {
+    "cov-fastapi-10": {
+      "D1": "match",
+      "D2": "match",
+      "G1": "full",
+      "G2": "none"
+    },
+    "cov-fastapi-11": {
+      "D1": "match",
+      "D2": "extra",
+      "D3": "contradiction",
+      "G1": "partial",
+      "G2": "none"
+    },
+    "cov-fastapi-14": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "match",
+      "G1": "partial",
+      "G2": "full"
+    },
+    "cov-fastapi-18": {
+      "D1": "match",
+      "D2": "extra",
+      "D3": "match",
+      "G1": "partial",
+      "G2": "none",
+      "G3": "none"
+    },
+    "cov-fastapi-3": {
+      "D1": "extra",
+      "D2": "match",
+      "G1": "full",
+      "G2": "none"
+    },
+    "cov-fastapi-30": {
+      "D1": "match",
+      "D2": "extra",
+      "D3": "match",
+      "D4": "match",
+      "D5": "match",
+      "G1": "partial",
+      "G2": "none",
+      "G3": "full",
+      "G4": "none",
+      "G5": "full"
+    },
+    "cov-fastapi-4": {
+      "D1": "match",
+      "D2": "extra",
+      "D3": "contradiction",
+      "G1": "partial",
+      "G2": "none"
+    },
+    "cov-fastapi-48": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "match",
+      "G1": "full"
+    },
+    "cov-fastapi-57": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "extra",
+      "D4": "extra",
+      "G1": "full"
+    },
+    "cov-fastapi-8": {
+      "D1": "match",
+      "D2": "extra",
+      "D3": "extra",
+      "G1": "partial",
+      "G2": "none"
+    },
+    "cov-nestjs-realworld-14": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "match",
+      "D4": "extra",
+      "G1": "partial",
+      "G2": "full",
+      "G3": "partial"
+    },
+    "cov-nestjs-realworld-22": {
+      "D1": "extra",
+      "D2": "match",
+      "D3": "match",
+      "G1": "full",
+      "G2": "full"
+    },
+    "cov-nestjs-realworld-25": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "match",
+      "D4": "match",
+      "G1": "full",
+      "G2": "full",
+      "G3": "full"
+    },
+    "cov-nestjs-realworld-26": {
+      "D1": "extra",
+      "D2": "contradiction",
+      "D3": "match",
+      "D4": "extra",
+      "G1": "partial",
+      "G2": "partial",
+      "G3": "partial"
+    },
+    "cov-nestjs-realworld-7": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "match",
+      "D4": "extra",
+      "G1": "partial",
+      "G2": "full",
+      "G3": "none",
+      "G4": "none",
+      "G5": "partial"
+    },
+    "cov-nestjs-realworld-9": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "contradiction",
+      "D4": "match",
+      "G1": "none",
+      "G2": "partial",
+      "G3": "full",
+      "G4": "partial",
+      "G5": "full"
+    },
+    "cov-todoapp-12": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "contradiction",
+      "G1": "partial",
+      "G2": "full"
+    },
+    "cov-todoapp-13": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "extra",
+      "D4": "extra",
+      "G1": "full",
+      "G2": "none"
+    },
+    "cov-todoapp-2": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "match",
+      "G1": "full",
+      "G2": "full"
+    },
+    "cov-todoapp-8": {
+      "D1": "match",
+      "D2": "match",
+      "D3": "contradiction",
+      "G1": "partial",
+      "G2": "full"
+    },
+    "gold-fastapi-14": {
+      "G1": "correct",
+      "G2": "correct"
+    },
+    "gold-fastapi-21": {
+      "G1": "wrong",
+      "G2": "correct",
+      "G3": "correct",
+      "G4": "correct",
+      "note": "For G1, the check should be “response body is non-empty”"
+    },
+    "gold-fastapi-30": {
+      "G1": "correct",
+      "G2": "correct",
+      "G3": "correct",
+      "G4": "correct",
+      "G5": "correct"
+    },
+    "gold-fastapi-31": {
+      "G1": "correct",
+      "G2": "correct"
+    },
+    "gold-fastapi-32": {
+      "G1": "correct",
+      "G2": "correct"
+    },
+    "gold-fastapi-4": {
+      "G1": "correct",
+      "G2": "correct"
+    },
+    "gold-fastapi-42": {
+      "G1": "correct",
+      "G2": "correct"
+    },
+    "gold-fastapi-48": {
+      "G1": "correct"
+    },
+    "gold-fastapi-50": {
+      "G1": "correct"
+    },
+    "gold-fastapi-51": {
+      "G1": "correct"
+    },
+    "gold-fastapi-53": {
+      "G1": "correct"
+    },
+    "gold-fastapi-60": {
+      "G1": "correct"
+    },
+    "gold-nestjs-realworld-11": {
+      "G1": "correct",
+      "G2": "correct",
+      "G3": "correct",
+      "G4": "correct"
+    },
+    "gold-nestjs-realworld-17": {
+      "G1": "correct",
+      "G2": "correct"
+    },
+    "gold-nestjs-realworld-2": {
+      "G1": "correct",
+      "G2": "correct",
+      "G3": "correct",
+      "G4": "correct",
+      "G5": "correct"
+    },
+    "gold-nestjs-realworld-29": {
+      "G1": "correct",
+      "G2": "correct",
+      "G3": "correct"
+    },
+    "gold-nestjs-realworld-3": {
+      "G1": "correct",
+      "G2": "correct",
+      "G3": "correct",
+      "G4": "correct",
+      "G5": "correct"
+    },
+    "gold-nestjs-realworld-5": {
+      "G1": "correct",
+      "G2": "correct",
+      "G3": "correct"
+    },
+    "gold-nestjs-realworld-7": {
+      "G1": "correct",
+      "G2": "correct",
+      "G3": "correct",
+      "G4": "correct",
+      "G5": "correct"
+    },
+    "gold-nestjs-realworld-8": {
+      "G1": "correct",
+      "G2": "correct",
+      "G3": "correct"
+    },
+    "gold-todoapp-12": {
+      "G1": "correct",
+      "G2": "correct"
+    },
+    "gold-todoapp-2": {
+      "G1": "correct",
+      "G2": "correct"
+    },
+    "gold-todoapp-4": {
+      "G1": "correct"
+    },
+    "gold-todoapp-7": {
+      "G1": "correct"
+    },
+    "gold-todoapp-9": {
+      "G1": "correct",
+      "G2": "correct",
+      "G3": "correct"
+    }
+  },
+  "updated": "2026-11-10T18:43:35.880Z"
+}
