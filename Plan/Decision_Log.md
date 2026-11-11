@@ -787,3 +787,11 @@ _New decisions are added here as they are made._
   - conclusion and future work, acknowledgment, references.
 - **Numbers:** all taken from the final report and `stats.md` (D-128). "Wrong check" in the failure chart = 112 (judge blamed the API) + 12 (rounds exhausted).
 - **Charts:** native, so they stay editable in PowerPoint. Palette: purple #6A3FB0 + orange #CC6424, which passed the colour-blindness and contrast validator on the panel colour.
+
+## D-130 — Final report headings follow the TA's required structure (11 Nov, IST)
+- The TA asked for: Abstract, Introduction, Literature Review, Dataset created/used, Methodology, Experiment runs, Ablations, Evaluations, Limitations, Conclusions, References, plus an updated GitHub link and a README for reproducibility.
+- Renamed: "Problem and motivation" → Introduction, "Related work" → Literature review, "Method" → Methodology, "Experimental setup" → Experiment runs, "Results" → Evaluation.
+- New section **Dataset**: the RESTestBench paragraph moved there from the setup, plus the data we built (gold operations, 268 gold checks with their provenance stated, 10 reference plans, 181 human labels, SFT/DPO data).
+- RQ3 moved out of the results into its own section **Ablations** (after the evaluation, unchanged text).
+- The Reproducibility appendix now gives the repository URL and points to the README. README: install line names `harness/requirements.txt` and Docker explicitly.
+- Why: graders check the report against the list by name; the content was already there, only the headings and the dataset description were missing. Still 11 pages, no numbers changed.

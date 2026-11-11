@@ -61,7 +61,7 @@ LLM-generated API tests are only useful if they encode the \emph{expected} behav
 \end{abstract}
 
 %-------------------------------------------------------------------- 1
-\section{Problem and motivation}
+\section{Introduction}
 Crash-oriented REST testing tools (EvoMaster, RESTler, AutoRestTest~\cite{autoresttest}) use HTTP 5xx or schema violations as the oracle. A requirement violation that returns \texttt{200~OK}, such as a user deleting another user's data, is invisible to them. Catching such bugs needs the expected behaviour, which lives in natural-language requirements.
 
 RESTestBench~\cite{restestbench} measured how well LLMs turn requirements into tests. Results are good with precise requirements but collapse with vague ones, the realistic case. A refinement loop (run, read the HTTP trace, regenerate) helps, but on a faulty service the model ``adapts its assertions to match the faulty behaviour'': the refined test encodes the bug as correct. The paper measures this effect but proposes no remedy. LLM-generated oracles are known to capture actual rather than expected behaviour~\cite{konstantinou}.
@@ -71,7 +71,7 @@ Our re-analysis of RESTestBench's released files (proposal, \S5.1) found that th
 \textbf{Target user.} Backend and QA engineers who have user stories and an OpenAPI specification, and want tests that check behaviour, cheaply enough to run with a small local model.
 
 %-------------------------------------------------------------------- 2
-\section{Related work}
+\section{Literature review}
 \begin{itemize}
 \item \textbf{Crash/schema fuzzers:} AutoRestTest~\cite{autoresttest}, LlamaRestTest~\cite{llamaresttest}, Schemathesis. Their oracle cannot see 200-returning logic bugs. We include Schemathesis as baseline E.
 \item \textbf{Response-judging agents:} LogiAgent~\cite{logiagent}, ARMeta~\cite{armeta}. The judge sees the response before deciding, so it shares the bias we target. We include a LogiAgent-style judge as baseline B4.
@@ -89,7 +89,27 @@ Our re-analysis of RESTestBench's released files (proposal, \S5.1) found that th
 \textbf{H1:} deriving implied checks raises the score on vague requirements well above single-step generation. \textbf{H2:} with restricted refinement, the adaptation gap is $\approx0$ and false alarms are no higher than with unrestricted refinement. \textbf{H3:} tool-based execution sharply reduces tests that fail on the correct service.
 
 %-------------------------------------------------------------------- 4
-\section{Method}
+\section{Dataset}
+\textbf{Benchmark used: RESTestBench}~\cite{restestbench}, released with its paper:
+\begin{itemize}
+\item FastAPI (Python), NestJS RealWorld (TypeScript) and TodoApp (.NET), run in Docker;
+\item 63 / 29 / 14 requirements, each in a vague and a precise wording;
+\item 141 / 65 / 22 hand-written planted bugs (mutants);
+\item the unmodified scoring harness.
+\end{itemize}
+The agent sees only the requirement text and the specification. FastAPI was the development service; NestJS and TodoApp were held out from every design decision.
+
+\textbf{Data we created.} RESTestBench has no labels below the test level, so we built the following (all in \texttt{pretrained/gold/} and \texttt{pretrained/finetune/} in the repository):
+\begin{itemize}
+\item \textbf{Gold operations} for all 106 requirements: the API operations each reference test calls, parsed from the benchmark's reference tests with the Python AST and matched to the specification. They are the ground truth for retrieval Recall@5 and MRR.
+\item \textbf{Gold checks:} 268 atomic expected-behaviour checks (FastAPI 148, NestJS 94, TodoApp 26), drafted with an AI assistant by splitting the precise requirements, which are human-written. They are the ground truth for the precision layer and the SFT targets. Two humans validated a sample of them (\S\ref{sec:human}).
+\item \textbf{Reference plans:} 10 JSON plans for FastAPI requirements, used to test the compiler and runtime.
+\item \textbf{Human labels:} 181 items over 45 requirements (stratified, fixed seed), labelled independently by two team members (\S\ref{sec:human}).
+\item \textbf{Fine-tuning data:} SFT examples (vague requirement $\to$ checks) in leave-one-service-out folds of 86 / 154 / 184 examples; DPO preference pairs from our own refinement histories, with the guarded plan preferred over the plan that copied or changed an expected value to the observed one (1{,}273 pairs from FastAPI runs; 143 from NestJS and TodoApp, which form the FastAPI-held-out fold, the only one trained).
+\end{itemize}
+
+%-------------------------------------------------------------------- 4
+\section{Methodology}
 \begin{figure}[H]\centering
 \begin{tikzpicture}[node distance=4mm and 5mm, box/.style={draw=accent, fill=soft, rounded corners=2pt, align=center, font=\small, minimum height=9mm, inner sep=3pt}, arr/.style={-{Stealth[length=2mm]}, accent, thick}]
 \node[box] (ret) {Retrieval (RAG)\\\scriptsize adaptive hybrid + reranker};
@@ -132,16 +152,7 @@ Our re-analysis of RESTestBench's released files (proposal, \S5.1) found that th
 We also built and compared these alternatives in a component sweep: a single ReAct agent with tools; multi-persona and blackboard multi-agent designs; tools exposed over an MCP server; reviewer and debugger agents over A2A; and three amounts of content passed between agents (full trace, summary, verdict only).
 
 %-------------------------------------------------------------------- 5
-\section{Experimental setup}
-\textbf{Benchmark.} RESTestBench~\cite{restestbench}:
-\begin{itemize}
-\item FastAPI (Python), NestJS RealWorld (TypeScript) and TodoApp (.NET), run in Docker;
-\item 63 / 29 / 14 requirements, each in a vague and a precise wording;
-\item 141 / 65 / 22 hand-written planted bugs (mutants);
-\item the unmodified scoring harness.
-\end{itemize}
-The agent sees only the requirement text and the specification. FastAPI was the development service; NestJS and TodoApp were held out from every design decision.
-
+\section{Experiment runs}
 \textbf{Model and compute.}
 \begin{itemize}
 \item Every LLM role, ours and the baselines', uses Llama~3.1~8B Instruct, 4-bit Q4\_K\_M, under Ollama: 24k context, temperature 0.2, at most 3 refinement rounds.
@@ -183,7 +194,7 @@ The agent sees only the requirement text and the specification. FastAPI was the 
 \end{itemize}
 
 %-------------------------------------------------------------------- 6
-\section{Results}
+\section{Evaluation}
 \subsection{RQ1: vague requirements}
 \begin{table}[H]\centering\small\setlength{\tabcolsep}{4.5pt}
 \begin{tabular}{llrrrrrr}\toprule
@@ -270,47 +281,6 @@ Ours, unrestricted & precise & $-1.1$\pm2.1 & 0.20 & -- & 135 / 932 (14.5\%)\\
 \end{itemize}
 So H2 is supported for the pipeline, not for the guard alone. The restriction is cheap insurance that removes visible tampering; on this benchmark it shows no measurable effect on scores.
 
-\subsection{RQ3: which components matter}
-\begin{figure}[H]\centering
-\begin{minipage}[c]{0.5\linewidth}\centering
-\includegraphics[width=\linewidth]{figures/ablations.pdf}
-\end{minipage}\hfill
-\begin{minipage}[c]{0.47\linewidth}\small
-\begin{tabular}{lrr}\toprule
-Removed (vague, 1 run) & All & Fail-OK\\\midrule
-final (3 runs) & 12.7 & 70.4\\
-executor (raw pytest) & 0.9 & 98.1\\
-spec clean-up / lint & 5.3 & 85.8\\
-precision layer & 12.7 & 75.5\\
-retrieval (full spec) & 12.7 & 71.7\\
-format relaxation & 13.2 & 74.5\\
-judge & 14.5 & 65.1\\
-restricted refinement & 20.6 & 60.4\\
-\bottomrule\end{tabular}
-\end{minipage}
-\caption{Ablations: the final configuration minus one component, all services, vague. The grey band is the range of the final's own 3 runs (9.6--14.5). ``Restricted refinement'' was re-run 3 times: 15.5\pm3.3, $\Delta=+2.8$, $p=0.27$, so its single +7.9 did not replicate.}
-\label{fig:abl}
-\end{figure}
-\begin{itemize}
-\item \textbf{Clear effects: the executor and specification clean-up (support H3).}
-  \begin{itemize}
-  \item Without the plan-and-compile executor, 98\% of tests fail on the correct service and the score falls to 0.9\%. The model writes placeholders such as \texttt{Bearer YOUR\_TOKEN}.
-  \item Without clean-up and lint the score falls to 5.3\%. The clean-up fires constantly: per 1{,}002 generated tests (vague) it dropped 443 impossible checks, replaced 253 invented credentials, generalised 252 unstated status codes and redirected 143 references.
-  \end{itemize}
-\item \textbf{No measurable effect:} the precision layer, retrieval and format relaxation each leave the score at 12.7--13.2. Removing the judge raises caught slightly (14.5) but lowers mutant-gen (14.8 $\to$ 10.4), consistent with the judge acting as an early stop on buggy services. These are single runs inside the noise band.
-\item \textbf{Combining the sweep's winners did not add up.} The final adds two sweep winners (full-trace content $+6.4$, self-consistency $+5.0$, single runs) to the default. In the finals, removing either one does not lower the score: the two runner-ups score 0.9 and 3.7 points \emph{higher} than the final, both n.s. The final configuration's own runs spread from 9.6 to 14.5, so single-run differences under about $\pm6$ points are not readable. We report this as a methodological lesson: the sweep's single runs over-selected noise.
-\item \textbf{Fine-tuning shows no effect beyond noise.} SFT of the precision layer took 23--47 minutes per fold on a T4 (86/154/184 examples, final loss 0.19--0.35). DPO on the FastAPI-held-out fold had 143 pairs, loss $0.69\to0.14$, and took 133 minutes including export. On FastAPI (single sweep runs) the fine-tuned precision layer scored 17.0, SFT as the whole model 15.6 and SFT+DPO 14.2, against the default's 11.3--13.5. All are inside the noise, so the two larger DPO folds were not trained.
-\item \textbf{Architecture.} A single ReAct agent with tools scored 5.0 and a blackboard design 3.5, against 12.0 for the fixed pipeline. Over 2{,}069 ReAct turns:
-  \begin{itemize}
-  \item 66\% were well-formed tool calls;
-  \item 12\% wrote the call as plain text (we unwrap and execute these);
-  \item 22\% called no tool at all;
-  \item 25\% of generations ended in the fallback planner.
-  \end{itemize}
-  The 8B model is not a reliable controller, which is why the final design keeps control in code. MCP (12.1) and A2A (14.9) transport was neutral.
-\item \textbf{4-bit vs fp16.} One fp16 run scored 13.6 against 12.7\pm2.7 for 4-bit ($\Delta=-0.9$, $p=0.54$; mutant-gen 14.3 vs 14.8). We found no measurable quantisation penalty, so reporting on 4-bit is justified.
-\end{itemize}
-
 \subsection{Intermediate steps, per capability}\label{sec:steps}
 \begin{table}[H]\centering\small
 \begin{tabularx}{\linewidth}{@{}P{2.6cm}LP{5.0cm}@{}}\toprule
@@ -328,7 +298,7 @@ Cost & LLM calls / tokens / seconds per generated test & 7.7 / 13.9k / 123 s (va
 \end{table}
 \textbf{The judge.} It answered \textsc{API\_BUG} for every failure on the correct service (212 of 213), and returned \textsc{TEST\_BUG} only 2 times in 826 verdicts. The 8B judge does not discriminate; it works as a stop rule. This matches the baselines: B3's judge answered \textsc{API\_BUG} in 36 of 36 TodoApp rounds. An evidence-restricted judge needs a stronger model than 8B.
 
-\subsection{Human validation of the LLM judge}
+\subsection{Human validation of the LLM judge}\label{sec:human}
 Sohail and Kathan independently labelled 181 items (45 requirements, stratified sample):
 \begin{itemize}
 \item 63 judgements of whether a gold check is correct;
@@ -378,6 +348,48 @@ The two dominant failures are wrong checks (39\% vague) and setup errors (27\% v
 \end{itemize}
 
 %-------------------------------------------------------------------- 7
+\section{Ablations (RQ3: which components matter)}
+\begin{figure}[H]\centering
+\begin{minipage}[c]{0.5\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/ablations.pdf}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.47\linewidth}\small
+\begin{tabular}{lrr}\toprule
+Removed (vague, 1 run) & All & Fail-OK\\\midrule
+final (3 runs) & 12.7 & 70.4\\
+executor (raw pytest) & 0.9 & 98.1\\
+spec clean-up / lint & 5.3 & 85.8\\
+precision layer & 12.7 & 75.5\\
+retrieval (full spec) & 12.7 & 71.7\\
+format relaxation & 13.2 & 74.5\\
+judge & 14.5 & 65.1\\
+restricted refinement & 20.6 & 60.4\\
+\bottomrule\end{tabular}
+\end{minipage}
+\caption{Ablations: the final configuration minus one component, all services, vague. The grey band is the range of the final's own 3 runs (9.6--14.5). ``Restricted refinement'' was re-run 3 times: 15.5\pm3.3, $\Delta=+2.8$, $p=0.27$, so its single +7.9 did not replicate.}
+\label{fig:abl}
+\end{figure}
+\begin{itemize}
+\item \textbf{Clear effects: the executor and specification clean-up (support H3).}
+  \begin{itemize}
+  \item Without the plan-and-compile executor, 98\% of tests fail on the correct service and the score falls to 0.9\%. The model writes placeholders such as \texttt{Bearer YOUR\_TOKEN}.
+  \item Without clean-up and lint the score falls to 5.3\%. The clean-up fires constantly: per 1{,}002 generated tests (vague) it dropped 443 impossible checks, replaced 253 invented credentials, generalised 252 unstated status codes and redirected 143 references.
+  \end{itemize}
+\item \textbf{No measurable effect:} the precision layer, retrieval and format relaxation each leave the score at 12.7--13.2. Removing the judge raises caught slightly (14.5) but lowers mutant-gen (14.8 $\to$ 10.4), consistent with the judge acting as an early stop on buggy services. These are single runs inside the noise band.
+\item \textbf{Combining the sweep's winners did not add up.} The final adds two sweep winners (full-trace content $+6.4$, self-consistency $+5.0$, single runs) to the default. In the finals, removing either one does not lower the score: the two runner-ups score 0.9 and 3.7 points \emph{higher} than the final, both n.s. The final configuration's own runs spread from 9.6 to 14.5, so single-run differences under about $\pm6$ points are not readable. We report this as a methodological lesson: the sweep's single runs over-selected noise.
+\item \textbf{Fine-tuning shows no effect beyond noise.} SFT of the precision layer took 23--47 minutes per fold on a T4 (86/154/184 examples, final loss 0.19--0.35). DPO on the FastAPI-held-out fold had 143 pairs, loss $0.69\to0.14$, and took 133 minutes including export. On FastAPI (single sweep runs) the fine-tuned precision layer scored 17.0, SFT as the whole model 15.6 and SFT+DPO 14.2, against the default's 11.3--13.5. All are inside the noise, so the two larger DPO folds were not trained.
+\item \textbf{Architecture.} A single ReAct agent with tools scored 5.0 and a blackboard design 3.5, against 12.0 for the fixed pipeline. Over 2{,}069 ReAct turns:
+  \begin{itemize}
+  \item 66\% were well-formed tool calls;
+  \item 12\% wrote the call as plain text (we unwrap and execute these);
+  \item 22\% called no tool at all;
+  \item 25\% of generations ended in the fallback planner.
+  \end{itemize}
+  The 8B model is not a reliable controller, which is why the final design keeps control in code. MCP (12.1) and A2A (14.9) transport was neutral.
+\item \textbf{4-bit vs fp16.} One fp16 run scored 13.6 against 12.7\pm2.7 for 4-bit ($\Delta=-0.9$, $p=0.54$; mutant-gen 14.3 vs 14.8). We found no measurable quantisation penalty, so reporting on 4-bit is justified.
+\end{itemize}
+
+%-------------------------------------------------------------------- 7
 \section{Discussion: hypotheses}
 \begin{itemize}
 \item \textbf{H1: partly supported.} The full pipeline beats single-step generation clearly on vague requirements (+10.1, $p<0.001$). However, the precision layer itself does not account for it: removing it leaves the score unchanged, and human labels show it recovers only 29--41\% of gold checks fully. The gain comes from executable structure, not from deriving implied properties.
@@ -423,6 +435,7 @@ We thank our course instructor, Prof.~Vasudeva Varma, and the TAs for their guid
 
 \section{Reproducibility}
 \begin{itemize}
+\item \textbf{Repository:} \url{https://github.com/SohailTSM/Requirements-as-the-Oracle}. Its \texttt{README.md} gives the setup, the commands to run one job or a whole queue, and the commands that rebuild every table and figure.
 \item \textbf{Code:} the agent (\texttt{pretrained/agent/}), baselines (\texttt{tools\_ext/}), the queue runner and dispatcher (\texttt{scripts/}), fine-tuning jobs (\texttt{finetune/}) and server notebooks (\texttt{kaggle\_llm\_server/}) are in the repository.
 \item \textbf{Configurations:} every configuration is a YAML file in \texttt{configs/agent/}.
 \item \textbf{Results:} every reported number is regenerated from the result files by \texttt{make\_tables.py}, \texttt{final\_stats.py} and \texttt{make\_figures.py}.

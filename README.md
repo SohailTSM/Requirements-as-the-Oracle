@@ -55,8 +55,8 @@ Full write-up: [`Reports/Final/PreTrained_Final.pdf`](Reports/Final/PreTrained_F
 ```bash
 git clone --recurse-submodules https://github.com/SohailTSM/Requirements-as-the-Oracle
 cd Requirements-as-the-Oracle/pretrained
-python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-# + the harness's own requirements and Docker (the services run in containers)
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt -r harness/requirements.txt
+# Docker is also needed: the three services run in containers (see harness/README.md)
 ```
 
 1. **Serve the model.** You need an OpenAI-compatible endpoint for Llama 3.1 8B Q4_K_M with a 24k context. There are two ways:
