@@ -14,7 +14,7 @@ _Last update: Wed 11 Nov 2026, IST. Every decision and its reason is logged in [
 - **Statistics (D-128).**
   - `scripts/final_stats.py` writes `results/tables/stats.md`: paired Wilcoxon per requirement with Holm correction, bootstrap CIs, adaptation gaps, value copying, step-level metrics, failure taxonomy and human-labelled precision.
   - `scripts/make_figures.py` writes the report figures.
-- **Final report:** `Reports/Final/PreTrained_Final.tex` / `.pdf` (11 pages).
+- **Final report:** `Reports/Final/PreTrained_Final.tex` / `.pdf` (9 pages including references).
 - **Final slides:** `Presentation/PreTrained_Final.pptx` (16 slides, with speaker notes; kept out of git like the proposal deck). Generator: `Presentation/build_final_deck.js`.
 - **Repository:** root `README.md` and `pretrained/requirements.txt`.
 

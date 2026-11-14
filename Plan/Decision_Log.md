@@ -795,3 +795,9 @@ _New decisions are added here as they are made._
 - RQ3 moved out of the results into its own section **Ablations** (after the evaluation, unchanged text).
 - The Reproducibility appendix now gives the repository URL and points to the README. README: install line names `harness/requirements.txt` and Docker explicitly.
 - Why: graders check the report against the list by name; the content was already there, only the headings and the dataset description were missing. Still 11 pages, no numbers changed.
+
+## D-131 — Final report cut to 9 pages in simpler language (14 Nov, IST)
+- Requested by Sohail: the report must be 9 pages including references, in simpler language.
+- Rewritten throughout with shorter sentences and terms explained where they first appear (mutant, mutant-gen, adaptation gap, oracle). "Refinement" is called "repair" in the text; the precision layer is called "check derivation".
+- Same structure as D-130 (Abstract, Introduction, Literature review, Dataset, Methodology, Experiment runs, Evaluation, Ablations, Discussion, Limitations, Conclusion, References). The research questions moved into the Introduction; the two appendices became a short "changes from the proposal" item under Limitations and a reproducibility paragraph in the Conclusion, which keeps the repository link and the README pointer.
+- Removed for space: the offline precision table scored by the Llama judge (now one sentence: its numbers are unreliable, and only human-labelled numbers are reported), per-service ± values in the main table (kept for the totals) and some step-metric detail. Added for clarity: a short example plan and a paragraph on how the runs were executed and verified. No numbers changed.
